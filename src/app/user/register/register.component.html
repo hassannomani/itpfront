@@ -1,0 +1,84 @@
+<div class="headerdiv">
+    <h2>Registration</h2>
+</div>
+
+<div class="example-full-width">
+    <form class="example-form" [formGroup]="registerForm" #formDir="ngForm" (ngSubmit)="taxpayerSubmit()">
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <h4 style="color: #3f51b5;text-align: center;">Enter Tax Return Preparer(TRP) Information</h4>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width inp">
+                    <mat-label>TIN</mat-label>
+                    <input matInput  formControlName="tinNo" type="text"  placeholder="TIN">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width inp">
+                    <mat-label>NID</mat-label>
+                    <input matInput  formControlName="nid" type="text"  placeholder="NID">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width inp">
+                    <mat-label>Mobile Phone No (NID Registered)</mat-label>
+                    <input matInput  formControlName="phoneNo" type="text"  placeholder="Mobile No">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr *ngIf="otpShow">
+                <td>
+                    <mat-form-field class="example-full-width inp">
+                    <mat-label>OTP </mat-label>
+                    <input matInput  formControlName="otp" type="text"  placeholder="OTP">
+                    </mat-form-field>
+                </td>
+               
+               
+            </tr>
+            <mat-spinner *ngIf="submitted" style="width: 50px;"></mat-spinner>
+
+            <tr *ngIf="otpShow">
+                <p><b> An OTP has been sent to your mobile No. Time remaining. {{display}} </b></p>
+            </tr>
+            <tr *ngIf="requestNew">
+                <span class="resend" (click)="resend()"><b>Resend</b></span>
+            </tr>
+          
+          
+        
+            <tr class="clear:both;" *ngIf="!otpShow">
+                
+                <td>  
+                    <app-button
+                        [label]="buttonLabel"
+                        [color]="buttonColor" 
+                        [type]="buttonType"
+                        (click)="taxpayerSubmit()"
+                        >
+                    </app-button>
+                </td>
+            </tr>
+            <tr class="clear:both;" *ngIf="otpShow">
+                
+                <td>  
+                    <app-button
+                        [label]="buttonLabel1"
+                        [color]="buttonColor" 
+                        [type]="buttonType"
+                        (click)="otpSubmit()"
+                        >
+                    </app-button>
+                </td>
+            </tr>
+        </table>
+    
+    </form>
+
+</div>

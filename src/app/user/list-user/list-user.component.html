@@ -1,0 +1,77 @@
+<div class="headerdiv">
+  <h2>List of Users</h2>
+</div>
+<div *ngIf="!loaded" style="text-align: center; margin-top: 50px;">
+    <p style="color:red;">Data Couldn't be loaded</p>
+</div>
+<table mat-table [dataSource]="agentsArr" class="mat-elevation-z8" *ngIf="loaded">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="serial">
+      <th mat-header-cell *matHeaderCellDef>Serial </th>
+      <td mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef> Username (TIN) </th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="roles">
+        <th mat-header-cell *matHeaderCellDef> Roles </th>
+        <td mat-cell *matCellDef="let element">
+            <span *ngFor="let role of element.roles;"> 
+                {{ role?.name=="ROLE_REPRESENTATIVE"?"TRP":"Resource Center" }}
+             </span> 
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="addedDate">
+        <th mat-header-cell *matHeaderCellDef> Date of Join  </th>
+        <td mat-cell *matCellDef="let element"> {{element.addedDate | date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action</th>
+        <td mat-cell *matCellDef="let element"> 
+            <app-button
+            [label]="buttonLabel"
+            [color]="buttonColor" 
+            [type]="buttonType"
+            (click)="edit(element.uuid,element.username)"
+            >
+        </app-button>
+        <mat-icon (click)="action(element.uuid,element.username)" class="settings">settings</mat-icon>
+        <mat-icon (click)="actionDetails(element.uuid,element.username)" class="settings">history</mat-icon>
+
+        </td>
+
+        
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  

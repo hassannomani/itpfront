@@ -1,0 +1,638 @@
+<div class="headerdiv">
+    <h2>Add TRP</h2>
+  </div>
+
+  
+    <mat-tab-group #tabGroup (selectedTabChange)="selectedTabChange($event)" [selectedIndex]="index">
+    <mat-tab label="Account Information" [disabled]="addedSuccess">
+        <form class="example-form" [formGroup]="addUser" #formDir="ngForm">
+
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                        <mat-label>Username (TIN)</mat-label>
+                        <input matInput  formControlName="username" type="text"  placeholder="username">
+                        <mat-icon matSuffix (click)="verify()" class="verifyclass">check_box</mat-icon>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                        <mat-label>First Name</mat-label>
+                        <input matInput  formControlName="firstName" type="text"  placeholder="First Name">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput  formControlName="lastName" type="text"  placeholder="Last Name">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                        <mat-label>Email</mat-label>
+                        <input matInput  formControlName="email" type="text"  placeholder="Email">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                        <mat-label>Password</mat-label>
+                        <input matInput  formControlName="password" type="password"  placeholder="Password">
+                        </mat-form-field>
+                        <div class="text-red-400 text-sm" *ngIf="passwordFormField?.dirty">
+                            <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('^(?=.*[A-Z])')}">At least oneu ppercase
+                                                    letter.</span>
+                            <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('(?=.*[a-z])')}">At least one lowercase
+                                                    letter.</span>
+                            <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('(.*[0-9].*)')}">At least one
+                                                    digit.</span>
+                            <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('(?=.*[!@#$%^&*])')}">At least one
+                                                    special
+                                                    character.</span>
+                            <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('.{8,}')}">At least 8 characters
+                                                    long.</span>
+                         </div>
+                    </td>
+                    <td>
+                        <mat-form-field class="example-full-width">
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput  formControlName="repassword" (keyup)="checkBothFields($event)" type="password"  placeholder="Re Password">
+                        </mat-form-field>
+
+                        <div class="text-red-400 text-sm" *ngIf="repasswordFormField?.dirty">
+                            <span class="text-red"  *ngIf="notMatch">Password doesn't match.</span>
+                         </div>
+                    </td>
+                </tr>
+                <tr style="margin-top:10px;margin-bottom:10px;">
+                    <p style="color:red;" *ngIf="failedCreation">User Creation Failed!</p>
+                    <p style="color:red;" *ngIf="duplicateEntry">Username already exists!</p>
+                    <p style="color:green;" *ngIf="addedSuccess">User Created Successfully!</p>
+                    <p style="color:red;" *ngIf="tinnotFound">TIN not found!</p>
+                </tr>
+                <tr><app-button
+                    [label]="buttonLabel1"
+                    [color]="buttonColor1" 
+                    [type]="buttonType1"
+                    (click)="registerUser()"
+                    [disabled]="addedSuccess"
+                    >
+                </app-button></tr>
+            
+            </table>
+        </form>
+    </mat-tab>
+   
+    <form class="example-form" [formGroup]="addRepresentative" #formDir="ngForm" (ngSubmit)="representativeSubmit()">    
+   
+
+    <mat-tab label="Basic Information"> 
+
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="reName">
+                    </mat-form-field>
+                </td>
+                
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>TIN</mat-label>
+                        <input matInput formControlName="tinNo">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Date of birth</mat-label>
+                    <input matInput  formControlName="reDob"  placeholder="Date of Birth" type="date">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Mobile No</mat-label>
+                    <input matInput  formControlName="reMobileNo"  placeholder="Mobile No" type="number">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>NID</mat-label>
+                    <input matInput  formControlName="nid" type="number"  placeholder="NID">
+                    </mat-form-field>
+                </td>
+                <!-- <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>TRP Id</mat-label>
+                    <input matInput  formControlName="trpId" type="text"  placeholder="TRP Id">
+                    </mat-form-field>
+                </td> -->
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Resource Center</mat-label>
+                        <mat-select matNativeControl required formControlName="agId" (selectionChange)="setAgent($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let age of agents" [value]="age[1]">{{age[2]}}</mat-option>  
+                            <mat-option value="0">Authorization given to NBR</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Memorandum No</mat-label>
+                    <input matInput  formControlName="refNo" type="String"  placeholder="Smarok No">
+                    </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Certificate No</mat-label>
+                    <input matInput  formControlName="certNo" type="String"  placeholder="Certificate No">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Certificate Serial</mat-label>
+                    <input matInput  formControlName="certSerial" type="String"  placeholder="Certificate Serial">
+                    </mat-form-field>
+                </td>
+
+                <td>
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Date of Pass</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="certPass">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 50%;">
+                    <div class="example-full-width">
+                    <label>Registration Certificate</label>
+                    <br>
+                    <input (change)="selectFile($event)" #fileInput type="file" id="file">
+
+                    <app-button
+                        [label]="buttonLabel3"
+                        [color]="buttonColor3" 
+                        [type]="buttonType3"
+                        (click)="uploadFile()"
+                        >
+                    </app-button>
+                    <p class="success" *ngIf="fileUploaded">File Uploaded Successfully</p>
+                </div>
+                </td>
+
+                <td style="width: 50%;">
+                    <div class="example-full-width">
+                    <label>Attach Recent Color Photo (Passport Size)</label>
+                    <br>
+                    <input (change)="selectPhoto($event)" #fileInput type="file" id="photo">
+
+                    <app-button
+                        [label]="buttonLabel4"
+                        [color]="buttonColor4" 
+                        [type]="buttonType4"
+                        (click)="uploadPhoto()"
+                        >
+                    </app-button>
+                    <p class="success" *ngIf="photoUploaded">Photo Uploaded Successfully</p>
+                </div>
+                </td>
+               
+            </tr>
+            <tr><app-button
+                [label]="buttonLabel2"
+                [color]="buttonColor2" 
+                [type]="buttonType2"
+                [disabled]="step1Success"
+                (click)="step1()"
+                >
+            </app-button></tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="Addresses"> 
+
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <h4 class="address">Business Address</h4>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Division</mat-label>
+                        <mat-select matNativeControl required formControlName="bdivision" (selectionChange)="bdivisionChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let div of division" [value]="div.divId">{{div.name}}</mat-option>   
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select District</mat-label>
+                        <mat-select matNativeControl required formControlName="bdistrict" (selectionChange)="bdistrictChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let dis of bDistrict" [value]="dis">{{dis.name}}</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                        <mat-checkbox class="example-margin" formControlName="bcheck" (change)="setBCheck($event.checked)">Is Your Address inside City Corporation?</mat-checkbox>
+            
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width" *ngIf="bcccheck">
+                        <mat-label>Select City Corporation</mat-label>
+                        <mat-select matNativeControl required formControlName="bcitycorporation" >
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let cc of citycorporation" [value]="cc.name">{{cc.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>      
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Thana</mat-label>
+                        <mat-select matNativeControl required formControlName="bthana" >
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let th of bThana" [value]="th.name">{{th.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Union/Area</mat-label>
+                    <input matInput  formControlName="bvillageUnion" type="text"  placeholder="Business Address- Union">
+                    </mat-form-field>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Ward</mat-label>
+                    <input matInput  formControlName="bward" type="text"  placeholder="Business Address- Ward">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>House</mat-label>
+                    <input matInput  formControlName="bhouse" type="text"  placeholder="Business Address- House">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Flat</mat-label>
+                    <input matInput  formControlName="bflat" type="text"  placeholder="Business Address- Flat">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Road</mat-label>
+                    <input matInput  formControlName="broad" type="text"  placeholder="Business Address- Road">
+                    </mat-form-field>
+                </td>
+               
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Block</mat-label>
+                    <input matInput  formControlName="bblock" type="text"  placeholder="Business Address- Block">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Others</mat-label>
+                    <input matInput  formControlName="bothers" type="text"  placeholder="Business Address- Others">
+                    </mat-form-field>
+                </td>
+            </tr>
+            
+            <tr>
+                <h4 class="address">Permanent Address</h4>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Division</mat-label>
+                        <mat-select matNativeControl required formControlName="pmdivision" (selectionChange)="pmdivisionChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let div of division" [value]="div.divId">{{div.name}}</mat-option>  
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select District</mat-label>
+                        <mat-select matNativeControl required formControlName="pmdistrict" (selectionChange)="pmdistrictChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let dis of pmDistrict" [value]="dis">{{dis.name}}</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>     
+            <tr>
+                <td>
+                        <mat-checkbox class="example-margin" formControlName="pmcheck" (change)="setPmCheck($event.checked)">Is Your Address inside City Corporation?</mat-checkbox>
+            
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width" *ngIf="pmcccheck">
+                        <mat-label>Select City Corporation</mat-label>
+                        <mat-select matNativeControl required formControlName="pmcitycorporation" >
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let cc of citycorporation" [value]="cc.name">{{cc.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Thana</mat-label>
+                        <mat-select matNativeControl required formControlName="pmthana" >
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let th of pmThana" [value]="th.name">{{th.name}}</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Union/Area</mat-label>
+                    <input matInput  formControlName="pmvillageUnion" type="text"  placeholder="Permanent Address- Union">
+                    </mat-form-field>
+                </td>
+               
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Ward</mat-label>
+                    <input matInput  formControlName="pmward" type="text"  placeholder="Permanent Address- Ward">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>House</mat-label>
+                    <input matInput  formControlName="pmhouse" type="text"  placeholder="Permanent Address- House">
+                    </mat-form-field>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Flat</mat-label>
+                    <input matInput  formControlName="pmflat" type="text"  placeholder="Permanent Address- Flat">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Road</mat-label>
+                    <input matInput  formControlName="pmroad" type="text"  placeholder="Permanent Address- Road">
+                    </mat-form-field>
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Block</mat-label>
+                    <input matInput  formControlName="pmblock" type="text"  placeholder="Permanent Address- Block">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Others</mat-label>
+                    <input matInput  formControlName="pmothers" type="text"  placeholder="Permanent Address- Others">
+                    </mat-form-field>
+                </td>
+            </tr>
+
+            <tr>
+                <h4 class="address">Present Address</h4>
+            </tr>
+            <section class="example-section">
+                <mat-checkbox class="example-margin" formControlName="checked" (change)="checkAddress($event.checked)">Same as Permanent Address</mat-checkbox>
+            </section>
+            <tr>
+
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Division</mat-label>
+                        <mat-select matNativeControl required formControlName="prdivision" (selectionChange)="prdivisionChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let div of division" [value]="div.divId">{{div.name}}</mat-option>  
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select District</mat-label>
+                        <mat-select matNativeControl required formControlName="prdistrict" (selectionChange)="prdistrictChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let dis of prDistrict" [value]="dis">{{dis.name}}</mat-option>  
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                        <mat-checkbox class="example-margin" formControlName="prcheck" (change)="setPrCheck($event.checked)">Is Your Address inside City Corporation?</mat-checkbox>
+            
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width" *ngIf="prcccheck">
+                        <mat-label>Select City Corporation</mat-label>
+                        <mat-select matNativeControl required formControlName="prcitycorporation" >
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let cc of citycorporation" [value]="cc.name">{{cc.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>            
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Thana</mat-label>
+                        <mat-select matNativeControl required formControlName="prthana" >
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let th of prThana" [value]="th.name">{{th.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Union/Area</mat-label>
+                    <input matInput  formControlName="prvillageUnion" type="text"  placeholder="Present Address- Union">
+                    </mat-form-field>
+                </td>
+               
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Ward</mat-label>
+                    <input matInput  formControlName="prward" type="text"  placeholder="Present Address- Ward">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>House</mat-label>
+                    <input matInput  formControlName="prhouse" type="text"  placeholder="Present Address- House">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Flat</mat-label>
+                    <input matInput  formControlName="prflat" type="text"  placeholder="Present Address- Flat">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Road</mat-label>
+                    <input matInput  formControlName="prroad" type="text"  placeholder="Present Address- Road">
+                    </mat-form-field>
+                </td>
+         
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Block</mat-label>
+                    <input matInput  formControlName="prblock" type="text"  placeholder="Present Address- Block">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Others</mat-label>
+                    <input matInput  formControlName="prothers" type="text"  placeholder="Present Address- Others">
+                    </mat-form-field>
+                </td>
+            </tr>
+            
+
+            <tr><app-button
+                [label]="buttonLabel2"
+                [color]="buttonColor2" 
+                [type]="buttonType2"
+                (click)="step2()"
+                [disabled]="step2Success"
+                >
+            </app-button></tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="Bank Account Information"> 
+
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Bank Account Title</mat-label>
+                        <input matInput  formControlName="bankAccountName" type="text"  placeholder="Bank Account Name">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Bank Account No</mat-label>
+                        <input matInput formControlName="bankAccountNo" type="text"  placeholder="Bank Account No">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Bank</mat-label>
+                         <mat-select matNativeControl required formControlName="bankName" (selectionChange)="bankChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let bn of banks" [value]="bn.bank_name">{{bn.bank_name}}</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <!-- <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Bank Branch</mat-label>
+                        <input matInput formControlName="bankBranch" type="text"  placeholder="Bank Branch">
+                    </mat-form-field> -->
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Bank District</mat-label>
+                         <mat-select matNativeControl required formControlName="bankDistName" (selectionChange)="bankDistChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngFor="let bn of bankdist" [value]="bn.dist_name">{{bn.dist_name}}</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Select Bank Branches</mat-label>
+                         <mat-select matNativeControl required formControlName="bankBranch" (selectionChange)="bankBranchChange($event.value)">
+                            <mat-option value="">--Select--</mat-option>
+                            <mat-option *ngIf="noDataFound" value="">No Data Found</mat-option>
+                            <mat-option *ngFor="let bn of bankBranches" [value]="bn.branchName">{{bn.branchName}}</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" matInput class="example-full-width">
+                        <mat-label>Bank Routing No</mat-label>
+                        <input matInput formControlName="routingNo" type="text"  placeholder="Routing No">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <div *ngIf="saving" class="spinner">
+                    <mat-spinner></mat-spinner>
+                    <h4>Saving TRP! Please wait</h4>
+                </div>
+                <p style="color:red;" *ngIf="bankfailed">Error saving Bank Information!</p>
+                <p style="color:red;" *ngIf="failed">Error saving TRP!</p>
+                <p style="color:green;" *ngIf="success">Successfully saved TRP!</p>
+            </tr>
+            <tr class="clear:both;">
+              
+                <td>  
+                    <app-button
+                        [label]="buttonLabel"
+                        [color]="buttonColor" 
+                        [type]="buttonType"
+                        [disabled]="disabledtrue"
+                        (click)="representativeSave()"
+                        >
+                    </app-button>
+                </td>
+            </tr>
+        
+        </table>
+    </mat-tab>   
+    </form>
+   
+  
+    
+    </mat-tab-group>

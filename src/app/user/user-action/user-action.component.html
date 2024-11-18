@@ -1,0 +1,110 @@
+<h2 class="title">Action</h2>
+<app-button style="float: left;"
+[label]="buttonLabelBack"
+[color]="buttonColorBack" 
+[type]="buttonTypeBack"
+(click)="back()"
+>
+</app-button>
+<form class="example-form" [formGroup]="addAction" #formDir="ngForm" (ngSubmit)="actionSubmit()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                <mat-label>Username (TIN)</mat-label>
+                <input matInput  formControlName="receiver" type="text"  placeholder="Receiver">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                <mat-label>Type of Action</mat-label>
+                <mat-select [value]="selected" formControlName="actionType" (selectionChange)="selectOption($event.value)">
+                    <mat-option *ngFor="let type of type_of_message" [value]="type">
+                      {{type}}
+                    </mat-option>
+                  </mat-select>                
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                <mat-label>{{subject}} </mat-label>
+                <input matInput  formControlName="messageTitle" type="text"  placeholder="Subject">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>{{reason}}</mat-label>
+                    <textarea matInput placeholder="" formControlName="message"></textarea>
+                </mat-form-field>
+            </td>
+        <tr *ngIf="flag">
+            <td>
+                <mat-form-field class="example-full-width">
+                <mat-label>Start of Action</mat-label>
+                <input matInput [ngxMatDatetimePicker]="picker" formControlName="actionFrom">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                   [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                   [touchUi]="touchUi" [enableMeridian]="enableMeridian" 
+                   [disableMinute]="disableMinute" [hideTime]="hideTime">
+                </ngx-mat-datetime-picker>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                <mat-label>End of Action</mat-label>
+                <input matInput [ngxMatDatetimePicker]="picker2" formControlName="actionTo" >
+                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker2 [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                   [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
+                   [touchUi]="touchUi" [enableMeridian]="enableMeridian" 
+                   [disableMinute]="disableMinute" [hideTime]="hideTime">
+                </ngx-mat-datetime-picker>
+                <!-- <mat-label>End of Action</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlName="actionTo">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker> -->
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr style="margin-top: 25px;">
+            
+            <td >
+
+                <input (change)="selectFile($event)" #fileInput type="file" id="file">
+
+                <app-button
+                    [label]="buttonLabel2"
+                    [color]="buttonColor2" 
+                    [type]="buttonType2"
+                    (click)="uploadFile()"
+                    >
+                </app-button>
+                <p class="success" *ngIf="uploaded">File Uploaded Successfully</p>
+                <p style="color: red;" *ngIf="uploadFailed">File Uploaded Failed</p>
+            </td>
+        </tr>
+        
+        <tr>
+        <!-- <span style="color: red;" *ngIf="notSame && addUser.controls['password'].dirty&&addUser.controls['repassword'].dirty">Password  mismatch </span> -->
+        <span style="color: red;" *ngIf="failed">Action adding failed</span>
+        <span style="color: green;" *ngIf="sent">Action Added Successfully</span>
+        </tr>
+        <tr class="clear:both;">
+            
+            <td>  
+                <app-button
+                    [label]="buttonLabel"
+                    [color]="buttonColor" 
+                    [type]="buttonType"
+                    (click)="actionSubmit()"
+                    >
+                </app-button>
+            </td>
+        </tr>
+    </table>
+
+</form>

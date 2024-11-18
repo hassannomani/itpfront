@@ -1,0 +1,132 @@
+<div class="headerdiv">
+    <h2>Report</h2>
+</div>
+<form class="example-form" #formDir="ngForm" [formGroup]="reportSubmission">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field appearance="fill" matInput class="example-full-width">
+                <mat-label>Select Report Type</mat-label>
+                    <mat-select matNativeControl required formControlName="type" (selectionChange)="reportType($event.value)">
+                        <mat-option value="">--Select--</mat-option>
+                        <mat-option  [value]="1">Tax Payer</mat-option>   
+                        <mat-option  [value]="2">Commission</mat-option>   
+                    </mat-select>
+                </mat-form-field>
+            </td>
+          
+            <td>
+                <mat-form-field appearance="fill" matInput class="example-full-width">
+                <mat-label>Select Sub Type</mat-label>
+                    <mat-select matNativeControl required formControlName="subtype" (selectionChange)="reportSubType($event.value)">
+                        <mat-option value="">--Select--</mat-option>
+                        <mat-option *ngFor="let data of dataSecondary" [value]="data.id">{{data.value}}</mat-option>   
+
+                    </mat-select>
+                </mat-form-field>
+                
+            </td>
+            <td *ngIf = "showThirdR">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter TIN</mat-label>
+                    <input matInput  formControlName="repusername" type="number"  placeholder="Username" maxlength="12">
+                </mat-form-field>
+            </td>
+            <td *ngIf = "showThirdD1">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter Start Date</mat-label>
+                    <input matInput  formControlName="startDate" type="date"  placeholder="Start Date">
+                </mat-form-field>
+            </td>
+            <td *ngIf = "showThirdD2">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Enter End Date</mat-label>
+                    <input matInput  formControlName="endDate" type="date"  placeholder="End Date">
+                </mat-form-field>
+            </td>
+        </tr>
+       
+        <tr>
+            <td>
+                <app-button
+                    [label]="buttonLabel"
+                    [color]="buttonColor" 
+                    [type]="buttonType"
+                    (click)="formSubmit()"
+                    >
+                </app-button>
+            </td>
+            <td>
+                <app-button *ngIf="loaded"
+                [label]="buttonLabel1"
+                [color]="buttonColor" 
+                [type]="buttonType"
+                (click)="open()"
+                >
+            </app-button>
+            </td>
+          
+
+        </tr>
+    </table>
+  
+</form>
+<table mat-table class="example-full-width datatable" cellspacing="0"  [dataSource]="dataArr" class="mat-elevation-z8" *ngIf="loaded" id="dataTable"> 
+    <caption *ngIf="firstOption=='1' && secondOption=='1'">Tax Payer Info</caption>
+    <caption *ngIf="firstOption=='2'&& secondOption=='1'">Commission of TRP</caption>
+
+      <!--All Commissions containing trp and agent name-->
+      <ng-container matColumnDef="taxpayerName">
+        <th mat-header-cell *matHeaderCellDef> Taxpayer Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.taxpayerName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="taxpayerId" >
+        <th mat-header-cell *matHeaderCellDef> Taxpayer Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.taxpayerId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="created_at" >
+        <th mat-header-cell *matHeaderCellDef> Created At</th>
+        <td mat-cell *matCellDef="let element"> {{element.created_at | date:('short') }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paidAmount" >
+        <th mat-header-cell *matHeaderCellDef> Tax Paid</th>
+        <td mat-cell *matCellDef="let element"> {{element.paidAmount}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paymentMethod" *ngIf="firstOption=='1'">
+        <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+        <td mat-cell *matCellDef="let element"> {{element.paymentMethod}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="transactionId" *ngIf="firstOption=='1'">
+        <th mat-header-cell *matHeaderCellDef>Transaction Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.transactionId}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="assessmentYear" >
+        <th mat-header-cell *matHeaderCellDef>Assessment Year</th>
+        <td mat-cell *matCellDef="let element"> {{element.assessmentYear}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="yearNo" *ngIf="firstOption=='1'">
+        <th mat-header-cell *matHeaderCellDef>Times Submitted</th>
+        <td mat-cell *matCellDef="let element"> {{element.yearNo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="representativeTin">
+        <th mat-header-cell *matHeaderCellDef>TRP Tin</th>
+        <td mat-cell *matCellDef="let element"> {{element.representativeTin}} </td>
+      </ng-container>
+      <ng-container matColumnDef="representativeCommission">
+        <th mat-header-cell *matHeaderCellDef>TRP Commission</th>
+        <td mat-cell *matCellDef="let element"> {{element.representativeCommission}} </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,0 +1,48 @@
+<div class="headerdiv">
+  <h2>List of TRP</h2>
+</div>
+<div *ngIf="!loaded" style="text-align: center; margin-top: 50px;">
+    <p style="color:red;">Data Couldn't be loaded</p>
+</div>
+<div *ngIf="empty" style="text-align: center; margin-top: 50px;">
+    <p style="color:red;">No data found!</p>
+</div>
+<table mat-table [dataSource]="representativeArr" class="mat-elevation-z8" *ngIf="loaded">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="reName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.reName}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="tinNo">
+      <th mat-header-cell *matHeaderCellDef>User Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.tinNo}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="reDob">
+      <th mat-header-cell *matHeaderCellDef> Date of birth </th>
+      <td mat-cell *matCellDef="let element"> {{element.reDob | date}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="reMobileNo">
+      <th mat-header-cell *matHeaderCellDef> Mobile No </th>
+      <td mat-cell *matCellDef="let element"> {{element.reMobileNo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nid">
+        <th mat-header-cell *matHeaderCellDef> NID  </th>
+        <td mat-cell *matCellDef="let element"> {{element.nid}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  

@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <!-- <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon >menu</mat-icon>
+        </button> -->
+        <h2 class="left">
+            <!-- <img src="../../assets/img/bdlogo.png" alt="nbr_logo" *ngIf="isLoggedIn" class="headerLogo"/> -->
+
+            Tax Return Preparer
+        </h2>
+        <div class="semileft" *ngIf="isLoggedIn">
+            <i class="material-icons"  matBadge="{{unread}}" matBadgePosition="before" matBadgeColor="accent" (click)="seeMessages()"
+            >
+                mail
+            </i>
+        </div>
+        <div class="right">
+            
+            <div class="icon" *ngIf="isLoggedIn">
+                <i class="material-icons" *ngIf="!image">account_circle</i>
+                <img [attr.src]="image" alt="" *ngIf="image" class="img-responsive">
+            </div>
+            <div class="text">
+                <h4 class="first">{{username}}</h4>
+                <h5 class="second">{{role=="ROLE_ADMIN"?"ADMIN":role=="ROLE_REPRESENTATIVE"?"TRP":role=="ROLE_AGENT"?"Resource Center":""}}</h5>
+            </div>
+          
+        </div>
+        
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav opened="true" mode="side" *ngIf="isLoggedIn">
+        <mat-nav-list>
+            <a mat-list-item routerLink="/dashboard">Dashboard</a>
+            <app-admin-menu *ngIf="isAdmin"></app-admin-menu>
+            <app-agent-menu *ngIf="isAgent&&!isAdmin"></app-agent-menu>
+            <app-representative-menu *ngIf="isRepresentative&&!isAdmin"></app-representative-menu>
+            <app-viewer-menu *ngIf="isViewer"></app-viewer-menu>
+            <a mat-list-item routerLink="/logout">Log Out</a>
+
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div [style.height]="heightReturner()">
+            <router-outlet>
+            
+            </router-outlet>
+        </div>
+       
+    </mat-sidenav-content>
+</mat-sidenav-container>

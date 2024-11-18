@@ -1,0 +1,36 @@
+.right{
+    float: right;
+    width: 12%;
+}
+.semileft{
+    float: left;
+    width: 6%;
+}
+.semileft> i{
+    cursor: pointer;
+}
+.left{
+    float: left;
+    width: 84%;
+}
+.right> .text>.first{
+    margin: 8px 0 3px 0;;
+}
+.right>.icon{
+    width: 14%;
+    float: left;
+    margin: 8px 0 3px 0;;
+}
+.right> .text{
+    float: right;
+    width: 85%;
+}
+.img-responsive{
+    display: block;
+    width: 50px;
+    height: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+    margin-left: -30px;
+}

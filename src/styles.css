@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* .mat-toolbar{
+    background-color: #00A600 !important;
+} */
+.headerdiv > h2 {
+    color: #3f51b5;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.headerdiv{
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3f51b5;
+}
+
+.mat-primaryalt {
+    background-color: forestgreen !important;
+    color: #fff !important;
+}
+.mdc-list-item__content>.mdc-list-item__primary-text{
+    color: #FFF;
+}
+.mat-sidenav{
+background-color: #3f51b5;
+}
+.mat-mdc-option > .mdc-list-item__primary-text{
+    font-size: 14px;
+}
+.mdc-tab.mat-mdc-tab.mdc-tab--active> span{
+    font-size: 18px;
+}
+.mat-expansion-panel {
+    background: #3f51b5;
+    color: #FFF;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 0px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #5a68b4; 
+    border-radius: 1px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5a68b4;; 
+  }

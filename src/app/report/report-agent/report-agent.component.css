@@ -1,0 +1,42 @@
+.example-form {
+ 
+    width: 80%;
+    margin-left: 10%;
+    float: left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+h3{
+  text-align: center;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+h4{
+  display: block;
+}
+
+app-button{
+  margin-left: 40%;
+  margin-bottom: 200px;
+}
+
+.spinner{
+  width: 100%;
+}
+mat-spinner{
+  float: left;
+  height: 30px !important;
+}
+
+caption{
+  font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #3f51b5;
+}

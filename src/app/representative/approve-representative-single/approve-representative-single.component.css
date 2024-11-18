@@ -1,0 +1,17 @@
+.center{
+    text-align: center;
+}
+
+.img-responsive{
+    width:300px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+}
+
+.mat-expansion-panel {
+    color: #000;
+    background-color: #FFF;
+}

@@ -1,0 +1,67 @@
+<div>
+    <div class="headerdiv">
+      <h2>Submit bill</h2>
+    </div>
+  
+      <div *ngIf="!dataReceived" style="text-align: center; margin-top: 50px;">
+          <p style="color:red;">Data Couldn't be loaded</p>
+      </div>
+      <app-button *ngIf="idList.length" class="btn"
+          [label]="buttonLabel"
+          [color]="buttonColor" 
+          [type]="buttonType"
+          (click)="submit()"
+          >
+      </app-button>
+      <table mat-table [dataSource]="comList" class="mat-elevation-z8" *ngIf="comList">
+      
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+        
+          <!-- Position Column -->
+          <ng-container matColumnDef="Serial">
+            <th mat-header-cell *matHeaderCellDef> Serial </th>
+            <td mat-cell *matCellDef=" let i=index;"> {{(i+1)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="taxpayerId">
+            <th mat-header-cell *matHeaderCellDef> Taxpayer Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.taxpayerId}} </td>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="taxpayerName">
+            <th mat-header-cell *matHeaderCellDef>Taxpayer Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.taxpayerName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="paidAmount" >
+            <th mat-header-cell *matHeaderCellDef>Tax Paid</th>
+            <td mat-cell *matCellDef="let element"> {{element.paidAmount}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="agentCommission" *ngIf="!trp">
+            <th mat-header-cell *matHeaderCellDef>Commission Earned</th>
+            <td mat-cell *matCellDef="let element"> {{element.agentCommission}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="representativeCommission" *ngIf="trp">
+            <th mat-header-cell *matHeaderCellDef>Commission Earned</th>
+            <td mat-cell *matCellDef="let element"> {{element.representativeCommission}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Select Bill</th>
+            <td *matCellDef="let element">
+               <mat-checkbox [value]="element.lid" class="example-margin" (change)="toggle($event)"></mat-checkbox>
+            </td>
+          </ng-container>
+      
+        
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        
+        
+  </div>

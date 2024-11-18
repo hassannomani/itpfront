@@ -1,0 +1,80 @@
+
+<mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+    Users
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item routerLink="/users">Users List</a>
+        <a mat-list-item routerLink="/add-user">Add Users</a>
+    </mat-nav-list>
+</mat-expansion-panel>
+
+
+<a mat-list-item routerLink="/list-agents">Resource Centers</a>
+<!-- <a mat-list-item routerLink="/add-agent">Add Agent</a> -->
+<!-- <a mat-list-item routerLink="/list-agent-representative">List of Representative by Agents</a> -->
+<a mat-list-item routerLink="/approve-representatives">Approve TRP</a>
+<!-- <a mat-list-item>Approve Transfer Request</a>
+<a mat-list-item>Approve Transaction</a> -->
+
+<a mat-list-item routerLink="/ledger-admin">Ledger</a>
+<mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+    Action
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item routerLink="/users">Active Users</a>
+        <a mat-list-item routerLink="/blocked-users">Cancelled Users</a>
+        <a mat-list-item routerLink="/denied-users">Denied Applicants</a>
+    </mat-nav-list>
+</mat-expansion-panel>
+
+
+<mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+    Bill
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item routerLink="/bill-pending">Pending Bills</a>
+        <a mat-list-item routerLink="/bill-rejected">Rejected Bills</a>
+        <a mat-list-item routerLink="/bill-approved">Approved Bills</a>
+    </mat-nav-list>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+    Metrics
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item routerLink="/list-metrics">List of Metrics</a>
+        <a mat-list-item routerLink="/add-metrics">Add Metrics</a>
+    </mat-nav-list>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+    Qualified TRPs
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item routerLink="/list-certificate">List of Qualified TRPs</a>
+        <a mat-list-item routerLink="/upload-certificate">Upload list</a>
+    </mat-nav-list>
+</mat-expansion-panel>
+
+<mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+    Transfer Request
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+        <a mat-list-item routerLink="/transfer-pending-trp">Pending Request-TRP</a>
+        <a mat-list-item routerLink="/transfer-pending-agent">Pending Request-Resource Center</a>
+    </mat-nav-list>
+</mat-expansion-panel>
+<a mat-list-item routerLink="/profile">Profile</a>
+<a mat-list-item routerLink="/report-admin">Report</a>

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>
+    {{title}}
+  </h1>
+  
+  <div mat-dialog-content>
+        <mat-form-field>
+        <mat-label>Resource Center List</mat-label>
+        <input matInput >
+        <mat-select [(ngModel)]="agent_tin">
+            <mat-option *ngFor="let ag of agents" [value]="ag.tin" [disabled]="ag.tin==selected">
+                {{ag.name}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+  </div>
+  
+  <div mat-dialog-actions>
+    <button mat-button (click)="onDismiss()">Cancerl</button>
+    <button mat-raised-button color="primary" (click)="onConfirm()">Submit</button>
+  </div>

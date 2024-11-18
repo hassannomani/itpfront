@@ -1,0 +1,28 @@
+<h2 class="title">Message</h2>
+<div class="container">
+    <div class="head">
+        <div class="left">
+            <h4>
+                <b>
+                    Subject: {{messageReceived.messageTitle}}
+                </b>
+            </h4>
+            <p>Sender: Admin</p>
+            <p>Type: {{messageReceived.actionType}}</p>
+        </div>
+        <div class="right">
+            <p class="rightText">Sent: {{messageReceived.actionSent | date:'short'}}</p>
+        </div>
+    </div>
+    <div class="content"> 
+        <p class="text">
+            {{messageReceived.message}}
+        </p>
+        <p class="text" *ngIf="messageReceived.actionType=='SUSPEND'">Suspension time: From {{messageReceived.actionFrom | date: 'short'}} To {{messageReceived.actionTo | date: 'short'}}</p>
+        <app-button *ngIf="messageReceived.attachment!=null&&messageReceived.attachment!=''"
+        [label]="buttonLabel"
+        [color]="buttonColor" 
+        [type]="buttonType"
+        (click)="openPdf()"></app-button>
+    </div>
+</div>

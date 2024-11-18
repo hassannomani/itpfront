@@ -1,0 +1,33 @@
+<div class="headerdiv">
+    <h2>Message History</h2>
+  </div>
+  <!-- <div *ngIf="!loaded" style="text-align: center; margin-top: 50px;">
+      <p style="color:red;">Data Couldn't be loaded</p>
+  </div> -->
+  <table mat-table [dataSource]="messageReceived" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="receiver">
+        <th mat-header-cell *matHeaderCellDef>Receiver </th>
+        <td mat-cell *matCellDef="let element"> {{element.receiver}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="actionType">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let element"> {{element.actionType}} </td>
+      </ng-container>
+
+    
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="actionSent">
+        <th mat-header-cell *matHeaderCellDef> Time Sent </th>
+        <td mat-cell *matCellDef="let element"> {{element.actionSent | date:'short'}} </td>
+      </ng-container>
+  
+  
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    

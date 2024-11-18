@@ -1,0 +1,62 @@
+<h2 class="title">Add Metrics</h2>
+
+<form class="example-form" [formGroup]="addMetrics" #formDir="ngForm" (ngSubmit)="metricsSubmit()">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                <mat-label>Amount</mat-label>
+                <input matInput  formControlName="taxAmount" type="text"  placeholder="Amount">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Assessment Year</mat-label>
+                    <input matInput  formControlName="assessmentYear" type="text"  placeholder="Assessment Year">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                <mat-label>Resource Center Rate</mat-label>
+                <input matInput  formControlName="agentRate" type="text"  placeholder="Resource Center Rate">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Representative Rate</mat-label>
+                    <input matInput  formControlName="representativeRate" type="text"  placeholder="Representative Rate">
+                </mat-form-field>
+            </td>     
+        <tr>
+
+        <tr>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Year No</mat-label>
+                    <input matInput  formControlName="yearNo" type="text"  placeholder="Year No">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Slot No</mat-label>
+                    <input matInput  formControlName="slotNo" type="text"  placeholder="Slot No">
+                </mat-form-field>
+            </td>     
+    
+        <tr class="clear:both;">
+            
+            <td>  
+                <app-button
+                    [label]="buttonLabel"
+                    [color]="buttonColor" 
+                    [type]="buttonType"
+                    (click)="metricsSubmit()"
+                    >
+                </app-button>
+            </td>
+        </tr>
+    </table>
+
+</form>

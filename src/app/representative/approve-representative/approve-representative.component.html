@@ -1,0 +1,73 @@
+<div class="headerdiv">
+  <h2>Approve TRP</h2>
+</div>
+
+<div *ngIf="!loaded" style="text-align: center; margin-top: 50px;">
+    <p style="color:red;">Data Couldn't be loaded</p>
+</div>
+<div *ngIf="zeroData" style="text-align: center; margin-top: 50px;">
+    <p style="color:red;">No Data Found!</p>
+</div>
+<div *ngIf="approveFailed" style="text-align: center; margin-top: 50px;">
+  <p style="color:red;">Approve Failed! Please try again!</p>
+</div>
+<table mat-table [dataSource]="representativesArr" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef> User Name (TIN)</th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="re_name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.re_name}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="agent_id">
+      <th mat-header-cell *matHeaderCellDef> Resource Center </th>
+      <td mat-cell *matCellDef="let element"> {{element.agent_id=="0"?"Not Selected":element.agent_id}} </td>
+    </ng-container>
+
+   
+    <ng-container matColumnDef="added_date">
+    <th mat-header-cell *matHeaderCellDef> Date of Join  </th>
+    <td mat-cell *matCellDef="let element"> {{element.added_date | date}} </td>
+    </ng-container>
+
+      <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action</th>
+    <td mat-cell *matCellDef="let element; let i=index;"> 
+        <app-button
+            [label]="buttonLabel"
+            [color]="buttonColor" 
+            [type]="buttonType"
+            (click)="details(element.username, i)">
+        </app-button>
+        <app-button
+            [label]="buttonLabel1"
+            [color]="buttonColor1" 
+            [type]="buttonType1"
+            (click)="approve(element.uuid,i,element.agent_id, element.username)">
+        </app-button>
+        <app-button
+            [label]="buttonLabel2"
+            [color]="buttonColor2" 
+            [type]="buttonType2"
+            (click)="reject(element.username,i)">
+        </app-button>
+    </td>
+
+        
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  

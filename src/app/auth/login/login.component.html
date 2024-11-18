@@ -1,0 +1,69 @@
+<div class="login-container">
+    
+    <div class="login-left">
+      <h1><b>Welcome to the</b></h1>
+      <h1 class="title"><b>Tax Return Preparer Management System</b></h1>
+      <h1><b>of NBR</b></h1>
+     
+    </div>
+    <div class="login-form">
+      <form class="example-form" [formGroup]="loginForm" #formDir="ngForm" (ngSubmit)="login()">
+        <img src="../../assets/img/NBR_logo.png" alt="nbr_logo" id="nbr_logo"/>
+        <div class="logo"> Log In</div>
+
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>
+              <mat-icon>account_circle</mat-icon>
+               Username
+            </mat-label>
+            <input
+            type="text"
+            name="username"
+            formControlName="username"
+            matInput
+            
+            />
+          </mat-form-field>
+           <span *ngIf="formDir.submitted&& loginForm.get('username')?.invalid &&
+          loginForm.get('username')?.errors?.['required']" style="color:red">Username is required</span><br>
+          <span *ngIf="formDir.submitted&&loginForm.get('username')?.errors?.['minlength']" style="color:red">Username must contain 4 characters</span>
+          <mat-error *ngIf="formDir.submitted&&loginForm.get('username')?.errors?.['pattern']">
+            TIN should be 12 characters long and only contain numbers!
+          </mat-error>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <mat-label>
+              <mat-icon>account_circle</mat-icon>
+              Password
+            </mat-label>
+            <input
+            type="password"
+            name="password"
+            formControlName="password"
+            matInput
+            
+            />
+          </mat-form-field>
+          <span *ngIf="formDir.submitted&& loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.errors?.['required']" style="color:red">Password is required</span><br>
+        </div>
+        
+        <div class="btn-container">
+         
+          <app-button style="width: 40%;float: left;"
+          [label]="buttonLabel"
+          [color]="buttonColor" 
+          [type]="buttonType"
+          (click)="login()"
+          ></app-button><br>
+         <span class="link" (click)="register()">Register</span>
+        </div>
+        <p style="color:red;width: 30%;float: left;" *ngIf="failed">{{errorMsg}}</p>
+        <span (click)="openLink()" *ngIf="link">Click to Know More</span>
+        <!-- <mat-icon (click)="openPdf()" class="icon" *ngIf="link">attachment</mat-icon> -->
+
+      </form>
+    </div>
+  </div>

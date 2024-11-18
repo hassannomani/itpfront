@@ -1,0 +1,22 @@
+.mat-mdc-list-item-title{
+    color: #000 !important;
+}
+.mat-mdc-list-item-line{
+    color: #000 !important;
+}
+table{
+    width:80%;
+    margin-left:20%;
+    margin-top: 50px;
+}
+td{
+    width: 45% !important;
+}
+tr{
+    margin-top: 15px;
+    height: 50px;
+    
+}
+span{
+    font-size: 16px;
+}

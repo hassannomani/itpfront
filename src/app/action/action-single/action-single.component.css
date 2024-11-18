@@ -1,0 +1,36 @@
+.title{
+    margin-left: 45%;
+    font-weight: 600;
+    margin-top: 50px;
+    color: #3f51b5;
+}
+.container{
+    width: 80%;
+    overflow: hidden;
+    margin-left: 10%;
+}
+.head{
+    width: 100%;
+    overflow: hidden;
+}
+.right{
+    width: 49%;
+    display: inline-block;
+}
+.left{
+    width: 49%;
+    margin-left: 20px;
+    display: inline-block;
+
+}
+.rightText{
+    float: right;
+}
+
+.text{
+    margin-top: 50px;
+    text-align: center;
+}
+.conten>app-button{
+    text-align: center;
+}
