@@ -43,12 +43,13 @@ export class SigninService {
     return this.loggedIn.asObservable()
   }
   
-  logout(): Observable<any> {
-    const httpOptions = {
-      headers: this.commonServ.httpReturner()
-    }
+  logout() {
+    // const httpOptions = {
+    //   headers: this.commonServ.httpReturner()
+    // }
     this.localstorageserv.deletetorageItems()
-    return this.http.post(this.baseUrl+this.url1, {},httpOptions).pipe(
-      tap(() => this.loggedIn.next(false)));
+    // return this.http.post(this.baseUrl+this.url1, {},httpOptions).pipe(
+    //   tap(() =>
+     this.loggedIn.next(false);
   }
 }

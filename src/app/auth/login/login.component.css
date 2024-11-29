@@ -18,7 +18,7 @@
     letter-spacing: 2px;
     width: 100%;
     clear: both;
-    color: #3f51b5;
+    color: #367a0a;
     margin-top: 30px;
     text-align: center;
 }
@@ -88,7 +88,7 @@
     margin-left: 15%;
 }
 .login-left>h1 {
-    color: #3f51b5;
+    color: #367a0a;
     font-weight: 100;
     margin-left: 0%;
     text-align: center;
@@ -101,7 +101,7 @@
     font-size: 32px;
 }
 .link{
-    color: #3f51b5;
+    color: #367a0a;
 }
 
 @media only screen and (max-width: 767px) {

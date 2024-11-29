@@ -1,5 +1,5 @@
 <div class="headerdiv">
-    <h2>Add TRP</h2>
+    <h2>ITP Registration</h2>
   </div>
 
   
@@ -137,11 +137,13 @@
                 </td> -->
                 <td>
                     <mat-form-field class="example-full-width">
-                        <mat-label>Resource Center</mat-label>
-                        <mat-select matNativeControl required formControlName="agId" (selectionChange)="setAgent($event.value)">
+                        <mat-label>Type</mat-label>
+                        <mat-select matNativeControl required formControlName="type" (selectionChange)="setAgent($event.value)">
                             <mat-option value="">--Select--</mat-option>
-                            <mat-option *ngFor="let age of agents" [value]="age[1]">{{age[2]}}</mat-option>  
-                            <mat-option value="0">Authorization given to NBR</mat-option> 
+                            <mat-option value="0">ITP</mat-option> 
+                            <mat-option value="1">Advocate</mat-option> 
+                            <mat-option value="2">FCMA/FCA</mat-option> 
+                            <mat-option value="3">ICMA/ICAB</mat-option> 
                         </mat-select>
                     </mat-form-field>
                 </td>
@@ -149,19 +151,22 @@
             <tr>
                 <td>
                     <mat-form-field class="example-full-width">
-                    <mat-label>Memorandum No</mat-label>
-                    <input matInput  formControlName="refNo" type="String"  placeholder="Smarok No">
+                    <mat-label>License No</mat-label>
+                    <input matInput  formControlName="licNo" type="String"  placeholder="License No">
                     </mat-form-field>
                 </td>
 
                 <td>
                     <mat-form-field class="example-full-width">
-                    <mat-label>Certificate No</mat-label>
-                    <input matInput  formControlName="certNo" type="String"  placeholder="Certificate No">
+                        <mat-label>Date of Pass</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="certPass">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>
                     <mat-form-field class="example-full-width">
                     <mat-label>Certificate Serial</mat-label>
@@ -179,11 +184,11 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </td>
-            </tr>
+            </tr> -->
             <tr>
                 <td style="width: 50%;">
                     <div class="example-full-width">
-                    <label>Registration Certificate</label>
+                    <label>License </label>
                     <br>
                     <input (change)="selectFile($event)" #fileInput type="file" id="file">
 
@@ -536,18 +541,28 @@
             </tr>
             
 
-            <tr><app-button
+            <tr>
+                <!-- <app-button
                 [label]="buttonLabel2"
                 [color]="buttonColor2" 
                 [type]="buttonType2"
                 (click)="step2()"
                 [disabled]="step2Success"
                 >
-            </app-button></tr>
+            </app-button> -->
+                <app-button
+                        [label]="buttonLabel"
+                        [color]="buttonColor" 
+                        [type]="buttonType"
+                        [disabled]="disabledtrue"
+                        (click)="representativeSave()"
+                        >
+                </app-button>
+        </tr>
         </table>
     </mat-tab>
 
-    <mat-tab label="Bank Account Information"> 
+    <!-- <mat-tab label="Bank Account Information"> 
 
         <table class="example-full-width" cellspacing="0">
             <tr>
@@ -575,10 +590,7 @@
                     </mat-form-field>
                 </td>
                 <td>
-                    <!-- <mat-form-field appearance="fill" matInput class="example-full-width">
-                        <mat-label>Bank Branch</mat-label>
-                        <input matInput formControlName="bankBranch" type="text"  placeholder="Bank Branch">
-                    </mat-form-field> -->
+                  
                     <mat-form-field appearance="fill" matInput class="example-full-width">
                         <mat-label>Select Bank District</mat-label>
                          <mat-select matNativeControl required formControlName="bankDistName" (selectionChange)="bankDistChange($event.value)">
@@ -630,7 +642,7 @@
             </tr>
         
         </table>
-    </mat-tab>   
+    </mat-tab>    -->
     </form>
    
   

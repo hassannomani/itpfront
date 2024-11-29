@@ -14,12 +14,12 @@ export class LogoutComponent implements OnInit{
     private signinserv: SigninService
     ){}
   ngOnInit(): void {
-    this.signinserv
-      .logout()
-      .subscribe(data=>{
-        console.log(data)
+    this.signinserv.logout()
+      
+      // .subscribe(data=>{
+      //   console.log(data)
         this.router.navigate(['/']);
-      })
+      //})
   }
 
 }

@@ -43,7 +43,7 @@ export class AddRepresentativeComponent implements OnInit{
     'tinNo' : new FormControl('',[Validators.required]),
     'nid' : new FormControl('',[Validators.required]),
     'reMobileNo' : new FormControl('',[Validators.required]),
-    'agId':  new FormControl('',[Validators.required]),
+    'type':  new FormControl('',[Validators.required]),
     'agentId' : new FormControl('',[Validators.required]),
     'bankAccountName': new FormControl('',[Validators.required]),
     'bankAccountNo': new FormControl('',[Validators.required]),
@@ -91,7 +91,7 @@ export class AddRepresentativeComponent implements OnInit{
     'checked': new FormControl('',[Validators.required]),
     'display': new FormControl('',[Validators.required]),
     'trpId': new FormControl('',[Validators.required]),
-    'refNo': new FormControl('',[Validators.required]),
+    'licNo': new FormControl('',[Validators.required]),
     'certNo': new FormControl('',[Validators.required]),
     'certPass': new FormControl('',[Validators.required]),
     'certSerial': new FormControl('',[Validators.required]),
@@ -120,7 +120,7 @@ export class AddRepresentativeComponent implements OnInit{
   buttonLabel: string= "Submit"
   buttonColor: string = "primary"
   buttonType: string = "button"
-  buttonLabel1: string= "Create User"
+  buttonLabel1: string= "Register"
   buttonColor1: string = "primary"
   buttonType1: string = "button"
   buttonLabel2: string= "Save and Continue"
@@ -187,7 +187,7 @@ export class AddRepresentativeComponent implements OnInit{
   ){
     this.titleService.setTitle
     
-    ("TRP Registration");
+    ("ITP Registration");
 
   }
   ngOnInit(): void {

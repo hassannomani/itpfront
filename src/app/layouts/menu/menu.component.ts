@@ -18,11 +18,11 @@ export class MenuComponent implements OnInit{
   ){}
   ngOnInit(): void {
   
-    let local = this.localStorage.getStorageItems();
-    console.log(local)
-    if(local.token==""||local.token==null||local.token==undefined||local.username==""||local.username==null){
-      this.router.navigateByUrl('/logout');
-    }
+    // let local = this.localStorage.getStorageItems();
+    // console.log(local)
+    // if(local.token==""||local.token==null||local.token==undefined||local.username==""||local.username==null){
+    //   this.router.navigateByUrl('/logout');
+    // }
   }
   
 
