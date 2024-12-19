@@ -11,8 +11,8 @@ import { CommonService } from '../common-service/common.service';
 export class SigninService {
   private loggedIn: Subject<boolean> = new ReplaySubject<boolean>(1);
 
-  private url : string ='api/auth/signin';
-  private url1 : string ='api/auth/logout';
+  private url : string ='api/v1/auth/signin';
+  private url1 : string ='api/v1/auth/logout';
   private baseUrl: string = ""
   
   constructor(
@@ -44,12 +44,12 @@ export class SigninService {
   }
   
   logout() {
-    // const httpOptions = {
-    //   headers: this.commonServ.httpReturner()
-    // }
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
+    }
     this.localstorageserv.deletetorageItems()
-    // return this.http.post(this.baseUrl+this.url1, {},httpOptions).pipe(
-    //   tap(() =>
-     this.loggedIn.next(false);
+    return this.http.post(this.baseUrl+this.url1, {},httpOptions).pipe(
+      tap(() =>
+     this.loggedIn.next(false)));
   }
 }

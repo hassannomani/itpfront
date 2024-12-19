@@ -108,32 +108,32 @@ export class UserService {
 
   }
 
-  approvePendingUser(uuid:string): Observable<any>{
+  approvePendingUser(tin:string): Observable<any>{
     const httpOptions = {
       headers: this.commonService.httpReturner()
     }
-    return this.http.get<any>(this.url+"approve/"+uuid,httpOptions)
+    return this.http.get<any>(this.url+"tinapprove/"+tin,httpOptions)
   }
 
-  approvePendingUserByTin(username:string): Observable<any>{
-    let obj = this.localStorageServc.getStorageItems()
+  // approvePendingUserByTin(username:string): Observable<any>{
+  //   let obj = this.localStorageServc.getStorageItems()
    
-    if(obj.token!=""&&obj.token!=null){
-      var headers_object = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer "+ JSON.parse(obj.token) 
-        })
+  //   if(obj.token!=""&&obj.token!=null){
+  //     var headers_object = new HttpHeaders({
+  //       'Content-Type': 'application/json',
+  //       'Authorization': "Bearer "+ JSON.parse(obj.token) 
+  //       })
   
-        const httpOptions = {
-          headers: headers_object
-        };
+  //       const httpOptions = {
+  //         headers: headers_object
+  //       };
         
-      return this.http.get<any>(this.url+"tinapprove/"+username,httpOptions)
-    }else{
-      return this.http.get<any>(this.url+"tinapprove/"+username)
-    }
+  //     return this.http.get<any>(this.url+"tinapprove/"+username,httpOptions)
+  //   }else{
+  //     return this.http.get<any>(this.url+"tinapprove/"+username)
+  //   }
 
-  }
+  // }
 
   rejectPendingUser(uuid:string): Observable<any>{
     const httpOptions = {

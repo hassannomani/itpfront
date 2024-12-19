@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit{
         plugins: {
             title: {
                 display: true,
-                text: 'Top 10 TRP Tax Collection'
+                text: 'Top 10 ITP Tax Collection'
             }
         }
       },

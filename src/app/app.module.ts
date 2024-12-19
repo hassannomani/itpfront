@@ -20,7 +20,7 @@ import { AddUserComponent } from './user/add-user/add-user.component';
 import { ResetUserComponent } from './user/reset-user/reset-user.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 import { LogoutComponent } from './layouts/logout/logout.component';
-import { AgentMenuComponent } from './layouts/agent-menu/agent-menu.component';
+import { NbrMenuComponent } from './layouts/nbr-menu/nbr-menu.component';
 import { AdminMenuComponent } from './layouts/admin-menu/admin-menu.component';
 import { RepresentativeMenuComponent } from './layouts/representative-menu/representative-menu.component';
 import { ViewerMenuComponent } from './layouts/viewer-menu/viewer-menu.component';
@@ -89,7 +89,7 @@ import { AuthInterceptor } from './auth.interceptor';
     ResetUserComponent,
     ListUserComponent,
     LogoutComponent,
-    AgentMenuComponent,
+    NbrMenuComponent,
     AdminMenuComponent,
     RepresentativeMenuComponent,
     ViewerMenuComponent,
@@ -151,7 +151,7 @@ import { AuthInterceptor } from './auth.interceptor';
     HttpClientModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi : true }
+    // {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi : true }
   ],
   bootstrap: [AppComponent]
 })

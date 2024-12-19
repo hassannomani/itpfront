@@ -60,7 +60,7 @@
           ></app-button><br>
          <span class="link" (click)="register()">Register</span>
         </div>
-        <p style="color:red;width: 30%;float: left;" *ngIf="failed">{{errorMsg}}</p>
+        <p style="color:red;float: left;" *ngIf="failed">{{errorMsg}}</p>
         <span (click)="openLink()" *ngIf="link">Click to Know More</span>
         <!-- <mat-icon (click)="openPdf()" class="icon" *ngIf="link">attachment</mat-icon> -->
 

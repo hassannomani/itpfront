@@ -1,5 +1,5 @@
 <div class="headerdiv">
-  <h2>Approve TRP</h2>
+  <h2>Approve ITP</h2>
 </div>
 
 <div *ngIf="!loaded" style="text-align: center; margin-top: 50px;">
@@ -17,28 +17,29 @@
           The actual rendered columns are set as a property on the row definition" -->
   
     <!-- Position Column -->
-    <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> User Name (TIN)</th>
-      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-    </ng-container>
   
     <!-- Name Column -->
-    <ng-container matColumnDef="re_name">
+    <ng-container matColumnDef="itp_name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.re_name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.itp_name}} </td>
     </ng-container>
   
     <!-- Symbol Column -->
-    <ng-container matColumnDef="agent_id">
-      <th mat-header-cell *matHeaderCellDef> Resource Center </th>
-      <td mat-cell *matCellDef="let element"> {{element.agent_id=="0"?"Not Selected":element.agent_id}} </td>
+    <ng-container matColumnDef="tin_no">
+      <th mat-header-cell *matHeaderCellDef> TIN No </th>
+      <td mat-cell *matCellDef="let element"> {{element.tin_no}} </td>
     </ng-container>
 
    
-    <ng-container matColumnDef="added_date">
-    <th mat-header-cell *matHeaderCellDef> Date of Join  </th>
-    <td mat-cell *matCellDef="let element"> {{element.added_date | date}} </td>
+    <ng-container matColumnDef="lic_no">
+    <th mat-header-cell *matHeaderCellDef> License No  </th>
+    <td mat-cell *matCellDef="let element"> {{element.lic_no}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type  </th>
+      <td mat-cell *matCellDef="let element"> {{element.type=="0"?"ITP":element.type=="1"?"Advocate":element.type=="2"?"FCMA/FC":"ICMA/ICAB"}} </td>
+      </ng-container>
 
       <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> Action</th>
@@ -47,19 +48,19 @@
             [label]="buttonLabel"
             [color]="buttonColor" 
             [type]="buttonType"
-            (click)="details(element.username, i)">
+            (click)="details(element.tin_no, i)">
         </app-button>
         <app-button
             [label]="buttonLabel1"
             [color]="buttonColor1" 
             [type]="buttonType1"
-            (click)="approve(element.uuid,i,element.agent_id, element.username)">
+            (click)="approve(element.tin_no,i)">
         </app-button>
         <app-button
             [label]="buttonLabel2"
             [color]="buttonColor2" 
             [type]="buttonType2"
-            (click)="reject(element.username,i)">
+            (click)="reject(element.tin_no,i)">
         </app-button>
     </td>
 

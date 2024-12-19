@@ -44,15 +44,14 @@
                         <input matInput  formControlName="password" type="password"  placeholder="Password">
                         </mat-form-field>
                         <div class="text-red-400 text-sm" *ngIf="passwordFormField?.dirty">
-                            <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('^(?=.*[A-Z])')}">At least oneu ppercase
+                            <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('^(?=.*[A-Z])')}">At least one uppercase
                                                     letter.</span>
                             <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('(?=.*[a-z])')}">At least one lowercase
                                                     letter.</span>
                             <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('(.*[0-9].*)')}">At least one
                                                     digit.</span>
                             <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('(?=.*[!@#$%^&*])')}">At least one
-                                                    special
-                                                    character.</span>
+                                                    special character.</span>
                             <span class="block" [ngClass]="{'text-primary': passwordFormField?.value?.match('.{8,}')}">At least 8 characters
                                                     long.</span>
                          </div>
@@ -97,7 +96,7 @@
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Name</mat-label>
-                        <input matInput formControlName="reName">
+                        <input matInput formControlName="itpName">
                     </mat-form-field>
                 </td>
                 
@@ -112,13 +111,13 @@
                 <td>
                     <mat-form-field class="example-full-width">
                     <mat-label>Date of birth</mat-label>
-                    <input matInput  formControlName="reDob"  placeholder="Date of Birth" type="date">
+                    <input matInput  formControlName="itpDob"  placeholder="Date of Birth" type="date">
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field class="example-full-width">
                     <mat-label>Mobile No</mat-label>
-                    <input matInput  formControlName="reMobileNo"  placeholder="Mobile No" type="number">
+                    <input matInput  formControlName="itpMobileNo"  placeholder="Mobile No" type="number">
                     </mat-form-field>
                 </td>
             </tr>
@@ -163,6 +162,27 @@
                         <mat-hint>MM/DD/YYYY</mat-hint>
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Date of Issuance</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="certIssue">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Date of Expiration</mat-label>
+                        <input matInput [matDatepicker]="picker3" formControlName="certExpiry">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
                     </mat-form-field>
                 </td>
             </tr>

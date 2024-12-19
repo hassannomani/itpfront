@@ -41,12 +41,12 @@ export class ApproveRepresentativeComponent implements OnInit{
     private agentServ: AgentService
 
   ){
-    this.titleService.setTitle("Approve TRP");
+    this.titleService.setTitle("Approve ITP");
 
   }
   ngOnInit(): void {
     this.getAllPendingTRPs()
-    this.getAllAgents()
+    //this.getAllAgents()
   }
 
   getAllPendingTRPs(){
@@ -57,7 +57,7 @@ export class ApproveRepresentativeComponent implements OnInit{
       next: (data) => {
         if(data.length){
           this.representativesArr = data
-          this.displayedColumns = [ 'username','re_name','agent_id','added_date','action']
+          this.displayedColumns = [ 'itp_name','tin_no','lic_no','type','action']
         } 
         else{
           this.representativesArr = []
@@ -73,15 +73,15 @@ export class ApproveRepresentativeComponent implements OnInit{
   }
 
 
-  approve(uuid : string, index: string, addedBy: string, tin: string){    
-    if(addedBy=="0"){
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['approve-representative-details'],{ queryParams: {username:tin}});
-      });
+  approve(tin: string,index: string){    
+    // if(addedBy=="0"){
+    //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    //     this.router.navigate(['approve-representative-details'],{ queryParams: {username:tin}});
+    //   });
       
-    }else{
+    // }else{
       //alert("hello")
-      this.userService.approvePendingUser(uuid).subscribe({
+      this.userService.approvePendingUser(tin).subscribe({
         next: (data) => {
           if(data.uuid){
             this.message = "User successfully approved"
@@ -96,8 +96,8 @@ export class ApproveRepresentativeComponent implements OnInit{
           console.log(e)
         } 
       })
-    }
-    return
+    
+    
     
   }
 
@@ -112,18 +112,6 @@ export class ApproveRepresentativeComponent implements OnInit{
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(['user-action'],{ queryParams: {username:username,deny:1}});
     });
-    // this.userService.rejectPendingUser(uuid).subscribe({
-    //   next: (data) => {
-    //     if(data.uuid){
-    //       alert("User Rejected!")
-    //       this.ngOnInit()          
-    //     } 
-    //   },
-    //   error: (e) => {
-    //     this.approveFailed = true;
-    //     console.log(e)
-    //   } 
-    // })
   }
 
   openSnackBar() {

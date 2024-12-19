@@ -51,7 +51,7 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
     private _snackBar: MatSnackBar,
 
   ){
-    this.titleService.setTitle("Approve TRP");
+    this.titleService.setTitle("Approve ITP");
 
   }
   ngOnInit(): void {
@@ -84,18 +84,18 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
         }
 
       })
-    this.agentService.getAllAgentForFront().subscribe({
-      next: (data) => {
-        if(data.length){
-          this.agentAll = data
-        }
-      },
-      error: (e) => {
-        console.log(e)
-        this.message = "Data retrieving error"
-        this.openSnackBar()
-      }
-    })
+    // this.agentService.getAllAgentForFront().subscribe({
+    //   next: (data) => {
+    //     if(data.length){
+    //       this.agentAll = data
+    //     }
+    //   },
+    //   error: (e) => {
+    //     console.log(e)
+    //     this.message = "Data retrieving error"
+    //     this.openSnackBar()
+    //   }
+    // })
   }
 
   setStep(index: number) {
@@ -142,13 +142,13 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
   }
 
   approveUserMain(username: any){
-    this.userService.approvePendingUserByTin(username).subscribe({
+    this.userService.approvePendingUser(username).subscribe({
       next: (data) => {
         if(data.uuid){
           this.message = "Successfully approved"
           this.openSnackBar()
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['approve-representatives']);
+            this.router.navigate(['approve-itp']);
           });        
         } 
       },
@@ -208,7 +208,7 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
         if(data.uuid){
           alert("User Rejected!")
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['approve-representatives']);
+            this.router.navigate(['approve-itp']);
           });         
         } 
       },

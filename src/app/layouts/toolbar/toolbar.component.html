@@ -35,8 +35,9 @@
         <mat-nav-list>
             <a mat-list-item routerLink="/dashboard">Dashboard</a>
             <app-admin-menu *ngIf="isAdmin"></app-admin-menu>
-            <app-agent-menu *ngIf="isAgent&&!isAdmin"></app-agent-menu>
+            <app-agent-menu *ngIf="isNbr&&!isAdmin"></app-agent-menu>
             <app-representative-menu *ngIf="isRepresentative&&!isAdmin"></app-representative-menu>
+            <app-viewer-menu *ngIf="isViewer"></app-viewer-menu>
             <app-viewer-menu *ngIf="isViewer"></app-viewer-menu>
             <a mat-list-item routerLink="/logout">Log Out</a>
 

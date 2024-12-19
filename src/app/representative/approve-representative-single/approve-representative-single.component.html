@@ -1,4 +1,4 @@
-<h3 class="center">TRP Approval - TRP Details</h3>
+<h3 class="center">ITP Approval - ITP Details</h3>
 <img [attr.src]="image" alt="" class="img-responsive">
 
 
@@ -13,9 +13,9 @@
             Click to Expand
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Name: {{representative.reName}}</p>
-      <p>Date of Birth: {{representative.reDob | date}}</p>
-      <p>Mobile No: {{representative.reMobile | date}}</p>
+      <p>Name: {{representative.itpName}}</p>
+      <p>Date of Birth: {{representative.itpDob | date}}</p>
+      <p>Mobile No: {{representative.itpMobileNo}}</p>
       <p>User Name: {{representative.tinNo}}</p>
       <p>NID: {{representative.nid}}</p>  
       <p>
@@ -30,7 +30,7 @@
       </mat-action-row>
     </mat-expansion-panel>
   
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <!-- <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
               Bank Information
@@ -50,44 +50,10 @@
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
             <button mat-button color="primary" (click)="nextStep()">Next</button>
           </mat-action-row>
-    </mat-expansion-panel>
+    </mat-expansion-panel> -->
 
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-      <mat-expansion-panel-header>
-          <mat-panel-title>
-            Resource Center Information
-          </mat-panel-title>
-          <mat-panel-description>
-              Click to Expand
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div *ngIf="agentLoaded">
-          <p>Resource Center Name: {{agent.name}}</p>
-          <p>Resource Center TIN: {{agent.tin}}</p>
-          <p>Focal Person: {{agent.contactPerson}}</p>
-          <p>Focal Person Mobile: {{agent.contactNumber}}</p>
-          <p>Focal Person Email: {{agent.contactEmail}}</p>  
-        </div>
-        <div *ngIf="!agentLoaded">
-          <form class="example-form" [formGroup]="assignAgent" #formDir="ngForm">
-
-            <mat-form-field class="example-full-width">
-              <mat-label>Resource Center</mat-label>
-              <mat-select matNativeControl required formControlName="agentId">
-                  <mat-option value="">--Select--</mat-option>
-                  <mat-option *ngFor="let age of agentAll" [value]="age[1]">{{age[2]}}</mat-option>  
-                  <!-- <mat-option value="0">None</mat-option>  -->
-              </mat-select>
-            </mat-form-field>
-          </form>
-        </div>
-        <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
-        </mat-action-row>
-  </mat-expansion-panel>
   
-    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
               Address Information

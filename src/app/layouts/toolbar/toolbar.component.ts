@@ -18,7 +18,7 @@ export class ToolbarComponent implements OnInit{
   isLoggedIn: boolean = false;
   isAdmin: boolean = false
   isViewer: boolean = false
-  isAgent: boolean = false;
+  isNbr: boolean = false;
   isRepresentative: boolean = false;
   unread: number = 0
   role: string = ""
@@ -56,17 +56,17 @@ export class ToolbarComponent implements OnInit{
         this.getPhoto()
         if(role=="ROLE_ADMIN")
           this.isAdmin = true
-        else if(role=="ROLE_AGENT"){
-          this.isAgent = true
+        else if(role=="ROLE_NBR"){
+          this.isNbr = true
           this.isAdmin = false
           this.isRepresentative = false
           this.isViewer = false
         }
           
-        else if(role=="ROLE_REPRESENTATIVE"){
+        else if(role=="ROLE_ITP"){
           this.isRepresentative = true
           this.isAdmin = false
-          this.isAgent = false
+          this.isNbr = false
           this.isViewer = false
         }
           
@@ -74,13 +74,8 @@ export class ToolbarComponent implements OnInit{
           this.isViewer = true
           this.isRepresentative = false
           this.isAdmin = false
-          this.isAgent = false
+          this.isNbr = false
         }
-      
-          console.log(this.isAdmin)
-          console.log(this.isAgent)
-          console.log(this.isRepresentative)
-          console.log(this.isViewer)
       }
       
     })

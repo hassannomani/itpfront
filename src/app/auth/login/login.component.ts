@@ -41,64 +41,61 @@ export class LoginComponent implements OnInit{
    
   }  
 
-  login(){
-    
-  
-    // console.log(this.loginForm.value)
-    // let username = this.loginForm.value.username
-    // if(username!=""&&this.loginForm.value.password!=""&&username?.length==12){
-    //   this.signinService
-    //   .postVerifyUsers(this.loginForm.value)
-    //   .subscribe({
+  login(){  
+    let username = this.loginForm.value.username
+    if(username!=""&&this.loginForm.value.password!=""/*&&username?.length==12*/){
+      this.signinService
+      .postVerifyUsers(this.loginForm.value)
+      .subscribe({
         
-    //     next: (data) => {
-    //       if(data?.token!=""){
-    //         this.localstorageservc.saveStorageItems(data)
-    //         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-    //           this.router.navigate(['dashboard']);
-    //         }); 
-    //         //this.router.navigate(['profile']);
+        next: (data) => {
+          if(data?.token!=""){
+            this.localstorageservc.saveStorageItems(data)
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['dashboard']);
+            }); 
+            //this.router.navigate(['profile']);
 
-    //       } 
-    //       else{
-    //         this.failed = true
-    //       }
-    //     },
-    //     error: (e) => {
-    //       console.log(e)
-    //       console.log(e.error)
-    //       if(e.status==401)
-    //         this.errorMsg = "Username or password doesn't match"
-    //       else if(e.status==403){
-    //         if(e.error.actionType!=undefined){
-    //           let errorType = e.error.actionType
-    //           if(errorType=="DENY")
-    //             this.errorMsg="Your registration has been denied"
-    //           else if(errorType=="BLOCK")
-    //             this.errorMsg="Your Account has been blocked"
-    //           else if(errorType=="SUSPEND")
-    //             this.errorMsg="Your Account has been suspended"
-    //           this.link = true
-    //           this.actionid = e.error.actionId
-    //           // if(e.attachment!=null&&e.attachment!=""){
-    //           //   this.link = true;
-    //           //   this.actionid = e.actionId
-    //           // }
-    //         }
-    //         else 
-    //         this.errorMsg = e.error
+          } 
+          else{
+            this.failed = true
+          }
+        },
+        error: (e) => {
+          console.log(e)
+          console.log(e.error)
+          if(e.status==401)
+            this.errorMsg = "Username or password doesn't match"
+          else if(e.status==403){
+            if(e.error.actionType!=undefined){
+              let errorType = e.error.actionType
+              if(errorType=="DENY")
+                this.errorMsg="Your registration has been denied"
+              else if(errorType=="BLOCK")
+                this.errorMsg="Your Account has been blocked"
+              else if(errorType=="SUSPEND")
+                this.errorMsg="Your Account has been suspended"
+              this.link = true
+              this.actionid = e.error.actionId
+              // if(e.attachment!=null&&e.attachment!=""){
+              //   this.link = true;
+              //   this.actionid = e.actionId
+              // }
+            }
+            else 
+            this.errorMsg = e.error
 
 
-    //       } else {
-    //         this.errorMsg = e.error
-    //       }
+          } else {
+            this.errorMsg = e.error
+          }
           
-    //         this.failed = true
+            this.failed = true
 
-    //     }
+        }
         
-    //   });
-    // }
+      });
+    }
 
   
   }

@@ -74,36 +74,36 @@ export class RegisterComponent implements OnInit{
 
 
   taxpayerSubmit(){
-    // this.submitted = true
-    // this.message=""
-    // let tin = this.registerForm.value['tinNo']
-    // let tin12 = tin==null?false:tin.length==12?true:false
-    // let tinNum = this.isNumCheck(tin)
-    // let tinValid = tin12 && tinNum
-    // if(!tinValid)
-    //   this.message = "TIN no is not valid. "
+    this.submitted = true
+    this.message=""
+    let tin = this.registerForm.value['tinNo']
+    let tin12 = tin==null?false:tin.length==12?true:false
+    let tinNum = this.isNumCheck(tin)
+    let tinValid = tin12 && tinNum
+    if(!tinValid)
+      this.message = "TIN no is not valid. "
 
-    // let nid =  this.registerForm.value['nid']
-    // let nidLength = nid==null?false:nid.length==10||nid.length==13||nid.length==17?true:false
-    // let nidNum = this.isNumCheck(nid)
-    // let nidValid = nidLength && nidNum
-    // if(!nidValid)
-    //   this.message = this.message + "NID is not valid. "
+    let nid =  this.registerForm.value['nid']
+    let nidLength = nid==null?false:nid.length==10||nid.length==13||nid.length==17?true:false
+    let nidNum = this.isNumCheck(nid)
+    let nidValid = nidLength && nidNum
+    if(!nidValid)
+      this.message = this.message + "NID is not valid. "
 
-    // let mobile = this.registerForm.value['phoneNo']
-    // let mobileStart = mobile?.startsWith("01")
-    // let mobileLength = mobile==null?false:mobile.length==11?true:false
-    // let mobileNum = this.isNumCheck(mobile)
-    // let mobileValid = mobileStart && mobileLength && mobileNum
-    // if(!mobileValid)
-    //   this.message = this.message + "Mobile No is not valid. "
-    // if(!tinValid||!nidValid||!mobileValid){
-    //   this.openSnackBar()
-    //   this.submitted = false
-    // }
-    // else{
-    //   this.threeStepsProcessing()
-    // }
+    let mobile = this.registerForm.value['phoneNo']
+    let mobileStart = mobile?.startsWith("01")
+    let mobileLength = mobile==null?false:mobile.length==11?true:false
+    let mobileNum = this.isNumCheck(mobile)
+    let mobileValid = mobileStart && mobileLength && mobileNum
+    if(!mobileValid)
+      this.message = this.message + "Mobile No is not valid. "
+    if(!tinValid||!nidValid||!mobileValid){
+      this.openSnackBar()
+      this.submitted = false
+    }
+    else{
+      this.threeStepsProcessing()
+    }
   }
   isNumCheck(val: any){
     return /^\d+$/.test(val);
@@ -168,27 +168,27 @@ export class RegisterComponent implements OnInit{
   }
 
   threeStepsProcessing(){
-    this
-    .registerServ
-    .checkCertificate(this.registerForm.value['tinNo'], this.registerForm.value['nid']).subscribe({
-      next: (data) => {
-        if(data==true||data=="true"){ //second chaining
-          this.getTinValidation(this.registerForm.value['tinNo'])
-        }else{
-          this.message = "No certificate found with this NID and TIN"
-          //this.getTinValidation(this.registerForm.value['tinNo'])
+    // this
+    // .registerServ
+    // .checkCertificate(this.registerForm.value['tinNo'], this.registerForm.value['nid']).subscribe({
+    //   next: (data) => {
+    //     if(data==true||data=="true"){ //second chaining
+    this.getTinValidation(this.registerForm.value['tinNo'])
+    //     }else{
+    //       this.message = "No certificate found with this NID and TIN"
+    //       //this.getTinValidation(this.registerForm.value['tinNo'])
 
-          this.submitted  =false
-          this.openSnackBar()
-        }
+    //       this.submitted  =false
+    //       this.openSnackBar()
+    //     }
 
-      }
-      ,
-      error: (e) => {
-        this.message = "Error occurred! Try again later1!"
-        this.openSnackBar()
-      }
-    })
+    //   }
+    //   ,
+    //   error: (e) => {
+    //     this.message = "Error occurred! Try again later1!"
+    //     this.openSnackBar()
+    //   }
+    // })
   }
 
   getTinValidation(tin : any){
@@ -275,21 +275,21 @@ export class RegisterComponent implements OnInit{
   }
 
   psrValidate(tin:any){
-    this.commonServ.psrValidate(this.year,tin).subscribe({
-      next: (data) => {
-        if(data.success==true){
+    // this.commonServ.psrValidate(this.year,tin).subscribe({
+    //   next: (data) => {
+    //     if(data.success==true){
           
-        }else{
-          this.message = "PSR Couldn't be verified"
-          this.openSnackBar()
-        }
-      }
-      ,
-      error: (e) => {
-        this.message = "PSR Verification error"
-        this.openSnackBar()
-      }     
-    })
+    //     }else{
+    //       this.message = "PSR Couldn't be verified"
+    //       this.openSnackBar()
+    //     }
+    //   }
+    //   ,
+    //   error: (e) => {
+    //     this.message = "PSR Verification error"
+    //     this.openSnackBar()
+    //   }     
+    // })
     
   }
 }

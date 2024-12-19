@@ -15,23 +15,23 @@ export class CommonService {
     private localStorageServc: LocalStorageService
   ) { 
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
-    this.url_common = url + 'api/common/'
+    this.url_common = url + 'api/v1/common/'
     this.url_bank = url + 'api/bank/'
     this.url_address = url + 'api/address/'
-    this.url_etin = url + 'api/etin/'
+    this.url_etin = url + 'api/v1/etin/'
   }
 
-  private urldistrict : string ='http://localhost:8080/api/common/district';
-  private urldiv : string ='http://localhost:8080/api/common/division';
-  private urlthana : string ='http://localhost:8080/api/common/thana';
-  private urlbank : string ='http://localhost:8080/api/common/bank';
-  private urlbankdist : string ='http://localhost:8080/api/common/bankdist';
-  private urlbankbranches : string ='http://localhost:8080/api/common/bankbranches';
-  private urlcitycorp : string ='http://localhost:8080/api/common/citycorporation';
-  private urlfile : string ='http://localhost:8080/api/common/file';
-  private urlPhoto : string ='http://localhost:8080/api/common/photo';
-  private urlfileget : string ='http://localhost:8080/api/common/file/';
-  private urlPhotoget : string ='http://localhost:8080/api/common/photo/';
+  private urldistrict : string ='http://localhost:8080/api/v1/common/district';
+  private urldiv : string ='http://localhost:8080/api/v1/common/division';
+  private urlthana : string ='http://localhost:8080/api/v1/common/thana';
+  private urlbank : string ='http://localhost:8080/api/v1/common/bank';
+  private urlbankdist : string ='http://localhost:8080/api/v1/common/bankdist';
+  private urlbankbranches : string ='http://localhost:8080/api/v1/common/bankbranches';
+  private urlcitycorp : string ='http://localhost:8080/api/v1/common/citycorporation';
+  private urlfile : string ='http://localhost:8080/api/v1/common/file';
+  private urlPhoto : string ='http://localhost:8080/api/v1/common/photo';
+  private urlfileget : string ='http://localhost:8080/api/v1/common/file/';
+  private urlPhotoget : string ='http://localhost:8080/api/v1/common/photo/';
   private urladdaddress : string ='http://localhost:8080/api/address/add';
   private urladdbank : string ='http://localhost:8080/api/bank/add';
   private urletin : string ='http://localhost:8080/api/etin/tin/';

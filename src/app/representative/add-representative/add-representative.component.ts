@@ -39,19 +39,13 @@ export class AddRepresentativeComponent implements OnInit{
   })
 
   addRepresentative = new FormGroup({
-    'reName' : new FormControl('',[Validators.required]),
+    'itpName' : new FormControl('',[Validators.required]),
     'tinNo' : new FormControl('',[Validators.required]),
     'nid' : new FormControl('',[Validators.required]),
-    'reMobileNo' : new FormControl('',[Validators.required]),
+    'itpMobileNo' : new FormControl('',[Validators.required]),
     'type':  new FormControl('',[Validators.required]),
     'agentId' : new FormControl('',[Validators.required]),
-    'bankAccountName': new FormControl('',[Validators.required]),
-    'bankAccountNo': new FormControl('',[Validators.required]),
-    'bankName': new FormControl('',[Validators.required]),
-    'bankBranch': new FormControl('',[Validators.required]),
-    'bankDistName': new FormControl('',[Validators.required]),
-    'routingNo': new FormControl('',[Validators.required]),
-    'reDob': new FormControl('',[Validators.required]),
+    'itpDob': new FormControl('',[Validators.required]),
     'bdivision': new FormControl(''),
     'bdistrict': new FormControl(''),
     'bthana': new FormControl(''),
@@ -90,15 +84,16 @@ export class AddRepresentativeComponent implements OnInit{
     'pmvillageUnion': new FormControl(''),
     'checked': new FormControl('',[Validators.required]),
     'display': new FormControl('',[Validators.required]),
-    'trpId': new FormControl('',[Validators.required]),
+    'itpId': new FormControl('',[Validators.required]),
     'licNo': new FormControl('',[Validators.required]),
     'certNo': new FormControl('',[Validators.required]),
     'certPass': new FormControl('',[Validators.required]),
     'certSerial': new FormControl('',[Validators.required]),
+    'certIssue': new FormControl('',[Validators.required]),
+    'certExpiry': new FormControl('',[Validators.required]),
     'rePhoto': new FormControl('',[Validators.required]),
     'filePath': new FormControl('',[Validators.required]),
     're_address': new FormControl(<Object>[]),
-    're_bankinformation': new FormControl(<Object>[]),
 
   })
   addedSuccess: boolean = false
@@ -202,7 +197,7 @@ export class AddRepresentativeComponent implements OnInit{
       console.log(temp)
       this.addUser.get('username')?.setValue(JSON.parse(this.localStore.un_tin))
       let name = temp.name
-      this.addRepresentative.get('reName')?.setValue(name)
+      this.addRepresentative.get('itpName')?.setValue(name)
 
       let tempTin = JSON.parse(this.localStore.un_tin)
       this.addRepresentative.get('tinNo')?.setValue(tempTin)
@@ -231,7 +226,7 @@ export class AddRepresentativeComponent implements OnInit{
       }
     
       
-      this.addRepresentative.get('reMobileNo')?.setValue(JSON.parse(this.localStore.un_mobile))
+      this.addRepresentative.get('itpMobileNo')?.setValue(JSON.parse(this.localStore.un_mobile))
     
       this.addRepresentative.get('nid')?.setValue(JSON.parse(this.localStore.un_nid))
     }
@@ -240,12 +235,9 @@ export class AddRepresentativeComponent implements OnInit{
         [this.commonService.getDistrict(),
         this.commonService.getDivision(),
         this.commonService.getThana(),
-        this.userService.getRoles(),
-        this.agentService.getAllAgentForFront(),
-        this.commonService.getBank(),
-        this.commonService.getBankDist(),
+        this.userService.getRoles(), 
         this.commonService.getCityCorp(),
-        this.registrationServ.getCertificate(tin,nid)
+        //this.registrationServ.getCertificate(tin,nid)
       ])
       .subscribe({
         next: (data) => {
@@ -254,80 +246,61 @@ export class AddRepresentativeComponent implements OnInit{
           this.division = data[1];
           this.thana = data[2];
           this.roles = data[3];
-          this.agents = data[4];
-          this.banks = data[5];
-          this.bankdist = data[6];
-          this.citycorporation = data[7];
-          this.certificate = data[8]
-          this.processCert()
+          this.citycorporation = data[4];
+          //this.certificate = data[8]
+          //this.processCert()
         },
         error: (e) => {
-         
-            console.log("Error retrieving")
+          console.log("Error retrieving")
         }
       });
   }
   
   processCert(){
-    this.addRepresentative.get("certNo")?.setValue(this.certificate.examineeCertno)
-    this.addRepresentative.get("certSerial")?.setValue(this.certificate.examineeCertserial)
-
+    //this.addRepresentative.get("certNo")?.setValue(this.certificate.examineeCertno)
+    //this.addRepresentative.get("certSerial")?.setValue(this.certificate.examineeCertserial)
   }
   representativeSubmit(){
     this.saving = true
-    let bankObj={
-      bankAccountName: this.addRepresentative.value['bankAccountName'],
-      bankAccountNo: this.addRepresentative.value['bankAccountNo'],
-      bankName: this.addRepresentative.value['bankName'],
-      bankBranch: this.addRepresentative.value['bankBranch'],
-      routingNo: this.addRepresentative.value['routingNo']
-    }
+    // let bankObj={
+    //   bankAccountName: this.addRepresentative.value['bankAccountName'],
+    //   bankAccountNo: this.addRepresentative.value['bankAccountNo'],
+    //   bankName: this.addRepresentative.value['bankName'],
+    //   bankBranch: this.addRepresentative.value['bankBranch'],
+    //   routingNo: this.addRepresentative.value['routingNo']
+    // }
 
-    this.commonService
-    .addBank(bankObj)
-    .subscribe({
+    // this.commonService
+    // .addBank(bankObj)
+    // .subscribe({
       
-      next: (data) => {
-        if(data?.token!=""){
-          this.bankInfo.push(bankObj);
-        } 
-        else{
-          this.bankfailed = true
-        }
-      },
-      error: (e) => {
-        this.bankfailed = true
-        this.saving = false
-      }
+    //   next: (data) => {
+    //     if(data?.token!=""){
+    //       this.bankInfo.push(bankObj);
+    //     } 
+    //     else{
+    //       this.bankfailed = true
+    //     }
+    //   },
+    //   error: (e) => {
+    //     this.bankfailed = true
+    //     this.saving = false
+    //   }
       
-    });
+    // });
     
 
   }
 
   representativeSave(){
-    let bankObj={
-      bankAccountName: this.addRepresentative.value['bankAccountName'],
-      bankAccountNo: this.addRepresentative.value['bankAccountNo'],
-      bankName: this.addRepresentative.value['bankName'],
-      bankBranch: this.addRepresentative.value['bankBranch'],
-      routingNo: this.addRepresentative.value['routingNo']
-    }
 
-  this.commonService
-  .addBank(bankObj)
-  .subscribe({
-    
-    next: (data) => {
-      if(data?.uuid!=""){
-        this.bankInfo.push(bankObj);
-        if(this.bankInfo.length){
-
-          this.addRepresentative.value['agentId'] = this.agentId
+     
+      //this.addAgent.value['address']?.push(this.businessAdd)
+      // this.addRepresentative.value['re_bankinformation'] = this.bankInfo
+      this.saveAddresses().then(resolve =>{
+        if(resolve){
+          this.addRepresentative.value['agentId'] = "000000000000"
           this.addRepresentative.value['re_address']=this.addressArr
-          //this.addAgent.value['address']?.push(this.businessAdd)
-          this.addRepresentative.value['re_bankinformation'] = this.bankInfo 
-            
           this.representativeServ
           .addRepresentative(this.addRepresentative.value)
           .subscribe({
@@ -359,22 +332,17 @@ export class AddRepresentativeComponent implements OnInit{
               this.modalMessage = "Error occurred. Please try again later!"
               this.modalTitle = "Error!"
               this.alertDialog()
-
-            }
-
-          })
-        } 
-        else{
-          this.bankfailed = true
-        }
-      }
-    },
-    error: (e) => {
-      this.bankfailed = true
-      this.saving = false
-    }
     
-  });}
+            }
+    
+          })
+        }else{
+          this.modalMessage = "Application couldn't be submitted"
+          this.modalTitle = "Failed!"
+        }
+      })
+    
+  }
 
   selectedTabChange($event:any) {
     this.index = $event.index
@@ -383,122 +351,100 @@ export class AddRepresentativeComponent implements OnInit{
   }
 
   saveAddresses(){
-    let prdistrict:any={}
-    prdistrict=this.addRepresentative.value['prdistrict']
-    let bdistrict:any={}
-    bdistrict=this.addRepresentative.value['bdistrict']
-    let pmdistrict:any={}
-    pmdistrict=this.addRepresentative.value['pmdistrict']
-    let presentobj={
-      type: "PRESENT",
-      division: this.addRepresentative.value['prdivision'],
-      district: prdistrict.name,
-      thana: this.addRepresentative.value['prthana'],
-      house: this.addRepresentative.value['prhouse'],
-      road: this.addRepresentative.value['prroad'],
-      block: this.addRepresentative.value['prblock'],
-      ward: this.addRepresentative.value['prward'],
-      flat: this.addRepresentative.value['prflat'],
-      villageUnion: this.addRepresentative.value['prvillageUnion'],
-      citycorporation: this.addRepresentative.value['prcitycorporation'],
-      others: this.addRepresentative.value['prothers'],
-      addedBy: "SELF" 
-    }
-    let businessobj={
-      type: "BUSINESS",
-      division: this.addRepresentative.value['bdivision'],
-      district: pmdistrict.name,
-      thana: this.addRepresentative.value['bthana'],
-      house: this.addRepresentative.value['bhouse'],
-      road: this.addRepresentative.value['broad'],
-      block: this.addRepresentative.value['bblock'],
-      ward: this.addRepresentative.value['bward'],
-      flat: this.addRepresentative.value['bflat'],
-      villageUnion: this.addRepresentative.value['bvillageUnion'],
-      citycorporation: this.addRepresentative.value['bcitycorporation'],
-      others: this.addRepresentative.value['bothers'],
-      addedBy: "SELF" 
-    }
-    let permanentobj={
-      type: "PERMANENT",
-      division: this.addRepresentative.value['pmdivision'],
-      district: pmdistrict.name,
-      thana: this.addRepresentative.value['pmthana'],
-      house: this.addRepresentative.value['pmhouse'],
-      road: this.addRepresentative.value['pmroad'],
-      block: this.addRepresentative.value['pmblock'],
-      ward: this.addRepresentative.value['pmward'],
-      flat: this.addRepresentative.value['pmflat'],
-      villageUnion: this.addRepresentative.value['pmvillageUnion'],
-      citycorporation: this.addRepresentative.value['pmcitycorporation'],
-      others: this.addRepresentative.value['pmothers'],
-      addedBy: "SELF" 
-    }
-  //this.agentService.addAddress
-    forkJoin([
-      this.commonService.addAddress(presentobj),
-      this.commonService.addAddress(businessobj),
-      this.commonService.addAddress(permanentobj)
-    ])
-    .subscribe({
-      next: (data) => {
-        //console.log(data)
-        
-        if(data?.length<3)
-          this.addressfailed = true
-        else{
-          this.addressArr.push(presentobj)
-          this.addressArr.push(businessobj)
-          this.addressArr.push(permanentobj)
-          this.index+=1;
-          this.step2Success = true
-        }
-      },
-      error: (e) => {
-        
-          console.log("Error retrieving")
-          this.addressfailed = true
-      }
-    });
-  }
 
-  saveBankDetails(){
-    let bankObj={
-      bankAccountName: this.addRepresentative.value['bankAccountName'],
-      bankAccountNo: this.addRepresentative.value['bankAccountNo'],
-      bankName: this.addRepresentative.value['bankName'],
-      bankBranch: this.addRepresentative.value['bankBranch'],
-      routingNo: this.addRepresentative.value['routingNo']
-    }
-
-    this.commonService
-    .addBank(bankObj)
-    .subscribe({
-      
-      next: (data) => {
-        if(data?.token!=""){
-          this.bankInfo.push(bankObj);
-        } 
-        else{
-          this.bankfailed = true
-        }
-      },
-      error: (e) => {
-        this.bankfailed = true
-        this.saving = false
+    return new Promise((resolve,reject) => {
+      let prdistrict:any={}
+      prdistrict=this.addRepresentative.value['prdistrict']
+      let bdistrict:any={}
+      bdistrict=this.addRepresentative.value['bdistrict']
+      let pmdistrict:any={}
+      pmdistrict=this.addRepresentative.value['pmdistrict']
+      let presentobj={
+        type: "PRESENT",
+        division: this.addRepresentative.value['prdivision'],
+        district: prdistrict.name,
+        thana: this.addRepresentative.value['prthana'],
+        house: this.addRepresentative.value['prhouse'],
+        road: this.addRepresentative.value['prroad'],
+        block: this.addRepresentative.value['prblock'],
+        ward: this.addRepresentative.value['prward'],
+        flat: this.addRepresentative.value['prflat'],
+        villageUnion: this.addRepresentative.value['prvillageUnion'],
+        citycorporation: this.addRepresentative.value['prcitycorporation'],
+        others: this.addRepresentative.value['prothers'],
+        addedBy: "SELF" 
       }
-      
-    });
+      let businessobj={
+        type: "BUSINESS",
+        division: this.addRepresentative.value['bdivision'],
+        district: pmdistrict.name,
+        thana: this.addRepresentative.value['bthana'],
+        house: this.addRepresentative.value['bhouse'],
+        road: this.addRepresentative.value['broad'],
+        block: this.addRepresentative.value['bblock'],
+        ward: this.addRepresentative.value['bward'],
+        flat: this.addRepresentative.value['bflat'],
+        villageUnion: this.addRepresentative.value['bvillageUnion'],
+        citycorporation: this.addRepresentative.value['bcitycorporation'],
+        others: this.addRepresentative.value['bothers'],
+        addedBy: "SELF" 
+      }
+      let permanentobj={
+        type: "PERMANENT",
+        division: this.addRepresentative.value['pmdivision'],
+        district: pmdistrict.name,
+        thana: this.addRepresentative.value['pmthana'],
+        house: this.addRepresentative.value['pmhouse'],
+        road: this.addRepresentative.value['pmroad'],
+        block: this.addRepresentative.value['pmblock'],
+        ward: this.addRepresentative.value['pmward'],
+        flat: this.addRepresentative.value['pmflat'],
+        villageUnion: this.addRepresentative.value['pmvillageUnion'],
+        citycorporation: this.addRepresentative.value['pmcitycorporation'],
+        others: this.addRepresentative.value['pmothers'],
+        addedBy: "SELF" 
+      }
+    //this.agentService.addAddress
+      forkJoin([
+        this.commonService.addAddress(presentobj),
+        this.commonService.addAddress(businessobj),
+        this.commonService.addAddress(permanentobj)
+      ])
+      .subscribe({
+        next: (data) => {
+          //console.log(data)
+          
+          if(data?.length<3)
+            this.addressfailed = true
+          else{
+            this.addressArr.push(presentobj)
+            this.addressArr.push(businessobj)
+            this.addressArr.push(permanentobj)
+            this.index+=1;
+            this.step2Success = true
+            resolve(true);
+          }
+        },
+        error: (e) => {
+          
+            console.log("Error retrieving")
+            this.addressfailed = true
+            resolve(false)
+        }
+      });
+    })
+    
   }
 
   registerUser(){
-   
+    
+
     this.addUser.value['addedBy']="0"
     this.addUser.value['status']="0"
     this.addUser.value['photo']=""
     let index = -1;
     for(let i=0;i<this.roles.length;i++){
-      if(this.roles[i].name=="ROLE_REPRESENTATIVE"){
+      if(this.roles[i].name=="ROLE_ITP"){
         this.roleRep.push( this.roles[i])
         break;
       }
@@ -521,7 +467,7 @@ export class AddRepresentativeComponent implements OnInit{
       next: (data) => {
         if(data.uuid){
           this.addedSuccess = true
-          this.addRepresentative.get("reName")?.setValue(data.firstName+" "+data.lastName)
+          this.addRepresentative.get("itpName")?.setValue(data.firstName+" "+data.lastName)
           this.addRepresentative.get("tinNo")?.setValue(data.username)
           this.addUser.reset()
           this.index +=1
@@ -539,19 +485,18 @@ export class AddRepresentativeComponent implements OnInit{
       }  
     });
     
-  
   }
   
   onTabChanged() {
-    console.log(this.index)
-    if(this.index==1){
-      //this.registerUser()
-    }
-    else if (this.index==2) {
-      //this.saveBankDetails()
-    } else if (this.index==3) {
-      //his.saveAddresses()
-    }
+    // console.log(this.index)
+    // if(this.index==1){
+    //   //this.registerUser()
+    // }
+    // else if (this.index==2) {
+    //   //this.saveBankDetails()
+    // } else if (this.index==3) {
+    //   //his.saveAddresses()
+    // }
   }
   step1(){
     this.step1Success = true
@@ -615,40 +560,6 @@ export class AddRepresentativeComponent implements OnInit{
     for(let i=0;i<this.thana.length;i++){
       if(this.thana[i].districtId==value.districtId)
       this.pmThana.push(this.thana[i])
-    }
-  }
-  bankChange(value:any){
-    this.bankName = value
-  }
-  bankDistChange(value:any){
-    console.log(value)
-    this.commonService
-    .getBankBranches(this.bankName,value)
-    .subscribe({
-      
-      next: (data) => {
-        if(data.length){ //uuid
-          //this.success = true;
-         this.bankBranches = data
-        } 
-        else{
-          this.noDataFound=true            
-        }
-      },
-      error: (e) => {
-        this.noDataFound=true            
-      }
-      
-    });
-  }
-
-  bankBranchChange(value: any){
-    for(let i=0;i<this.bankBranches.length;i++){
-      if(this.bankBranches[i].branchName==value){
-        this.routeNo = this.bankBranches[i].routingNo
-        this.addRepresentative.get('routingNo')?.setValue(this.routeNo)
-        break;
-      }
     }
   }
 
@@ -756,7 +667,7 @@ export class AddRepresentativeComponent implements OnInit{
               let dt= new Date(data.dob)
               this.setDate(dt)
             }
-            this.addRepresentative.get('reMobileNo')?.setValue(data.mobile)
+            this.addRepresentative.get('itpMobileNo')?.setValue(data.mobile)
             let pattern = /\d+/g
             let string= data.nid  
             let final = string.match(pattern)
@@ -772,7 +683,7 @@ export class AddRepresentativeComponent implements OnInit{
     })
   }
   setDate(value:any){
-    this.addRepresentative.get('reDob')?.setValue(formatDate(value,'yyyy-MM-dd','en'))
+    this.addRepresentative.get('itpDob')?.setValue(formatDate(value,'yyyy-MM-dd','en'))
 
   }
 

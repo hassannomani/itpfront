@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 export class AddUserComponent implements OnInit{
   addUser = new FormGroup({
-    'username' : new FormControl('',[Validators.required, Validators.minLength(10)]),
+    'username' : new FormControl('',[Validators.required]),
     'password' : new FormControl('',[Validators.required, Validators.minLength(4)]),
     'repassword' : new FormControl('',[Validators.required, Validators.minLength(4)]),
     'firstName' : new FormControl('',[Validators.required, Validators.minLength(2)]),
@@ -131,7 +131,7 @@ export class AddUserComponent implements OnInit{
           this.addedSuccess = true
           
           //console.log(this.roles)
-          if(rolename=="ROLE_AGENT"){
+          if(rolename=="ROLE_ITP"){
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['add-agent'],{ queryParams: {username: this.addUser.value['username']}});
             }); 

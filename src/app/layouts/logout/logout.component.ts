@@ -15,11 +15,10 @@ export class LogoutComponent implements OnInit{
     ){}
   ngOnInit(): void {
     this.signinserv.logout()
-      
-      // .subscribe(data=>{
-      //   console.log(data)
-        this.router.navigate(['/']);
-      //})
+      .subscribe(data=>{
+          console.log(data)
+          this.router.navigate(['/'])
+    })
   }
 
 }
