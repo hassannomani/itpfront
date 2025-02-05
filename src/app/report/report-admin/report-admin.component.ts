@@ -63,46 +63,22 @@ export class ReportAdminComponent implements OnInit{
     console.log(value)
     this.firstOption = value
     if(value==1)
-      this.dataSecondary = [{"id":1,"value":"All Resource Center"},{"id":2, "value": "All TRP of a Resource Center"}/*,{"id":3,"value":"Search By Creation Date"}*/]
-    else if(value==2)
-      this.dataSecondary = [{"id":1,"value":"All TRPs"}/*,{"id":2,"value":"Search By Creation Date"}*/]
-    else if (value==3)
+      this.dataSecondary = [{"id":1,"value":"All ITP"},{"id":2, "value": "All suspended ITP"},{"id":3,"value":"All blocked ITP"}]
+    else if (value==2)
       this.dataSecondary = [
-        {"id":"1","value":"All"},
-        {"id":"2", "value": "Resource Center"},
-        {"id":"3", "value":"TRP"},
-        {"id":"4","value":"Date Range"},
-        {"id":"5","value":"Resource Center Ledger with Date Range"},
-        {"id":"6","value":"TRP Ledger with Date Range"}
+        {"id":"1","value":"List of Ledgers"},
+        {"id":"2", "value": "List of Ledgers within Range"},
+        {"id":"3", "value":"List of Ledgers of a ITP"},
+        {"id":"4","value":"List of Ledgers of a ITP within range"}
       ]
-    else if(value==4)
-      this.dataSecondary = [
-        {"id":"1","value":"All"},
-        {"id":"2", "value": "Resource Center"},
-        {"id":"3", "value":"TRP"},
-        {"id":"4","value":"Date Range"}/*,
-        {"id":"5","value":"Agent Commission with Date Range"},
-        {"id":"6","value":"TRP Commission with Date Range"}*/
-      ]
-    else if(value==5)
-      this.dataSecondary = [
-        {"id":"1","value":"All"},
-        {"id":"2", "value": "Resource Center"},
-        {"id":"3", "value":"TRP"}
-        /*{"id":"4","value":"Date Range"}/*,
-      {"id":"5","value":"Agent Commission with Date Range"},
-      {"id":"6","value":"TRP Commission with Date Range"}*/
-    ]
 
   }
   reportSubType(value: any){
     this.showCaption = false
     this.secondOption  = value
-    if((value=="2" && this.firstOption=="1")||(this.firstOption=="3"&&value=="2")||(this.firstOption=="4"&&value=="2")){
-      this.showThirdA = true
-      this.showThirdR = false
-      this.showThirdD1=false
-      this.showThirdD2=false
+    if((value=="2" && this.firstOption=="2")||(this.firstOption=="4"&&value=="2")){
+          this.showThirdD1=true
+      this.showThirdD2=true
     }else if((value=="3"&&this.firstOption=="1")||(value=="2"&&this.firstOption=="2")){
       this.showThirdA = false
       this.showThirdR = false
@@ -129,15 +105,7 @@ export class ReportAdminComponent implements OnInit{
         this.showThirdR = true
       }
      
-    } else if(this.firstOption=="5"){
-      if(value=="2"){
-        this.showThirdA=true
-        this.showThirdR = false
-      }else if(value=="3"){
-        this.showThirdA=false
-        this.showThirdR = true
-      }
-    }
+    } 
     else{
       this.showThirdA = false
       this.showThirdR = false

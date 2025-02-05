@@ -19,7 +19,7 @@ export class AdminService {
     private commonServ: CommonService
   ) {
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
-    this.urladminledger = url + 'api/ledgers/admin'
+    this.urladminledger = url + 'api/v1/ledgers/admin'
   }
   
   getAdminLedger(): Observable<any[]>{

@@ -32,7 +32,7 @@ export class RepresentativeLedgerComponent implements OnInit{
         if(data.length)
           this.representativeLedger = data
           this.loaded = true
-          this.displayedColumn = ['serial','taxpayerId','paidAmount','paymentMethod','assessmentYear','agentTin','representativeTin']
+          this.displayedColumn = ['serial','taxpayerId','taxpayerName','paidAmount','assessmentYear','createdAt']
 
       },
       error: (e) => {

@@ -33,7 +33,7 @@ export class LedgerService {
     private commonServ: CommonService
   ) {
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
-    this.url_ledgers_common = url+ "api/ledgers/"
+    this.url_ledgers_common = url+ "api/v1/ledgers/"
     this.url_ledgers_trp = url+ "api/respresentative/"
     this.url_ledgers_agent = url+ "api/agent/"
   }
@@ -58,7 +58,7 @@ export class LedgerService {
     const httpOptions = {
       headers: this.commonServ.httpReturner()
     }
-    return this.http.get<any[]>(this.url_ledgers_common+"representative/"+representativeId,httpOptions)
+    return this.http.get<any[]>(this.url_ledgers_common+"itp/"+representativeId,httpOptions)
 
   }
 

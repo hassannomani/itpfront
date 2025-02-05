@@ -29,7 +29,7 @@ export class AdminLedgerComponent implements OnInit{
         if(data.length){
           console.log(data)
           this.ledgers = data
-          this.displayedColumn = ['serial','taxpayerId','paidAmount','assessmentYear','agentTin','representativeId']
+          this.displayedColumn = ['serial','taxpayerId','taxpayerName','paidAmount','itpTin','assessmentYear','createdAt']
           this.loaded = true
         }
          

@@ -60,7 +60,7 @@ const routes: Routes = [
   {path: "agent-representative", component: AgentRepresentativeComponent},
   {path: "ledger-agent", component: AgentLedgerComponent},
   {path: "ledger-admin", component: AdminLedgerComponent},
-  {path: "ledger-representative", component: RepresentativeLedgerComponent},
+  {path: "ledger-itp", component: RepresentativeLedgerComponent},
   {path: "edit-agent", component: EditAgentComponent},
   {path: "report-admin", component: ReportAdminComponent},
   {path: "return-submit", component: ReturnSubmitComponent},
