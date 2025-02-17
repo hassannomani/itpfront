@@ -36,7 +36,7 @@
             <td *ngIf = "showThirdR">
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter ITP TIN</mat-label>
-                    <input matInput  formControlName="repusername" type="number"  placeholder="Username" maxlength="12">
+                    <input matInput  formControlName="itpusername" type="number"  placeholder="Username" maxlength="12">
                 </mat-form-field>
             </td>
             <td *ngIf = "showThirdD1">
@@ -88,108 +88,67 @@
 <table mat-table class="example-full-width datatable" cellspacing="0"  [dataSource]="dataArr" class="mat-elevation-z8" *ngIf="loaded" id="dataTable"> 
 
    
-    <ng-container matColumnDef="name" *ngIf="firstOption=='1'&& secondOption=='1'">
+  <ng-container matColumnDef="serial">
+    <th mat-header-cell *matHeaderCellDef>Serial </th>
+    <td mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </td>
+  </ng-container>
+    <ng-container matColumnDef="itpName" *ngIf="firstOption=='1'&& secondOption=='1'">
         <th mat-header-cell *matHeaderCellDef>  Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-""
-    <ng-container matColumnDef="reName" *ngIf="(firstOption=='1'&&secondOption=='2')||(firstOption=='2'&&secondOption=='1')">
-        <th mat-header-cell *matHeaderCellDef>  Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.reName}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.itpName}} </td>
     </ng-container>
     
       <!-- Name Column -->
-    <ng-container matColumnDef="tin" *ngIf="firstOption=='1'||secondOption=='1'">
-        <th mat-header-cell *matHeaderCellDef>User Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.tin}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="tinNo" *ngIf="(firstOption=='1'&&secondOption=='2')||(firstOption=='2'&&secondOption=='1')">
+    <ng-container matColumnDef="tinNo" *ngIf="firstOption=='1'||secondOption=='1'">
         <th mat-header-cell *matHeaderCellDef>User Name </th>
         <td mat-cell *matCellDef="let element"> {{element.tinNo}} </td>
     </ng-container>
     
       <!-- Weight Column -->
-      <ng-container matColumnDef="phone" *ngIf="firstOption=='1'&&secondOption=='1'">
+      <ng-container matColumnDef="itpMobileNo" *ngIf="firstOption=='1'&&secondOption=='1'">
         <th mat-header-cell *matHeaderCellDef> Mobile No </th>
-        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="reMobileNo" *ngIf="(firstOption=='1'&&secondOption=='2')||(firstOption=='2'&&secondOption=='1')">
-        <th mat-header-cell *matHeaderCellDef> Mobile No </th>
-        <td mat-cell *matCellDef="let element"> {{element.reMobileNo}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.itpMobileNo}} </td>
       </ng-container>
     
       <!-- Symbol Column -->
-      <ng-container matColumnDef="registration_no" *ngIf="firstOption=='1'&&secondOption=='1'">
-        <th mat-header-cell *matHeaderCellDef> Registration No </th>
-        <td mat-cell *matCellDef="let element"> {{element.registrationNo}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="contact_email" *ngIf="firstOption=='1'&& secondOption=='1'">
-          <th mat-header-cell *matHeaderCellDef> Contact Email </th>
-          <td mat-cell *matCellDef="let element"> {{element.contactEmail}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="reDob" *ngIf="(firstOption=='1'&&secondOption=='2')||(firstOption=='2'&&secondOption=='1')">
-        <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
-        <td mat-cell *matCellDef="let element"> {{element.reDob | date}} </td>
+      <ng-container matColumnDef="licNo" *ngIf="firstOption=='1'&&secondOption=='1'">
+        <th mat-header-cell *matHeaderCellDef> License No </th>
+        <td mat-cell *matCellDef="let element"> {{element.licNo}} </td>
       </ng-container>
 
       
-      <ng-container matColumnDef="nid" *ngIf="(firstOption=='1'&&secondOption=='2')||(firstOption=='2'&&secondOption=='1')">
+      <!-- <ng-container matColumnDef="nid" *ngIf="(firstOption=='2')">
         <th mat-header-cell *matHeaderCellDef> NID </th>
         <td mat-cell *matCellDef="let element"> {{element.nid}} </td>
-      </ng-container>
+      </ng-container> -->
      
-      <ng-container matColumnDef="taxpayerId" *ngIf="firstOption=='3'||firstOption=='4'">
+      <ng-container matColumnDef="taxpayerId" *ngIf="firstOption=='2'">
         <th mat-header-cell *matHeaderCellDef> Tax Payer Identification </th>
         <td mat-cell *matCellDef="let element"> {{element.taxpayerId}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="taxpayerName" *ngIf="firstOption=='4'&&(secondOption!='1')">
+      <ng-container matColumnDef="taxpayerName" *ngIf="firstOption=='2'">
         <th mat-header-cell *matHeaderCellDef> Tax Payer Name </th>
         <td mat-cell *matCellDef="let element"> {{element.taxpayerName}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="created_at" *ngIf="firstOption=='3'||(firstOption=='4'&&secondOption!='1')">
-        <th mat-header-cell *matHeaderCellDef> Time of Payment </th>
-        <td mat-cell *matCellDef="let element"> {{element.created_at | date:('short')}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="paidAmount" *ngIf="firstOption=='3'||(firstOption=='4'&&secondOption!='1')">
+      <ng-container matColumnDef="paidAmount" *ngIf="firstOption=='2'">
         <th mat-header-cell *matHeaderCellDef> Paid Amount </th>
         <td mat-cell *matCellDef="let element"> {{element.paidAmount}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="paymentMethod" *ngIf="firstOption=='3'">
-        <th mat-header-cell *matHeaderCellDef> Payment Method </th>
-        <td mat-cell *matCellDef="let element"> {{element.paymentMethod}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="assessmentYear" *ngIf="firstOption=='3'||(firstOption=='4'&&secondOption!='1')">
+      <ng-container matColumnDef="assessmentYear" *ngIf="firstOption=='2'">
         <th mat-header-cell *matHeaderCellDef> Assessment Year </th>
         <td mat-cell *matCellDef="let element"> {{element.assessmentYear}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="agentTin" *ngIf="firstOption=='3'||(firstOption=='4'&&secondOption=='2'||secondOption=='4')">
-        <th mat-header-cell *matHeaderCellDef> Resource Center TIN </th>
-        <td mat-cell *matCellDef="let element"> {{element.agentTin}} </td>
+      <ng-container matColumnDef="itpTin" *ngIf="firstOption=='2'">
+        <th mat-header-cell *matHeaderCellDef> ITP TIN </th>
+        <td mat-cell *matCellDef="let element"> {{element.itpTin}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="agentCommission" *ngIf="firstOption=='3'||(firstOption=='4'&&secondOption=='2'||secondOption=='4')">
-        <th mat-header-cell *matHeaderCellDef> Resource Center Commission </th>
-        <td mat-cell *matCellDef="let element"> {{element.agentCommission}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="representativeTin" *ngIf="firstOption=='3'||(firstOption=='4'&&secondOption=='3'||secondOption=='4')">
-        <th mat-header-cell *matHeaderCellDef> Representative Id</th>
-        <td mat-cell *matCellDef="let element"> {{element.representativeTin}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="representativeCommission" *ngIf="firstOption=='3'||(firstOption=='4'&&secondOption=='3'||secondOption=='4')">
-        <th mat-header-cell *matHeaderCellDef> TRP Commission </th>
-        <td mat-cell *matCellDef="let element"> {{element.representativeCommission}} </td>
+      <ng-container matColumnDef="created_at" *ngIf="firstOption=='2'">
+        <th mat-header-cell *matHeaderCellDef> Time of Submission </th>
+        <td mat-cell *matCellDef="let element"> {{element.created_at | date}} </td>
       </ng-container>
 
 
@@ -269,3 +228,4 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<p class="text-danger text-center" *ngIf="empty && requestSent">No data found</p>

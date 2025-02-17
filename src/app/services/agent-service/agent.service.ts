@@ -10,12 +10,6 @@ import { environmentProd } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class AgentService {
-
-  private urladd : string ='http://localhost:8080/api/agent/add';
-  private urlall : string ='http://localhost:8080/api/agent/all';
-  private urlanagent : string ='http://localhost:8080/api/users/user/';
-  private urlagent: string ='http://localhost:8080/api/agent/';
-  private urlallfront : string ='http://localhost:8080/api/agent/allfront';
   
   private url_base_agent : string = ''
   private url_base_user : string = ''
@@ -25,7 +19,7 @@ export class AgentService {
     private commonServ: CommonService
   ) {
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
-    this.url_base_agent = url + 'api/agent/'
+    this.url_base_agent = url + 'api/v1/itp/'
     this.url_base_user = url + 'api/users/'
   }
 
@@ -51,21 +45,30 @@ export class AgentService {
   }
 
   getAll(): Observable<any[]>{
-    let obj = this.localStorageServc.getStorageItems()
-    if(obj.token!=""&&obj.token!=null){
-      var headers_object = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer "+ JSON.parse(obj.token) 
-      })
 
-      const httpOptions = {
-        headers: headers_object
-      };
-      
-      return this.http.get<any[]>(this.url_base_agent+'all',httpOptions)
-    }else{
-      return this.http.get<any[]>(this.url_base_agent+'all')
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
     }
+
+    return this.http.get<any>(this.url_base_agent+"all",httpOptions)
+    //return this.http.get<any[]>('http://localhost:8080/api/v1/testcontroller/logs',httpOptions)
+
+  }
+
+  getAllSuspended(): Observable<any[]>{
+
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
+    }
+    return this.http.get<any>(this.url_base_agent+"allSuspended",httpOptions)
+  }
+
+  getAllBlocked(): Observable<any[]>{
+
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
+    }
+    return this.http.get<any>(this.url_base_agent+"allBlocked",httpOptions)
   }
 
   getAnAgent(uname: string): Observable<any>{

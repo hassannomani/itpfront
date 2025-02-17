@@ -25,9 +25,6 @@ import { ActionListDeniedComponent } from './action/action-list-denied/action-li
 import { ActionHistoryComponent } from './action/action-history/action-history.component';
 import { ListMetricsComponent } from './metrics/list-metrics/list-metrics.component';
 import { AddMetricsComponent } from './metrics/add-metrics/add-metrics.component';
-import { CommissionComponent } from './commission/commission/commission.component';
-import { CommissionDetailsComponent } from './commission/commission-details/commission-details.component';
-import { CommissionTrpComponent } from './commission/commission-trp/commission-trp.component';
 import { ReportAgentComponent } from './report/report-agent/report-agent.component';
 import { ReportTrpComponent } from './report/report-trp/report-trp.component';
 import { UploadCertificaateComponent } from './certificate/upload-certificaate/upload-certificaate.component';
@@ -72,9 +69,6 @@ const routes: Routes = [
   {path: "action-history", component: ActionHistoryComponent},
   {path: "list-metrics", component: ListMetricsComponent},
   {path: "add-metrics", component: AddMetricsComponent},
-  {path: "commission", component: CommissionComponent},
-  {path: "commission-single", component: CommissionDetailsComponent},
-  {path: "commission-trp", component: CommissionTrpComponent},
   {path: "report-agent", component: ReportAgentComponent},
   {path: "report-trp", component: ReportTrpComponent},
   {path: "upload-certificate", component: UploadCertificaateComponent},

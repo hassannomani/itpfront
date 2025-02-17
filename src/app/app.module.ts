@@ -47,9 +47,6 @@ import { AddMetricsComponent } from './metrics/add-metrics/add-metrics.component
 import { ListMetricsComponent } from './metrics/list-metrics/list-metrics.component';
 import { ConfirmModalComponent } from './layouts/confirm-modal/confirm-modal.component';
 import { DataSavedModalComponent } from './layouts/data-saved-modal/data-saved-modal.component';
-import { CommissionComponent } from './commission/commission/commission.component';
-import { CommissionDetailsComponent } from './commission/commission-details/commission-details.component';
-import { CommissionTrpComponent } from './commission/commission-trp/commission-trp.component';
 import { ReportAgentComponent } from './report/report-agent/report-agent.component';
 import { ReportTrpComponent } from './report/report-trp/report-trp.component';
 import { UploadCertificaateComponent } from './certificate/upload-certificaate/upload-certificaate.component';
@@ -116,9 +113,6 @@ import { AuthInterceptor } from './auth.interceptor';
     ListMetricsComponent,
     ConfirmModalComponent,
     DataSavedModalComponent,
-    CommissionComponent,
-    CommissionDetailsComponent,
-    CommissionTrpComponent,
     ReportAgentComponent,
     ReportTrpComponent,
     UploadCertificaateComponent,

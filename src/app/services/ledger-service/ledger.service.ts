@@ -54,13 +54,6 @@ export class LedgerService {
 
   }
 
-  getRepresentativeLedger(representativeId: string): Observable<any[]>{
-    const httpOptions = {
-      headers: this.commonServ.httpReturner()
-    }
-    return this.http.get<any[]>(this.url_ledgers_common+"itp/"+representativeId,httpOptions)
-
-  }
 
   getAdminLedger(): Observable<any[]>{
     const httpOptions = {
@@ -130,5 +123,17 @@ export class LedgerService {
       headers: this.commonServ.httpReturner()
     }
     return this.http.get<any>(this.url_ledgers_common+"graph/trp/"+tin, httpOptions)
+  }
+
+
+
+  /////////////////////////////////////////////////////////////////
+  
+  getITPLedger(representativeId: string): Observable<any[]>{
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
+    }
+    return this.http.get<any[]>(this.url_ledgers_common+"itp/"+representativeId,httpOptions)
+
   }
 }

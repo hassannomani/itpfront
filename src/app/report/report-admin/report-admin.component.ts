@@ -30,6 +30,7 @@ export class ReportAdminComponent implements OnInit{
   secondOption: string = ""
   loaded: boolean = false
   empty: boolean = true
+  requestSent : boolean = false
   dataArr : any =[]
   displayedColumns: any =[]
   logoBase : string = ""
@@ -37,7 +38,7 @@ export class ReportAdminComponent implements OnInit{
     'type' : new FormControl('',[Validators.required]),
     'subtype' : new FormControl('',[Validators.required]),
     'agusername' : new FormControl('',[Validators.required]),
-    'repusername' : new FormControl('',[Validators.required]),
+    'itpusername' : new FormControl('',[Validators.required]),
     'startDate' : new FormControl('',[Validators.required]),
     'endDate' : new FormControl('',[Validators.required])
   })
@@ -76,36 +77,39 @@ export class ReportAdminComponent implements OnInit{
   reportSubType(value: any){
     this.showCaption = false
     this.secondOption  = value
-    if((value=="2" && this.firstOption=="2")||(this.firstOption=="4"&&value=="2")){
-          this.showThirdD1=true
-      this.showThirdD2=true
-    }else if((value=="3"&&this.firstOption=="1")||(value=="2"&&this.firstOption=="2")){
-      this.showThirdA = false
-      this.showThirdR = false
-      this.showThirdD1=true
-      this.showThirdD2=true
-    }
-    else if((value=="3" && this.firstOption=="3")||(value=="3" && this.firstOption=="4")){
-      this.showThirdR =  true
-      this.showThirdA = false
-      this.showThirdD1=false
-      this.showThirdD2=false
-    }else if((value=="4"||value=="5"||value=="6")&&(this.firstOption=="3"||this.firstOption=="4")){
-      
-      this.showThirdD1=true
-      this.showThirdD2=true
-      if(value=="4"){
-        this.showThirdA=false
+    if(this.firstOption=="2"){
+      if(value=="2"){
         this.showThirdR = false
-      }else if(value=="5"){
-        this.showThirdA=true
-        this.showThirdR = false
-      }else{
-        this.showThirdA=false
-        this.showThirdR = true
+        this.showThirdD1=true
+        this.showThirdD2=true
       }
+      else if (value=="3"){
+        this.showThirdR = true
+        this.showThirdD1=false
+        this.showThirdD2=false
+      }
+    }
+    //  if((value=="3" && this.firstOption=="3")||(value=="3" && this.firstOption=="4")){
+    //   this.showThirdR =  true
+    //   this.showThirdA = false
+    //   this.showThirdD1=false
+    //   this.showThirdD2=false
+    // }else if((value=="4"||value=="5"||value=="6")&&(this.firstOption=="3"||this.firstOption=="4")){
+      
+    //   this.showThirdD1=true
+    //   this.showThirdD2=true
+    //   if(value=="4"){
+    //     this.showThirdA=false
+    //     this.showThirdR = false
+    //   }else if(value=="5"){
+    //     this.showThirdA=true
+    //     this.showThirdR = false
+    //   }else{
+    //     this.showThirdA=false
+    //     this.showThirdR = true
+    //   }
      
-    } 
+    // } 
     else{
       this.showThirdA = false
       this.showThirdR = false
@@ -118,17 +122,31 @@ export class ReportAdminComponent implements OnInit{
   formSubmit(){
    
     this.showCaption = true
-    if(this.firstOption=="1"&&this.secondOption=="1")
-      this.getAllAgents()
+    if(this.firstOption=="1"){
+      if(this.secondOption=="1")
+        this.getAllITPs()
+      else if (this.secondOption=="2")
+        this.getAllSuspendedITP()
 
-    else if(this.firstOption=="1"&&this.secondOption=="2"){
-
-      let thirdVal = this.reportSubmission.value["agusername"]
-      this.getAllRepresentativeOfAnAgent(thirdVal)
+      else if (this.secondOption=="3")
+        this.getAllBlockedITP()
 
     }
-    else if(this.firstOption=="2" && this.secondOption=="1")
-      this.getAllRepresentatives()
+    else if(this.firstOption=="2" ){
+      if(this.secondOption=="1")
+        this.getAllLedgers()
+      else if (this.secondOption=="2"){
+        let thirdVal= this.reportSubmission.value["startDate"]
+        let fourthVal= this.reportSubmission.value["endDate"]
+        this.getAllLedgerRange(thirdVal,fourthVal)
+      }
+      else if (this.secondOption=="3"){
+         let thirdVal= this.reportSubmission.value["itpusername"]
+        // let fourthVal= this.reportSubmission.value["endDate"]
+        this.getAllLedgerITP(thirdVal)
+      }
+
+    }
 
     else if(this.firstOption=="2" && this.secondOption=="2"){
       let thirdVal= this.reportSubmission.value["startDate"]
@@ -137,18 +155,15 @@ export class ReportAdminComponent implements OnInit{
 
     }
 
-    else if(this.firstOption=="3"&&this.secondOption=="1")
-      this.getAllLedgers()
-
     else if(this.firstOption=="3"&&this.secondOption=="2"){
       let thirVal = this.reportSubmission.value["agusername"]
       this.getAllLedgerAgent(thirVal)
     }
     
-    else if (this.firstOption=="3"&&this.secondOption=="3"){
-      let thirVal = this.reportSubmission.value["repusername"]
-      this.getAllLedgerRepresentative(thirVal)
-    } 
+    // else if (this.firstOption=="3"&&this.secondOption=="3"){
+    //   let thirVal = this.reportSubmission.value["repusername"]
+    //   this.getAllLedgerRepresentative(thirVal)
+    // } 
     
     else if(this.firstOption=="3"&&(this.secondOption=="4"||this.secondOption=="5"||this.secondOption=="6")){
       let thirdVal= this.reportSubmission.value["startDate"]
@@ -159,10 +174,10 @@ export class ReportAdminComponent implements OnInit{
         let fifthVal = this.reportSubmission.value["agusername"]
         this.getagentLedgerRange(thirdVal,fourthVal,fifthVal)
       }
-      else if(this.secondOption=="6"){
-        let fifthVal = this.reportSubmission.value["repusername"]
-        this.getrepresentativeLedgerRange(thirdVal,fourthVal,fifthVal)
-      }
+      // else if(this.secondOption=="6"){
+      //   let fifthVal = this.reportSubmission.value["repusername"]
+      //   this.getrepresentativeLedgerRange(thirdVal,fourthVal,fifthVal)
+      // }
        
     }
     else if(this.firstOption=="4"){
@@ -171,10 +186,11 @@ export class ReportAdminComponent implements OnInit{
       }else if(this.secondOption=="2"){
         let thirVal = this.reportSubmission.value["agusername"]
         this.getAgentCommission(thirVal);
-      }else if(this.secondOption=="3"){
-        let thirdVal = this.reportSubmission.value["repusername"]
-        this.getTRPCommission(thirdVal);
       }
+      // else if(this.secondOption=="3"){
+      //   let thirdVal = this.reportSubmission.value["repusername"]
+      //   this.getTRPCommission(thirdVal);
+      // }
       else if(this.secondOption=="4"){
         let thirdVal= this.reportSubmission.value["startDate"]
         let fourthVal= this.reportSubmission.value["endDate"]
@@ -186,26 +202,14 @@ export class ReportAdminComponent implements OnInit{
       }else if(this.secondOption=="2"){
         let thirVal = this.reportSubmission.value["agusername"]
         this.getAgentBills(thirVal);
-      }else if(this.secondOption=="3"){
-        let thirdVal = this.reportSubmission.value["repusername"]
-        this.getTRPBills(thirdVal);
       }
+      // else if(this.secondOption=="3"){
+      //   let thirdVal = this.reportSubmission.value["repusername"]
+      //   this.getTRPBills(thirdVal);
+      // }
     }
   }
 
-  getAllAgents(){
-    this.agentService.getAll()
-    .subscribe({
-      next: (data) => {
-        let col = [ 'name','tin','phone','registration_no','contact_email']
-        this.positiveResponse(data, col)
-      },
-      error: (e) => {
-        this.loaded = false;
-        console.log("Error retrieving")
-      }
-    });
-  }
 
   getAllRepresentativeOfAnAgent(val: any){
    
@@ -226,35 +230,8 @@ export class ReportAdminComponent implements OnInit{
     })
   }
 
-  getAllLedgers(){
-    this.adminService.getAdminLedger().subscribe({
-      next: (data) => {
-        let col = ['taxpayerId','created_at','paidAmount','paymentMethod','assessmentYear','agentTin','representativeId']     
-         this.positiveResponse(data, col)
-      },
-      error: (e) => {
-        this.loaded = false
-      }
-    })
-  }
 
-  getAllLedgerRepresentative(representative: any){
-   
-    this.getAllLedgerRepresentativeSecStep(representative)
-       
-  }
-
-  getAllLedgerRange(startDate: any, endDate: any){
-    this.ledgerService.getAllRangeLedger(startDate,endDate).subscribe({
-      next: (data) => {
-        let col = ['taxpayerId','created_at','paidAmount','paymentMethod','assessmentYear','agentTin','representativeId']
-        this.positiveResponse(data, col)
-      },
-      error: (e) => {
-        this.loaded = false;
-      }  
-    })
-  }
+ 
 
   getagentLedgerRange(startDate: any, endDate: any, agentId: any){
     this.ledgerService.getAgentRangeLedger(startDate,endDate,agentId).subscribe({
@@ -302,18 +279,7 @@ export class ReportAdminComponent implements OnInit{
       }
     })
   }
-  getAllLedgerRepresentativeSecStep(repId:any){
-    this.ledgerService.getRepresentativeLedger(repId).subscribe({
-      next: (data) => {
-        let col = ['taxpayerId','created_at','paidAmount','paymentMethod','assessmentYear','agentTin','representativeTin']
-        this.positiveResponse(data,col)
-      },
-      error: (e) => {
-        this.loaded = false
-      }
-    
-    })
-  }
+ 
 
   getAllCommissions(){
     this.commissionServ.getCommissionAll().subscribe({
@@ -460,11 +426,100 @@ export class ReportAdminComponent implements OnInit{
       this.dataArr = data
       this.loaded  = true
       this.displayedColumns = arr
+      this.empty = false
+
     } 
     else{
       this.dataArr = []
+      this.requestSent = true
       this.empty = true
     }
+  }
+
+
+  ///////////////////////////////////////////////////////////////////
+
+  
+  getAllITPs(){
+    this.agentService.getAll()
+    .subscribe({
+      next: (data) => {
+         let col = [ 'serial','itpName','tinNo','itpMobileNo','licNo']
+         this.positiveResponse(data, col)
+       
+      },
+      error: (e) => {
+        this.loaded = false;
+        console.log("Error retrieving")
+      }
+    });
+  }
+
+  getAllSuspendedITP(){
+    this.agentService.getAllSuspended()
+    .subscribe({
+      next: (data) => {
+         let col = [ 'serial','itpName','tinNo','itpMobileNo','licNo']
+         this.positiveResponse(data, col)
+       
+      },
+      error: (e) => {
+        this.loaded = false;
+        console.log("Error retrieving")
+      }
+    });
+  }
+
+  getAllBlockedITP(){
+    this.agentService.getAllSuspended()
+    .subscribe({
+      next: (data) => {
+         let col = [ 'serial','itpName','tinNo','itpMobileNo','licNo']
+         this.positiveResponse(data, col)
+       
+      },
+      error: (e) => {
+        this.loaded = false;
+        console.log("Error retrieving")
+      }
+    });
+  }
+
+  getAllLedgerRange(startDate: any, endDate: any){
+    this.ledgerService.getAllRangeLedger(startDate,endDate).subscribe({
+      next: (data) => {
+        let col = ['serial','taxpayerId','taxpayerName','paidAmount','assessmentYear','itpTin','created_at']     
+        this.positiveResponse(data, col)
+      },
+      error: (e) => {
+        this.loaded = false;
+      }  
+    })
+  }
+
+  getAllLedgers(){
+    this.adminService.getAdminLedger().subscribe({
+      next: (data) => {
+        let col = ['serial','taxpayerId','taxpayerName','paidAmount','assessmentYear','itpTin','created_at']     
+         this.positiveResponse(data, col)
+      },
+      error: (e) => {
+        this.loaded = false
+      }
+    })
+  }
+
+  getAllLedgerITP(repId:any){
+    this.ledgerService.getITPLedger(repId).subscribe({
+      next: (data) => {
+        let col = ['serial','taxpayerId','taxpayerName','paidAmount','assessmentYear','itpTin','created_at']     
+        this.positiveResponse(data,col)
+      },
+      error: (e) => {
+        this.loaded = false
+      }
+    
+    })
   }
 
 }

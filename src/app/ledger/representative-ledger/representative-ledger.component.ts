@@ -27,7 +27,7 @@ export class RepresentativeLedgerComponent implements OnInit{
 
   ngOnInit(): void {
     this.localStore = this.localStorage.getStorageItems()    
-    this.ledgerService.getRepresentativeLedger(JSON.parse(this.localStore.username)).subscribe({
+    this.ledgerService.getITPLedger(JSON.parse(this.localStore.username)).subscribe({
       next: (data) => {
         if(data.length)
           this.representativeLedger = data
