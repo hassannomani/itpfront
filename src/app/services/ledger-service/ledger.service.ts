@@ -11,19 +11,6 @@ import { environmentProd } from 'src/environments/environment.prod';
 })
 export class LedgerService {
 
-  private urlagentledger: string ='http://localhost:8080/api/ledgers/agent/';
-  private urlrepledger: string ='http://localhost:8080/api/ledgers/representative/';
-  private urladmledger: string ='http://localhost:8080/api/ledgers/admin';
-  private urlallrangeledger: string ='http://localhost:8080/api/ledgers/range';
-  private urlallreprangeledger: string ='http://localhost:8080/api/ledgers/range-representative/';
-  private urlallagrangeledger: string ='http://localhost:8080/api/ledgers/range-agent/';
-  private urlsingleledger: string ='http://localhost:8080/api/ledgers/';
-  private urldashboardgraph: string ='http://localhost:8080/api/ledgers/graph/trp';
-  private urlagdashboardgraph: string ='http://localhost:8080/api/ledgers/graph/agent/';
-  private urlagentcommisionview: string ='http://localhost:8080/api/ledgers/agent/commission/';
-  private representativeGet: string = 'http://localhost:8080/api/respresentative/'
-  private urlagentGet: string ='http://localhost:8080/api/agent/';
-
   private url_ledgers_common : any = ""
   private url_ledgers_trp : any = ""
   private url_ledgers_agent : any = ""
@@ -71,16 +58,16 @@ export class LedgerService {
     return this.http.get<any[]>(this.url_ledgers_common+"range/"+start+"/"+end, httpOptions)
   }
 
-  getRepresentativeRangeLedger(start: string,  end: string, repId: string){
+  getITPRangeLedger(start: string,  end: string, repId: string){
     const httpOptions = {
       headers: this.commonServ.httpReturner()
     }
 
-    return this
-      .http.get<any>(this.url_ledgers_trp+repId, httpOptions)
-      .pipe(
-        switchMap(representative=>this.http.get(this.url_ledgers_common+"range-representative/"+representative.userid+"/"+start+"/"+end, httpOptions))
-      )
+    return this.http.get(this.url_ledgers_common+"range-itp/"+repId+"/"+start+"/"+end, httpOptions)
+      // .http.get<any>(this.url_ledgers_trp+repId, httpOptions)
+      // .pipe(
+      //   switchMap(representative=>this.http.get(this.url_ledgers_common+"range-itp/"+representative.userid+"/"+start+"/"+end, httpOptions))
+      // )
     
   }
 

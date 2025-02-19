@@ -10,6 +10,7 @@ import { LedgerService } from 'src/app/services/ledger-service/ledger.service';
 import { CommissionService } from 'src/app/services/commission-service/commission.service';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { LogsService } from 'src/app/services/log-service/logs.service';
 @Component({
   selector: 'app-report-admin',
   templateUrl: './report-admin.component.html',
@@ -50,7 +51,7 @@ export class ReportAdminComponent implements OnInit{
     private titleService:Title,
     private adminService: AdminService,
     private commissionServ: CommissionService,
-    private billServ: BillingService
+    private logServ: LogsService
   ){
     this.titleService.setTitle("Report");
   }
@@ -72,6 +73,17 @@ export class ReportAdminComponent implements OnInit{
         {"id":"3", "value":"List of Ledgers of a ITP"},
         {"id":"4","value":"List of Ledgers of a ITP within range"}
       ]
+    else if (value==3)
+      this.dataSecondary = [
+        {"id":"1","value":"List of Logs Today"},
+        {"id":"2","value":"List of Logs within range"},
+        {"id":"3","value":"List of Log In Today"},
+        {"id":"4", "value": "List of Log In within Range"},
+        {"id":"5", "value":"List of Token Error Today"},
+        {"id":"6","value":"List of Token Error within Range"},
+        {"id":"7","value":"List of Unauthorized Access Attempt Today"},
+        {"id":"8","value":"List of Unauthorized Access Attempt within range "}
+      ]
 
   }
   reportSubType(value: any){
@@ -87,29 +99,21 @@ export class ReportAdminComponent implements OnInit{
         this.showThirdR = true
         this.showThirdD1=false
         this.showThirdD2=false
+      } else if (value=="4"){
+        this.showThirdR = true
+        this.showThirdD1=true
+        this.showThirdD2=true
+      }
+    } else if (this.firstOption=="3"){
+      if(value=="2"||value=="4"||value=="6"||value=="8"){
+        this.showThirdD1=true
+        this.showThirdD2=true
+        this.showThirdR = false
+      }else{
+        this.showThirdD1=false
+        this.showThirdD2=false
       }
     }
-    //  if((value=="3" && this.firstOption=="3")||(value=="3" && this.firstOption=="4")){
-    //   this.showThirdR =  true
-    //   this.showThirdA = false
-    //   this.showThirdD1=false
-    //   this.showThirdD2=false
-    // }else if((value=="4"||value=="5"||value=="6")&&(this.firstOption=="3"||this.firstOption=="4")){
-      
-    //   this.showThirdD1=true
-    //   this.showThirdD2=true
-    //   if(value=="4"){
-    //     this.showThirdA=false
-    //     this.showThirdR = false
-    //   }else if(value=="5"){
-    //     this.showThirdA=true
-    //     this.showThirdR = false
-    //   }else{
-    //     this.showThirdA=false
-    //     this.showThirdR = true
-    //   }
-     
-    // } 
     else{
       this.showThirdA = false
       this.showThirdR = false
@@ -145,78 +149,80 @@ export class ReportAdminComponent implements OnInit{
         // let fourthVal= this.reportSubmission.value["endDate"]
         this.getAllLedgerITP(thirdVal)
       }
+      else if (this.secondOption=="4"){
+        let thirdVal= this.reportSubmission.value["startDate"]
+        let fourthVal= this.reportSubmission.value["endDate"]
+        let fifthVal= this.reportSubmission.value["itpusername"]
+
+       // let fourthVal= this.reportSubmission.value["endDate"]
+       this.getITPLedgerRange(thirdVal,fourthVal,fifthVal)
+     }
 
     }
-
-    else if(this.firstOption=="2" && this.secondOption=="2"){
-      let thirdVal= this.reportSubmission.value["startDate"]
-      let fourthVal= this.reportSubmission.value["endDate"]
-      this.getAllRepresentativesWithDate(thirdVal,fourthVal)
+    else if(this.firstOption=="3"){
+      if(this.secondOption=="1")
+        this.getTodaysLog()
 
     }
+    // else if(this.firstOption=="2" && this.secondOption=="2"){
+    //   let thirdVal= this.reportSubmission.value["startDate"]
+    //   let fourthVal= this.reportSubmission.value["endDate"]
+    //   this.getAllRepresentativesWithDate(thirdVal,fourthVal)
 
-    else if(this.firstOption=="3"&&this.secondOption=="2"){
-      let thirVal = this.reportSubmission.value["agusername"]
-      this.getAllLedgerAgent(thirVal)
-    }
+    // }
     
     // else if (this.firstOption=="3"&&this.secondOption=="3"){
     //   let thirVal = this.reportSubmission.value["repusername"]
     //   this.getAllLedgerRepresentative(thirVal)
     // } 
     
-    else if(this.firstOption=="3"&&(this.secondOption=="4"||this.secondOption=="5"||this.secondOption=="6")){
-      let thirdVal= this.reportSubmission.value["startDate"]
-      let fourthVal= this.reportSubmission.value["endDate"]
-      if(this.secondOption=="4")
-        this.getAllLedgerRange(thirdVal,fourthVal)
-      else if(this.secondOption=="5"){
-        let fifthVal = this.reportSubmission.value["agusername"]
-        this.getagentLedgerRange(thirdVal,fourthVal,fifthVal)
-      }
-      // else if(this.secondOption=="6"){
-      //   let fifthVal = this.reportSubmission.value["repusername"]
-      //   this.getrepresentativeLedgerRange(thirdVal,fourthVal,fifthVal)
-      // }
+    // else if(this.firstOption=="3"&&(this.secondOption=="4"||this.secondOption=="5"||this.secondOption=="6")){
+    //   let thirdVal= this.reportSubmission.value["startDate"]
+    //   let fourthVal= this.reportSubmission.value["endDate"]
+    //   if(this.secondOption=="4")
+    //     this.getAllLedgerRange(thirdVal,fourthVal)
+    //   else if(this.secondOption=="5"){
+    //     let fifthVal = this.reportSubmission.value["agusername"]
+    //     this.getagentLedgerRange(thirdVal,fourthVal,fifthVal)
+    //   }
+    //   // else if(this.secondOption=="6"){
+    //   //   let fifthVal = this.reportSubmission.value["repusername"]
+    //   //   this.getrepresentativeLedgerRange(thirdVal,fourthVal,fifthVal)
+    //   // }
        
-    }
-    else if(this.firstOption=="4"){
-      if(this.secondOption=="1"){
-        this.getAllCommissions()
-      }else if(this.secondOption=="2"){
-        let thirVal = this.reportSubmission.value["agusername"]
-        this.getAgentCommission(thirVal);
-      }
+    // }
+    // else if(this.firstOption=="4"){
+    //   if(this.secondOption=="1"){
+    //     this.getAllCommissions()
+    //   }else if(this.secondOption=="2"){
+    //     let thirVal = this.reportSubmission.value["agusername"]
+    //     this.getAgentCommission(thirVal);
+    //   }
       // else if(this.secondOption=="3"){
       //   let thirdVal = this.reportSubmission.value["repusername"]
       //   this.getTRPCommission(thirdVal);
       // }
-      else if(this.secondOption=="4"){
-        let thirdVal= this.reportSubmission.value["startDate"]
-        let fourthVal= this.reportSubmission.value["endDate"]
-        this.getRangeCommission(thirdVal, fourthVal);
-      }
-    }else if(this.firstOption=="5"){
-      if(this.secondOption=="1"){
-        this.getAllBills()
-      }else if(this.secondOption=="2"){
-        let thirVal = this.reportSubmission.value["agusername"]
-        this.getAgentBills(thirVal);
-      }
+    //   else if(this.secondOption=="4"){
+    //     let thirdVal= this.reportSubmission.value["startDate"]
+    //     let fourthVal= this.reportSubmission.value["endDate"]
+    //     this.getRangeCommission(thirdVal, fourthVal);
+    //   }
+    // }else if(this.firstOption=="5"){
+    //   if(this.secondOption=="1"){
+    //     this.getAllBills()
+    //   }else if(this.secondOption=="2"){
+    //     let thirVal = this.reportSubmission.value["agusername"]
+    //     this.getAgentBills(thirVal);
+    //   }
       // else if(this.secondOption=="3"){
       //   let thirdVal = this.reportSubmission.value["repusername"]
       //   this.getTRPBills(thirdVal);
       // }
-    }
+    
   }
 
 
-  getAllRepresentativeOfAnAgent(val: any){
-   
-    this.getAllRepresentativeOfAnAgentSecStep(val)
 
-      
-  }
 
   getAllRepresentatives(){
     this.representativeService.getAllRepresentatives().subscribe({
@@ -231,31 +237,17 @@ export class ReportAdminComponent implements OnInit{
   }
 
 
- 
-
-  getagentLedgerRange(startDate: any, endDate: any, agentId: any){
-    this.ledgerService.getAgentRangeLedger(startDate,endDate,agentId).subscribe({
-      next: (data) => {
-        let col = ['taxpayerId','created_at','paidAmount','paymentMethod','assessmentYear','agentTin','representativeId']
-        this.positiveResponse(data, col) 
-      },
-      error: (e) => {
-        this.loaded = false
-      }
-    })
-  }
-
-  getrepresentativeLedgerRange(startDate: any, endDate: any, representativeId: any){
-    this.ledgerService.getRepresentativeRangeLedger(startDate,endDate,representativeId).subscribe({
-      next: (data) => {
-        let col = ['taxpayerId','created_at','paidAmount','paymentMethod','assessmentYear','agentTin','representativeId']
-        this.positiveResponse(data, col) 
-      },
-      error: (e) => {
-        this.loaded = false
-      }
-    })
-  }
+  // getrepresentativeLedgerRange(startDate: any, endDate: any, representativeId: any){
+  //   this.ledgerService.getRepresentativeRangeLedger(startDate,endDate,representativeId).subscribe({
+  //     next: (data) => {
+  //       let col = ['taxpayerId','created_at','paidAmount','paymentMethod','assessmentYear','agentTin','representativeId']
+  //       this.positiveResponse(data, col) 
+  //     },
+  //     error: (e) => {
+  //       this.loaded = false
+  //     }
+  //   })
+  // }
 
   getAllRepresentativeOfAnAgentSecStep(val: any){
     this.representativeService.getRepresentativeUnderAnAgent(val).subscribe({
@@ -330,48 +322,7 @@ export class ReportAdminComponent implements OnInit{
     })
   }
 
-  getAllRepresentativesWithDate(startDate: any, endDate: any){
-    // this.representativeService.getAllRepresentativesInRange(startDate,endDate).subscribe({
-
-    // })
-  }
-
-  getAllBills(){
-    this.billServ.approvedBills().subscribe({
-      next: (data) => {
-        let col = ['taxpayer_id','taxpayer_name','payee_type','payee','name','commission']     
-         this.positiveResponse(data, col)
-      },
-      error: (e) => {
-        this.loaded = false
-      }
-    })
-  }
-
-  getTRPBills(tin: any){
-    this.billServ.getTRPApproved(tin).subscribe({
-      next: (data) => {
-        let col = ['taxpayer_id','taxpayer_name','payee_type','payee','name','commission']     
-         this.positiveResponse(data, col)
-      },
-      error: (e) => {
-        this.loaded = false
-      }
-    })
-  }
-
-  
-  getAgentBills(tin: any){
-    this.billServ.getAgentApproved(tin).subscribe({
-      next: (data) => {
-        let col = ['taxpayer_id','taxpayer_name','payee_type','payee','name','commission']     
-         this.positiveResponse(data, col)
-      },
-      error: (e) => {
-        this.loaded = false
-      }
-    })
-  }
+ 
 
   open(){
     var logobase = ""
@@ -519,6 +470,32 @@ export class ReportAdminComponent implements OnInit{
         this.loaded = false
       }
     
+    })
+  }
+
+  
+
+  getITPLedgerRange(startDate: any, endDate: any, agentId: any){
+    this.ledgerService.getITPRangeLedger(startDate,endDate,agentId).subscribe({
+      next: (data) => {
+        let col = ['serial','taxpayerId','taxpayerName','paidAmount','assessmentYear','itpTin','created_at']     
+        this.positiveResponse(data, col) 
+      },
+      error: (e) => {
+        this.loaded = false
+      }
+    })
+  }
+
+  getTodaysLog(){
+    this.logServ.getTodaysLog().subscribe({
+      next: (data) => {
+        let col = ['serial','event_type','timestamp','message']     
+        this.positiveResponse(data, col) 
+      },
+      error: (e) => {
+        this.loaded = false
+      }
     })
   }
 
