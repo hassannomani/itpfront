@@ -82,7 +82,9 @@ export class ReportAdminComponent implements OnInit{
         {"id":"5", "value":"List of Token Error Today"},
         {"id":"6","value":"List of Token Error within Range"},
         {"id":"7","value":"List of Unauthorized Access Attempt Today"},
-        {"id":"8","value":"List of Unauthorized Access Attempt within range "}
+        {"id":"8","value":"List of Unauthorized Access Attempt within range "},
+        {"id":"9","value":"List of Log In Error Today"},
+        {"id":"10","value":"List of Log In Error Today within range"}
       ]
 
   }

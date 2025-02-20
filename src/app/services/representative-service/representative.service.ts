@@ -26,7 +26,7 @@ export class RepresentativeService {
     private commonService: CommonService,
   ) {
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
-    this.url_trp = url + "api/v1/representative/"
+    this.url_trp = url + "api/v1/itp/"
     this.url_ereturn = url + "api/trpereturn"
   }
 
