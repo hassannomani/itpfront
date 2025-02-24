@@ -107,6 +107,11 @@ export class LocalStorageService {
     localStorage.removeItem("un_mobile")
     localStorage.removeItem("un_tinData")
   }
+  isAdmin(){
+    let obj = this.getStorageItems()
+    console.log(obj["role"])
+    return obj["role"]?JSON.parse(obj["role"])=="ROLE_ADMIN":false
+  }
 
 }
 

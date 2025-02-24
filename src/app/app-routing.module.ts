@@ -42,6 +42,7 @@ import { AgentChangeTRPComponent } from './trp-agent-transfer/agent/agent.compon
 import { AdminTransferPendingAgentReqComponent } from './trp-agent-transfer/admin-agent/admin-agent.component';
 import { PreviousTrpComponent } from './history/previous-trp/previous-trp.component';
 import { PreviousAgentComponent } from './history/previous-agent/previous-agent.component';
+import { AdminAuthGuard } from './admin-auth.guard';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
@@ -71,7 +72,7 @@ const routes: Routes = [
   {path: "add-metrics", component: AddMetricsComponent},
   {path: "report-agent", component: ReportAgentComponent},
   {path: "report-trp", component: ReportTrpComponent},
-  {path: "upload-certificate", component: UploadCertificaateComponent},
+  {path: "upload-certificate", component: UploadCertificaateComponent,canActivate: [AdminAuthGuard]},
   {path: "list-certificate", component: ListCertificateComponent},
   {path: "file-tax", component: FileTaxComponent},
   {path: "register", component: RegisterComponent},
