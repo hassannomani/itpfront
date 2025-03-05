@@ -11,12 +11,17 @@ import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-s
 import {MatDialog} from '@angular/material/dialog';
 import { CertificateService } from 'src/app/services/certificate-service/certificate.service';
 import * as XLSX from 'xlsx';
+import { MaterialExampleModule } from 'src/material.module';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent } from 'src/app/uitools/button/button.component';
 
 /* load the codepage support library for extended support with older formats  */
 @Component({
   selector: 'app-upload-certificaate',
   templateUrl: './upload-certificaate.component.html',
-  styleUrls: ['./upload-certificaate.component.css']
+  styleUrls: ['./upload-certificaate.component.css'],
+  imports: [MaterialExampleModule,CommonModule,ButtonComponent ],
+  standalone: true
 })
 export class UploadCertificaateComponent {
   file!: File;

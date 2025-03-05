@@ -7,11 +7,14 @@ import {MatDialog} from '@angular/material/dialog';
 import { CertificateService } from 'src/app/services/certificate-service/certificate.service';
 import { ConfirmDialogModel } from 'src/app/layouts/confirm-modal/confirm-modal.component';
 import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-saved-modal.component';
+import { MaterialExampleModule } from 'src/material.module';
 
 @Component({
   selector: 'app-list-certificate',
   templateUrl: './list-certificate.component.html',
-  styleUrls: ['./list-certificate.component.css']
+  styleUrls: ['./list-certificate.component.css'],
+  imports: [MaterialExampleModule ],
+  standalone: true
 })
 export class ListCertificateComponent implements OnInit{
   modalTitle: string = ""

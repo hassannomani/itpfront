@@ -19,10 +19,10 @@
             {{messageReceived.message}}
         </p>
         <p class="text" *ngIf="messageReceived.actionType=='SUSPEND'">Suspension time: From {{messageReceived.actionFrom | date: 'short'}} To {{messageReceived.actionTo | date: 'short'}}</p>
-        <app-button *ngIf="messageReceived.attachment!=null&&messageReceived.attachment!=''"
-        [label]="buttonLabel"
-        [color]="buttonColor" 
-        [type]="buttonType"
-        (click)="openPdf()"></app-button>
+        <app-ns-button *ngIf="messageReceived.attachment!=null&&messageReceived.attachment!=''"
+        [ns_label]="buttonLabel"
+        [ns_color]="buttonColor" 
+        [ns_type]="buttonType"
+        (click)="openPdf()"></app-ns-button>
     </div>
 </div>

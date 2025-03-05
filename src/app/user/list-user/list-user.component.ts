@@ -2,12 +2,18 @@ import { Component, OnInit  } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { Router } from '@angular/router';
 import {Title} from "@angular/platform-browser";
+import { MaterialExampleModule } from 'src/material.module';
+import { NsButtonComponent } from 'src/app/uitools/ns-button/ns-button.component';
+import { ButtonComponent } from 'src/app/uitools/button/button.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-list-user',
   templateUrl: './list-user.component.html',
-  styleUrls: ['./list-user.component.css']
+  styleUrls: ['./list-user.component.css'],
+  imports: [MaterialExampleModule, ButtonComponent, CommonModule ],
+  standalone: true
 })
 export class ListUserComponent implements OnInit{
   agentsArr: any = []

@@ -44,24 +44,24 @@
       <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> Action</th>
     <td mat-cell *matCellDef="let element; let i=index;"> 
-        <app-button
-            [label]="buttonLabel"
-            [color]="buttonColor" 
-            [type]="buttonType"
+        <app-ns-button
+            [ns_label]="buttonLabel"
+            [ns_color]="buttonColor" 
+            [ns_type]="buttonType"
             (click)="details(element.tin_no, i)">
-        </app-button>
-        <app-button
-            [label]="buttonLabel1"
-            [color]="buttonColor1" 
-            [type]="buttonType1"
+        </app-ns-button>
+        <app-ns-button
+            [ns_label]="buttonLabel1"
+            [ns_color]="buttonColor1" 
+            [ns_type]="buttonType1"
             (click)="approve(element.tin_no,i)">
-        </app-button>
-        <app-button
-            [label]="buttonLabel2"
-            [color]="buttonColor2" 
-            [type]="buttonType2"
+        </app-ns-button>
+        <app-ns-button
+            [ns_label]="buttonLabel2"
+            [ns_color]="buttonColor2" 
+            [ns_type]="buttonType2"
             (click)="reject(element.tin_no,i)">
-        </app-button>
+        </app-ns-button>
     </td>
 
         

@@ -1,11 +1,11 @@
 <h2 class="title">Action</h2>
-<app-button style="float: left;"
-[label]="buttonLabelBack"
-[color]="buttonColorBack" 
-[type]="buttonTypeBack"
+<app-ns-button style="float: left;"
+[ns_label]="buttonLabelBack"
+[ns_color]="buttonColorBack" 
+[ns_type]="buttonTypeBack"
 (click)="back()"
 >
-</app-button>
+</app-ns-button>
 <form class="example-form" [formGroup]="addAction" #formDir="ngForm" (ngSubmit)="actionSubmit()">
     <table class="example-full-width" cellspacing="0">
         <tr>
@@ -76,13 +76,13 @@
 
                 <input (change)="selectFile($event)" #fileInput type="file" id="file">
 
-                <app-button
-                    [label]="buttonLabel2"
-                    [color]="buttonColor2" 
-                    [type]="buttonType2"
+                <app-ns-button
+                    [ns_label]="buttonLabel2"
+                    [ns_color]="buttonColor2" 
+                    [ns_type]="buttonType2"
                     (click)="uploadFile()"
                     >
-                </app-button>
+                </app-ns-button>
                 <p class="success" *ngIf="uploaded">File Uploaded Successfully</p>
                 <p style="color: red;" *ngIf="uploadFailed">File Uploaded Failed</p>
             </td>
@@ -96,13 +96,13 @@
         <tr class="clear:both;">
             
             <td>  
-                <app-button
-                    [label]="buttonLabel"
-                    [color]="buttonColor" 
-                    [type]="buttonType"
+                <app-ns-button
+                    [ns_label]="buttonLabel"
+                    [ns_color]="buttonColor" 
+                    [ns_type]="buttonType"
                     (click)="actionSubmit()"
                     >
-                </app-button>
+                </app-ns-button>
             </td>
         </tr>
     </table>

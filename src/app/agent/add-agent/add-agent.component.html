@@ -82,27 +82,27 @@
                         <br>
                         <input (change)="selectFile($event)" #fileInput type="file" id="file">
     
-                        <app-button
-                            [label]="buttonLabelPh"
-                            [color]="buttonColorPh" 
-                            [type]="buttonTypePh"
+                        <app-ns-button
+                            [ns_label]="buttonLabelPh"
+                            [ns_color]="buttonColorPh" 
+                            [ns_type]="buttonTypePh"
                             (click)="uploadFile()"
                             >
-                        </app-button>
+                        </app-ns-button>
                         <p class="success" *ngIf="fileUploaded">Photo Uploaded Successfully</p>
                     </div>
                     </td>
                 </tr>
             
                 <tr>
-                    <app-button
-                        [label]="buttonLabel1"
-                        [color]="buttonColor1" 
-                        [type]="buttonType1"
-                        [disabled]="enable1"
+                    <app-ns-button
+                        [ns_label]="buttonLabel1"
+                        [ns_color]="buttonColor1" 
+                        [ns_type]="buttonType1"
+                        [ns_disabled]="enable1"
                         (click)="step1()"
                         >
-                    </app-button>
+                    </app-ns-button>
 
                 </tr>
             </table>
@@ -433,14 +433,14 @@
                 </tr>
 
                 <tr>
-                    <app-button
-                        [label]="buttonLabel1"
-                        [color]="buttonColor1" 
-                        [type]="buttonType1"
-                        [disabled]="enable2"
+                    <app-ns-button
+                        [ns_label]="buttonLabel1"
+                        [ns_color]="buttonColor1" 
+                        [ns_type]="buttonType1"
+                        [ns_disabled]="enable2"
                         (click)="step2()"
                         >
-                    </app-button>
+                    </app-ns-button>
 
                 </tr>
             </table>
@@ -512,14 +512,14 @@
                     <p style="color: red;" *ngIf="bankfailed">Error saving bank Information</p>
                 </tr>
                 <tr>
-                    <app-button
-                        [label]="buttonLabel1"
-                        [color]="buttonColor1" 
-                        [type]="buttonType1"
-                        [disabled]="enable3"
+                    <app-ns-button
+                        [ns_label]="buttonLabel1"
+                        [ns_color]="buttonColor1" 
+                        [ns_type]="buttonType1"
+                        [ns_disabled]="enable3"
                         (click)="step3()"
                         >
-                    </app-button>
+                    </app-ns-button>
                 </tr>
             
             </table>
@@ -560,13 +560,13 @@
                 <tr class="clear:both;">
                 
                     <td>  
-                        <app-button
-                            [label]="buttonLabel"
-                            [color]="buttonColor" 
-                            [type]="buttonType"
+                        <app-ns-button
+                            [ns_label]="buttonLabel"
+                            [ns_color]="buttonColor" 
+                            [ns_type]="buttonType"
                             (click)="agentSubmit()"
                             >
-                        </app-button>
+                        </app-ns-button>
                     </td>
                 </tr>
             </table>

@@ -73,14 +73,14 @@
                     <p style="color:green;" *ngIf="addedSuccess">User Created Successfully!</p>
                     <p style="color:red;" *ngIf="tinnotFound">TIN not found!</p>
                 </tr>
-                <tr><app-button
-                    [label]="buttonLabel1"
-                    [color]="buttonColor1" 
-                    [type]="buttonType1"
+                <tr><app-ns-button
+                    [ns_label]="buttonLabel1"
+                    [ns_color]="buttonColor1" 
+                    [ns_type]="buttonType1"
                     (click)="registerUser()"
-                    [disabled]="addedSuccess"
+                    [ns_disabled]="addedSuccess"
                     >
-                </app-button></tr>
+                </app-ns-button></tr>
             
             </table>
         </form>
@@ -212,13 +212,13 @@
                     <br>
                     <input (change)="selectFile($event)" #fileInput type="file" id="file">
 
-                    <app-button
-                        [label]="buttonLabel3"
-                        [color]="buttonColor3" 
-                        [type]="buttonType3"
+                    <app-ns-button
+                        [ns_label]="buttonLabel3"
+                        [ns_color]="buttonColor3" 
+                        [ns_type]="buttonType3"
                         (click)="uploadFile()"
                         >
-                    </app-button>
+                    </app-ns-button>
                     <p class="success" *ngIf="fileUploaded">File Uploaded Successfully</p>
                 </div>
                 </td>
@@ -229,26 +229,26 @@
                     <br>
                     <input (change)="selectPhoto($event)" #fileInput type="file" id="photo">
 
-                    <app-button
-                        [label]="buttonLabel4"
-                        [color]="buttonColor4" 
-                        [type]="buttonType4"
+                    <app-ns-button
+                        [ns_label]="buttonLabel4"
+                        [ns_color]="buttonColor4" 
+                        [ns_type]="buttonType4"
                         (click)="uploadPhoto()"
                         >
-                    </app-button>
+                    </app-ns-button>
                     <p class="success" *ngIf="photoUploaded">Photo Uploaded Successfully</p>
                 </div>
                 </td>
                
             </tr>
-            <tr><app-button
-                [label]="buttonLabel2"
-                [color]="buttonColor2" 
-                [type]="buttonType2"
-                [disabled]="step1Success"
+            <tr><app-ns-button
+                [ns_label]="buttonLabel2"
+                [ns_color]="buttonColor2" 
+                [ns_type]="buttonType2"
+                [ns_disabled]="step1Success"
                 (click)="step1()"
                 >
-            </app-button></tr>
+            </app-ns-button></tr>
         </table>
     </mat-tab>
 
@@ -570,14 +570,14 @@
                 [disabled]="step2Success"
                 >
             </app-button> -->
-                <app-button
-                        [label]="buttonLabel"
-                        [color]="buttonColor" 
-                        [type]="buttonType"
-                        [disabled]="disabledtrue"
+                <app-ns-button
+                        [ns_label]="buttonLabel"
+                        [ns_color]="buttonColor" 
+                        [ns_type]="buttonType"
+                        [ns_disabled]="disabledtrue"
                         (click)="representativeSave()"
                         >
-                </app-button>
+                </app-ns-button>
         </tr>
         </table>
     </mat-tab>

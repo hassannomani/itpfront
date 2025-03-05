@@ -3,14 +3,19 @@ import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import {Title} from "@angular/platform-browser";
 import { UserService } from 'src/app/services/user-service/user.service';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule, MatSnackBarVerticalPosition,} from '@angular/material/snack-bar';
 import { CommonService } from 'src/app/services/common-service/common.service';
+import { MaterialExampleModule } from 'src/material.module';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent } from 'src/app/uitools/button/button.component';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.css'],
+  imports: [ReactiveFormsModule,MaterialExampleModule, CommonModule,ButtonComponent ],
+  standalone: true
 })
 export class ChangePasswordComponent implements OnInit{
   paswordSubmit = new FormGroup({

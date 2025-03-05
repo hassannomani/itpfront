@@ -4,11 +4,17 @@ import { SigninService } from 'src/app/services/signin-service/signin.service';
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { Router } from '@angular/router';
 import {Title} from "@angular/platform-browser";
+import { ReactiveFormsModule} from '@angular/forms';
+import { MaterialExampleModule } from 'src/material.module';
+import { ButtonComponent } from 'src/app/uitools/button/button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  imports: [ReactiveFormsModule,MaterialExampleModule,ButtonComponent, CommonModule],
+  standalone: true
 })
 export class LoginComponent implements OnInit{
   loginForm = new FormGroup({

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BillSubmitComponent } from './bill-submit.component';
+import { NsButtonComponent } from './ns-button.component';
 
-describe('BillSubmitComponent', () => {
-  let component: BillSubmitComponent;
-  let fixture: ComponentFixture<BillSubmitComponent>;
+describe('NsButtonComponent', () => {
+  let component: NsButtonComponent;
+  let fixture: ComponentFixture<NsButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BillSubmitComponent ]
+      declarations: [ NsButtonComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BillSubmitComponent);
+    fixture = TestBed.createComponent(NsButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

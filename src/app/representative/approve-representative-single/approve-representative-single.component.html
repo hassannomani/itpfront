@@ -19,12 +19,12 @@
       <p>User Name: {{representative.tinNo}}</p>
       <p>NID: {{representative.nid}}</p>  
       <p>
-        <app-button
-        [label]="buttonLabel2"
-        [color]="buttonColor1" 
-        [type]="buttonType1"
+        <app-ns-button
+        [ns_label]="buttonLabel2"
+        [ns_color]="buttonColor1" 
+        [ns_type]="buttonType1"
         (click)="openPdf()">
-      </app-button>
+      </app-ns-button>
       <mat-action-row>
         <button mat-button color="primary" (click)="nextStep()">Next</button>
       </mat-action-row>

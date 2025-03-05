@@ -35,47 +35,34 @@ import { EditAgentComponent } from './agent/edit-agent/edit-agent.component';
 import { UsernameNotFoundRedirectComponent } from './dialogs/username-not-found-redirect/username-not-found-redirect.component';
 import { ReportAdminComponent } from './report/report-admin/report-admin.component';
 import { ReportAdminOutputComponent } from './report/report-admin-output/report-admin-output.component';
-import { ReturnSubmitComponent } from './submission/return-submit/return-submit.component';
-import { ReturnAcknowledgementComponent } from './submission/return-acknowledgement/return-acknowledgement.component';
 import { UserActionComponent } from './user/user-action/user-action.component';
 import { ActionListComponent } from './action/action-list/action-list.component';
 import { ActionSingleComponent } from './action/action-single/action-single.component';
 import { ActionListBlockedComponent } from './action/action-list-blocked/action-list-blocked.component';
 import { ActionListDeniedComponent } from './action/action-list-denied/action-list-denied.component';
 import { ActionHistoryComponent } from './action/action-history/action-history.component';
-import { AddMetricsComponent } from './metrics/add-metrics/add-metrics.component';
-import { ListMetricsComponent } from './metrics/list-metrics/list-metrics.component';
 import { ConfirmModalComponent } from './layouts/confirm-modal/confirm-modal.component';
 import { DataSavedModalComponent } from './layouts/data-saved-modal/data-saved-modal.component';
 import { ReportAgentComponent } from './report/report-agent/report-agent.component';
 import { ReportTrpComponent } from './report/report-trp/report-trp.component';
-import { UploadCertificaateComponent } from './certificate/upload-certificaate/upload-certificaate.component';
 import { ListCertificateComponent } from './certificate/list-certificate/list-certificate.component';
 import { FileTaxComponent } from './representative/file-tax/file-tax.component';
 import { RegisterComponent } from './user/register/register.component';
 import { RegisterFillupComponent } from './user/register-fillup/register-fillup.component';
-import { BillSubmitComponent } from './bill/bill-submit/bill-submit.component';
-import { BillPendingComponent } from './bill/bill-pending/bill-pending.component';
-import { BillRejectedComponent } from './bill/bill-rejected/bill-rejected.component';
-import { BillApprovedComponent } from './bill/bill-approved/bill-approved.component';
-import { ChangePasswordComponent } from './user/change-password/change-password.component';
-import { TrpComponent } from './trp-agent-transfer/trp/trp.component';
-import { AgentChangeTRPComponent } from './trp-agent-transfer/agent/agent.component';
-import { AdminTransferPendingTRPComponent } from './trp-agent-transfer/admin/admin.component';
 import { DetailsModalComponent } from './layouts/details-modal/details-modal.component';
-import { AdminTransferPendingAgentReqComponent } from './trp-agent-transfer/admin-agent/admin-agent.component';
 import { DetailsModalAgentComponent } from './layouts/details-modal-agent/details-modal-agent.component';
 import { AgentSelectionModalComponent } from './layouts/agent-selection-modal/agent-selection-modal.component';
 import { PreviousTrpComponent } from './history/previous-trp/previous-trp.component';
 import { PreviousAgentComponent } from './history/previous-agent/previous-agent.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { NsButtonComponent } from './uitools/ns-button/ns-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    // LoginComponent,
     ForgetPasswordComponent,
-    ButtonComponent,
+    // ButtonComponent,
     AddAgentComponent,
     ToolbarComponent,
     MenuComponent,
@@ -84,7 +71,6 @@ import { AuthInterceptor } from './auth.interceptor';
     ListRepresentativeComponent,
     AddUserComponent,
     ResetUserComponent,
-    ListUserComponent,
     LogoutComponent,
     NbrMenuComponent,
     AdminMenuComponent,
@@ -101,39 +87,25 @@ import { AuthInterceptor } from './auth.interceptor';
     UsernameNotFoundRedirectComponent,
     ReportAdminComponent,
     ReportAdminOutputComponent,
-    ReturnSubmitComponent,
-    ReturnAcknowledgementComponent,
     UserActionComponent,
     ActionListComponent,
     ActionSingleComponent,
     ActionListBlockedComponent,
     ActionListDeniedComponent,
     ActionHistoryComponent,
-    AddMetricsComponent,
-    ListMetricsComponent,
     ConfirmModalComponent,
     DataSavedModalComponent,
     ReportAgentComponent,
     ReportTrpComponent,
-    UploadCertificaateComponent,
-    ListCertificateComponent,
     FileTaxComponent,
     RegisterComponent,
     RegisterFillupComponent,
-    BillSubmitComponent,
-    BillPendingComponent,
-    BillRejectedComponent,
-    BillApprovedComponent,
-    ChangePasswordComponent,
-    TrpComponent,
-    AgentChangeTRPComponent,
-    AdminTransferPendingTRPComponent,
     DetailsModalComponent,
-    AdminTransferPendingAgentReqComponent,
     DetailsModalAgentComponent,
     AgentSelectionModalComponent,
     PreviousTrpComponent,
-    PreviousAgentComponent
+    PreviousAgentComponent,
+    NsButtonComponent
   ],
   imports: [
     BrowserModule,

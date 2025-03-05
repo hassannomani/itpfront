@@ -56,25 +56,25 @@
             <tr class="clear:both;" *ngIf="!otpShow">
                 
                 <td>  
-                    <app-button
-                        [label]="buttonLabel"
-                        [color]="buttonColor" 
-                        [type]="buttonType"
+                    <app-ns-button
+                        [ns_label]="buttonLabel"
+                        [ns_color]="buttonColor" 
+                        [ns_type]="buttonType"
                         (click)="taxpayerSubmit()"
                         >
-                    </app-button>
+                    </app-ns-button>
                 </td>
             </tr>
             <tr class="clear:both;" *ngIf="otpShow">
                 
                 <td>  
-                    <app-button
-                        [label]="buttonLabel1"
-                        [color]="buttonColor" 
-                        [type]="buttonType"
+                    <app-ns-button
+                        [ns_label]="buttonLabel1"
+                        [ns_color]="buttonColor" 
+                        [ns_type]="buttonType"
                         (click)="otpSubmit()"
                         >
-                    </app-button>
+                    </app-ns-button>
                 </td>
             </tr>
         </table>

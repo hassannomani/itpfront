@@ -55,22 +55,22 @@
        
         <tr>
             <td>
-                <app-button
-                    [label]="buttonLabel"
-                    [color]="buttonColor" 
-                    [type]="buttonType"
+                <app-ns-button
+                    [ns_label]="buttonLabel"
+                    [ns_color]="buttonColor" 
+                    [ns_type]="buttonType"
                     (click)="formSubmit()"
                     >
-                </app-button>
+                </app-ns-button>
             </td>
             <td>
-                <app-button *ngIf="loaded"
-                [label]="buttonLabel1"
-                [color]="buttonColor" 
-                [type]="buttonType"
+                <app-ns-button *ngIf="loaded"
+                [ns_label]="buttonLabel1"
+                [ns_color]="buttonColor" 
+                [ns_type]="buttonType"
                 (click)="open()"
                 >
-            </app-button>
+            </app-ns-button>
             </td>
           
 

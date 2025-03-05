@@ -56,12 +56,12 @@
         <th mat-header-cell *matHeaderCellDef> Action</th>
         <td mat-cell *matCellDef="let element"> 
             <app-button
-            [label]="buttonLabel"
-            [color]="buttonColor" 
-            [type]="buttonType"
-            (click)="edit(element.uuid,element.username)"
+              [label]="buttonLabel"
+              [color]="buttonColor" 
+              [type]="buttonType"
+              (click)="edit(element.uuid,element.username)"
             >
-        </app-button>
+            </app-button>
         <mat-icon (click)="action(element.uuid,element.username)" class="settings">settings</mat-icon>
         <mat-icon (click)="actionDetails(element.uuid,element.username)" class="settings">history</mat-icon>
 
