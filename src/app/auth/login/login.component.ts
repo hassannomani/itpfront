@@ -117,5 +117,11 @@ export class LoginComponent implements OnInit{
       this.router.navigate(['register'],{ queryParams: {id: this.actionid}});
     });
   }
+
+  list(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['list']);
+    });
+  }
   
 }

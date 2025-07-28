@@ -84,6 +84,10 @@ const routes: Routes = [
   {path: "file-tax", component: FileTaxComponent},
   {path: "register", component: RegisterComponent},
   {path: "register-fillup", component: AddRepresentativeComponent},
+  {
+    path: "list",
+    loadComponent: () => import('./certificate/list-public/list-public.component').then(m => m.ListPublicComponent),
+  },
 
   // {path: "previous-trp", component: PreviousTrpComponent},
   // {path: "previous-rc", component: PreviousAgentComponent},

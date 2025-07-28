@@ -52,6 +52,12 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
         </table>
-        
+        <mat-paginator
+            [length]="certificates.length"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 20]"
+            [pageIndex]="0"
+            >
+        </mat-paginator>
         
   </div>

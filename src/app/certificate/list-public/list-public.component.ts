@@ -1,24 +1,24 @@
-import { Component, OnInit, ViewChild, Directive, ElementRef } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common-service/common.service';
-import { DatePipe } from '@angular/common';
-import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import { Router } from '@angular/router';
 import {Title} from "@angular/platform-browser";
 import {MatDialog} from '@angular/material/dialog';
 import { CertificateService } from 'src/app/services/certificate-service/certificate.service';
 import { ConfirmDialogModel } from 'src/app/layouts/confirm-modal/confirm-modal.component';
-import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-saved-modal.component';
 import { MaterialExampleModule } from 'src/material.module';
+import { DatePipe } from '@angular/common';
+import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-saved-modal.component';
 
 
 @Component({
-  selector: 'app-list-certificate',
-  templateUrl: './list-certificate.component.html',
-  styleUrls: ['./list-certificate.component.css'],
+  selector: 'app-list-public',
+  templateUrl: './list-public.component.html',
+  styleUrls: ['./list-public.component.css'],
   imports: [MaterialExampleModule, DatePipe ],
   standalone: true
 })
-export class ListCertificateComponent implements OnInit{
+export class ListPublicComponent implements OnInit{
+
   modalTitle: string = ""
   modalMessage: string= ""
   localStore: any = {}
@@ -31,7 +31,6 @@ export class ListCertificateComponent implements OnInit{
   displayedColumn: any = []
   constructor(
     private commonService: CommonService,
-    private localStorage: LocalStorageService,
     private router: Router,
     private titleService:Title,
     public dialog: MatDialog,
@@ -39,9 +38,10 @@ export class ListCertificateComponent implements OnInit{
   ){
     this.titleService.setTitle("List of Certificates");
   }
+
   ngOnInit(): void {
     this.certificateServ
-    .allCertificates()
+    .allCertificatesPublic()
     .subscribe({
       
       next: (data) => {
@@ -62,8 +62,7 @@ export class ListCertificateComponent implements OnInit{
         this.modalTitle = "Error!"
         this.alertDialog()
       }
-      
-    });
+    })
   }
 
   alertDialog(): void {

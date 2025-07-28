@@ -34,3 +34,8 @@
     float: left;
     margin-left: -30px;
 }
+
+.left a{
+    color: #FFF;
+    text-decoration: none;
+}

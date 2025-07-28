@@ -102,6 +102,17 @@
 }
 .link{
     color: #367a0a;
+    font-weight: 500;
+    margin-top: 0px;
+    display: inline-block;
+}
+.link_list{
+    color: #367a0a;
+    clear: both;
+    display: block;
+    margin-top: 15px;
+    font-weight: 500;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 767px) {

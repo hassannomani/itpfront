@@ -56,6 +56,7 @@ import { PreviousTrpComponent } from './history/previous-trp/previous-trp.compon
 import { PreviousAgentComponent } from './history/previous-agent/previous-agent.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { NsButtonComponent } from './uitools/ns-button/ns-button.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import { NsButtonComponent } from './uitools/ns-button/ns-button.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialExampleModule,
-    HttpClientModule
+    HttpClientModule,
+    DatePipe
   ],
   providers: [
     // {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi : true }

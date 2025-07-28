@@ -58,7 +58,9 @@
           [type]="buttonType"
           (click)="login()"
           ></app-button><br>
-         <span class="link" (click)="register()">Register</span>
+         <span class="link" (click)="register()">Register</span>        
+          <span class="link_list" (click)="list()">List of registered ITPs</span>
+
         </div>
         <p style="color:red;float: left;" *ngIf="failed">{{errorMsg}}</p>
         <span (click)="openLink()" *ngIf="link">Click to Know More</span>

@@ -74,7 +74,7 @@ export class UploadCertificaateComponent {
   async uploadFile(){
     try{
       let checkError = this.verifyData()
-      let checkDuplicacy = this.duplicacyCheck()
+      //let checkDuplicacy = this.duplicacyCheck()
       let upload = this.upload()
     }catch(err){
       console.log(err)
@@ -145,13 +145,17 @@ export class UploadCertificaateComponent {
   verifyData(){
 
     this.displayMessage="Checking errors!"
+    console.log(this.data)
 
     for(let i=0;i<this.data.length;i++){
-      if(this.data[i].examineeTin!=undefined&&this.data[i].examineeNid!=undefined&&this.data[i].examineeLicense!=undefined&&this.data[i].examineeMobile!=undefined){
-        this.tinId.push(this.data[i].examineeTin.toString())
-      }
-      else{
+      if(this.data[i].tin==undefined||this.data[i].nid==undefined||this.data[i].category==undefined||this.data[i].mobile==undefined||this.data[i].registrationNo==undefined){
+        //this.tinId.push(this.data[i].examineeTin.toString())
+        
         this.message+= "Line "+(i+2)+ " has field missing. " 
+
+      }else{
+        if(this.data[i].registrationDate!=undefined)
+          this.data[i].registrationDate = new Date(this.data[i].registrationDate)
       }
       
     }
