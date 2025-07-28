@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonService } from 'src/app/services/common-service/common.service';
 import { Router } from '@angular/router';
 import {Title} from "@angular/platform-browser";
@@ -8,7 +8,16 @@ import { ConfirmDialogModel } from 'src/app/layouts/confirm-modal/confirm-modal.
 import { MaterialExampleModule } from 'src/material.module';
 import { DatePipe } from '@angular/common';
 import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-saved-modal.component';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+export interface Certificate {
+  tin: string,
+  nid: string,
+  mobile: string,
+  category: String,
+  registrationNo: String,
+  registrationDate: String
+}
 
 @Component({
   selector: 'app-list-public',
@@ -18,6 +27,9 @@ import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-s
   standalone: true
 })
 export class ListPublicComponent implements OnInit{
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
   modalTitle: string = ""
   modalMessage: string= ""
@@ -29,6 +41,8 @@ export class ListPublicComponent implements OnInit{
   displayMessage: string= ""
   certificates: any =[]
   displayedColumn: any = []
+
+  dataSource = new MatTableDataSource<Certificate>();
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -40,6 +54,21 @@ export class ListPublicComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.setUpPaginator()
+  }
+
+ 
+  alertDialog(): void {
+
+    const dialogData = new ConfirmDialogModel(this.modalTitle, this.modalMessage);
+
+    const dialogRef = this.dialog.open(DataSavedModalComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+  }
+
+  setUpPaginator(){
     this.certificateServ
     .allCertificatesPublic()
     .subscribe({
@@ -52,6 +81,7 @@ export class ListPublicComponent implements OnInit{
           this.alertDialog()
         } else{
           this.certificates = data
+          this.dataSource = new MatTableDataSource <Certificate>(this.certificates)
           this.displayedColumn = ['serial','tin','nid','mobile','category','registrationNo','registrationDate']
         }
       },
@@ -61,18 +91,12 @@ export class ListPublicComponent implements OnInit{
         this.message= e.message
         this.modalTitle = "Error!"
         this.alertDialog()
+      },
+      complete: () => {
+        this.dataSource.paginator = this.paginator
+
       }
     })
-  }
-
-  alertDialog(): void {
-
-    const dialogData = new ConfirmDialogModel(this.modalTitle, this.modalMessage);
-
-    const dialogRef = this.dialog.open(DataSavedModalComponent, {
-      maxWidth: "400px",
-      data: dialogData
-    });
   }
 
 }

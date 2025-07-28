@@ -4,7 +4,7 @@
     </div>
   
       
-      <table mat-table [dataSource]="certificates" class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
@@ -53,10 +53,10 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
         </table>
         <mat-paginator
-            [length]="certificates.length"
-            [pageSize]="5"
+           
+            [pageSize]="3"
             [pageSizeOptions]="[5, 10, 20]"
-            [pageIndex]="0"
+           showFirstLastButtons="true"
             >
         </mat-paginator>
         
