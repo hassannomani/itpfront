@@ -168,27 +168,28 @@ export class RegisterComponent implements OnInit{
   }
 
   threeStepsProcessing(){
-    // this
-    // .registerServ
-    // .checkCertificate(this.registerForm.value['tinNo'], this.registerForm.value['nid']).subscribe({
-    //   next: (data) => {
-    //     if(data==true||data=="true"){ //second chaining
-    this.getTinValidation(this.registerForm.value['tinNo'])
-    //     }else{
-    //       this.message = "No certificate found with this NID and TIN"
-    //       //this.getTinValidation(this.registerForm.value['tinNo'])
+    this
+    .registerServ
+    .checkCertificate(this.registerForm.value['tinNo'], this.registerForm.value['nid']).subscribe({
+      next: (data) => {
+        if(data==true||data=="true"){ //second chaining
+          
+          this.getTinValidation(this.registerForm.value['tinNo'])
+        
+        }else{
+          this.message = "No certificate found with this NID and TIN"
 
-    //       this.submitted  =false
-    //       this.openSnackBar()
-    //     }
+          this.submitted  =false
+          this.openSnackBar()
+        }
 
-    //   }
-    //   ,
-    //   error: (e) => {
-    //     this.message = "Error occurred! Try again later1!"
-    //     this.openSnackBar()
-    //   }
-    // })
+      }
+      ,
+      error: (e) => {
+        this.message = "Error occurred! Try again later1!"
+        this.openSnackBar()
+      }
+    })
   }
 
   getTinValidation(tin : any){
@@ -196,6 +197,8 @@ export class RegisterComponent implements OnInit{
       next: (data) => {
         if(data.isError==1){
           this.message = "TIN not found"
+          this.submitted = false
+          this.openSnackBar()
 
         }else{
           this.tinInfo = data
@@ -242,9 +245,9 @@ export class RegisterComponent implements OnInit{
         this.openSnackBar()
       }      
     })
-    // this.requestNew = false
-    // this.otpShow = true
-    // this.timer(5)
+    this.requestNew = false
+    this.otpShow = true
+    this.timer(5)
   }
 
   timer(minute: any) {
