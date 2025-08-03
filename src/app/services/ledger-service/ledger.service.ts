@@ -95,7 +95,7 @@ export class LedgerService {
     const httpOptions = {
       headers: this.commonServ.httpReturner()
     }
-    return this.http.get<any>(this.url_ledgers_common+"graph/trp", httpOptions)
+    return this.http.get<any>(this.url_ledgers_common+"graph/monthwise", httpOptions)
   }
 
   getGraphDashboardAgent(tin : string){

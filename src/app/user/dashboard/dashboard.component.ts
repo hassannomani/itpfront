@@ -3,6 +3,7 @@ import {Title} from "@angular/platform-browser";
 import { LocalStorageService } from 'src/app/services/local-storage/local-storage.service';
 import {Chart } from 'chart.js/auto';
 import { LedgerService } from 'src/app/services/ledger-service/ledger.service';
+import { RepresentativeService } from 'src/app/services/representative-service/representative.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit{
     private titleService:Title,
     private localStore: LocalStorageService,
     private ledgerServ: LedgerService,
+    private itpService: RepresentativeService
   ){
     this.titleService.setTitle("Dashboard");
   }
@@ -29,7 +31,9 @@ export class DashboardComponent implements OnInit{
     if(role=="ROLE_ADMIN"){
       console.log("hi")
       this.isAdmin = true
-      this.loadGraphData()
+      this.loadGraphDataMonthWise();
+      this.loadGraphDataUserTypeWise();
+
     }
     else if(role=="ROLE_AGENT"){
       this.isAgent = true
@@ -40,7 +44,7 @@ export class DashboardComponent implements OnInit{
     }
   }
 
-  loadGraphData(){
+  loadGraphDataMonthWise(){
     this.ledgerServ.getGraphDashboard().subscribe({
       next: (data) => {
         console.log(data)
@@ -75,12 +79,32 @@ export class DashboardComponent implements OnInit{
       }  
     })
   }
+
+  loadGraphDataUserTypeWise(){
+    this.itpService.getGraphDashboardUserTypeWise().subscribe({
+      next: (data) => {
+        console.log(data)
+        for(let i=0;i<data.length;i++)
+        {
+          
+          data[i][1]= data[i][1]=="0"?"ITP":data[i][1]=="1"?"Advocate":
+          data[i][1]=="2"?"FCMA/FCA":data[i][1]=="3"?"ICMA/ICAB":data[i][1]=="4"?"ICSB":"Others"
+         
+        }
+        this.createDoughnutChart(data);
+        console.log(data)
+      },
+      error: (e) => {
+        console.log(e)
+      }  
+    })
+  }
   createChart(data: any){
     var labels = <string[]> Array()
     var dataset = <number[]> Array()
     for(var i=0;i<data.length;i++){
-      dataset[i] = data[i][0] 
-      labels[i] = data[i][1] + "\n("+ data[i][2] + ")"
+      dataset[i] = data[i][1] 
+      labels[i] = data[i][0]
     }
     console.log(labels)
     console.log(dataset)
@@ -102,7 +126,7 @@ export class DashboardComponent implements OnInit{
         plugins: {
             title: {
                 display: true,
-                text: 'Top 10 ITP Tax Collection'
+                text: 'Monthwise ITP Tax Collection'
             }
         }
       },
@@ -157,6 +181,52 @@ export class DashboardComponent implements OnInit{
         }
       }
       
+    });
+  }
+
+  createDoughnutChart(data: any){
+    var labels = <string[]> Array()
+    var dataset = <number[]> Array()
+    for(var i=0;i<data.length;i++){
+      dataset[i] = data[i][0] 
+      labels[i] = data[i][1]
+    }
+    console.log(labels)
+    console.log(dataset)
+    this.chart = new Chart("MyDoughnutChart", {
+      type: 'doughnut', //this denotes tha type of chart
+      data: {// values on X-Axis
+        labels: labels, 
+	       datasets: [
+          {
+            label: "Type of Tax Practitioner",
+            data: dataset,
+            backgroundColor: ['Red', 'Orange', 'Yellow', 'Green', 'Blue','limegreen'],
+            borderWidth: 4
+          }
+        ]
+      },
+      options: {
+        aspectRatio:3.5,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Monthwise ITP Tax Collection'
+            }
+        }
+      },
+      plugins:[{
+        id: 'customPlugin',
+        beforeInit: function(chart) {
+          if(chart.data.labels)
+          chart.data.labels.forEach(function(e:any, i, a) {
+             if (/\n/.test(e)) {
+                a[i] = e.split(/\n/);
+             }
+          });
+       }
+      }]
+    
     });
   }
   

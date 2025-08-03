@@ -241,7 +241,7 @@ export class RegisterComponent implements OnInit{
       ,
       error: (e) => {
         console.log(e)
-        this.message = "Error occurred! Try again later3!"
+        this.message = "Error occurred! Try again later!"
         this.openSnackBar()
       }      
     })

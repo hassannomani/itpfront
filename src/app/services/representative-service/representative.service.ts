@@ -122,4 +122,12 @@ export class RepresentativeService {
     return this.http.get<any>(this.url_trp+'single/'+ag+'/'+trp,httpOptions)
   }
 
+  
+  getGraphDashboardUserTypeWise(){
+    const httpOptions = {
+      headers: this.commonService.httpReturner()
+    }
+    return this.http.get<any>(this.url_trp+"count", httpOptions)
+  }
+
 }

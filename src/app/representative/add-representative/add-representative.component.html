@@ -143,6 +143,8 @@
                             <mat-option value="1">Advocate</mat-option> 
                             <mat-option value="2">FCMA/FCA</mat-option> 
                             <mat-option value="3">ICMA/ICAB</mat-option> 
+                            <mat-option value="4">ICSB</mat-option> 
+                            <mat-option value="5">Others</mat-option> 
                         </mat-select>
                     </mat-form-field>
                 </td>
@@ -150,11 +152,24 @@
             <tr>
                 <td>
                     <mat-form-field class="example-full-width">
-                    <mat-label>License No</mat-label>
+                    <mat-label>License No/ Membership No</mat-label>
                     <input matInput  formControlName="licNo" type="String"  placeholder="License No">
                     </mat-form-field>
                 </td>
-
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Name of the Registered Taxes Bar Association</mat-label>
+                    <input matInput  formControlName="nameBarAssoc" type="String"  placeholder="Name of the Registered Taxes Bar Association">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>Registration No of the Taxes Bar Association</mat-label>
+                    <input matInput  formControlName="regBarAssoc" type="String"  placeholder="Registration No of the Taxes Bar Association">
+                    </mat-form-field>
+                </td>
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Date of Pass</mat-label>

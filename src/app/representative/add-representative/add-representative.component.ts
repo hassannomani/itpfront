@@ -86,6 +86,8 @@ export class AddRepresentativeComponent implements OnInit{
     'display': new FormControl('',[Validators.required]),
     'itpId': new FormControl('',[Validators.required]),
     'licNo': new FormControl('',[Validators.required]),
+    'nameBarAssoc': new FormControl('',[Validators.required]),
+    'regBarAssoc': new FormControl('',[Validators.required]),
     'certNo': new FormControl('',[Validators.required]),
     'certPass': new FormControl('',[Validators.required]),
     'certSerial': new FormControl('',[Validators.required]),
