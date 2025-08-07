@@ -23,6 +23,11 @@ export class DashboardComponent implements OnInit{
   ){
     this.titleService.setTitle("Dashboard");
   }
+  totalITPs: number = 0
+  totalReturn: number = 0
+  totalReturnCurrent: number = 0
+  totalReturnRev: number = 0
+  totalReturnRevCurrent: number = 0
 
   ngOnInit(): void{
     let user = this.localStore.getStorageItems()
@@ -33,7 +38,8 @@ export class DashboardComponent implements OnInit{
       this.isAdmin = true
       this.loadGraphDataMonthWise();
       this.loadGraphDataUserTypeWise();
-
+      this.loadTotalData();
+      this.loadTotalMonthlyData();
     }
     else if(role=="ROLE_AGENT"){
       this.isAgent = true
@@ -84,12 +90,13 @@ export class DashboardComponent implements OnInit{
     this.itpService.getGraphDashboardUserTypeWise().subscribe({
       next: (data) => {
         console.log(data)
+        //this.totalITPs = data.length
         for(let i=0;i<data.length;i++)
         {
           
           data[i][1]= data[i][1]=="0"?"ITP":data[i][1]=="1"?"Advocate":
           data[i][1]=="2"?"FCMA/FCA":data[i][1]=="3"?"ICMA/ICAB":data[i][1]=="4"?"ICSB":"Others"
-         
+          this.totalITPs += data[i][0]
         }
         this.createDoughnutChart(data);
         console.log(data)
@@ -201,33 +208,66 @@ export class DashboardComponent implements OnInit{
           {
             label: "Type of Tax Practitioner",
             data: dataset,
-            backgroundColor: ['Red', 'Orange', 'Yellow', 'Green', 'Blue','limegreen'],
-            borderWidth: 4
+            backgroundColor: ['Red', 'limegreen', 'Yellow', 'Orange', 'Blue','Green'],
+            hoverOffset: 5
+
           }
         ]
       },
       options: {
-        aspectRatio:3.5,
+        responsive: false,
         plugins: {
-            title: {
-                display: true,
-                text: 'Monthwise ITP Tax Collection'
-            }
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Type of Tax Practitioner'
+          }
         }
       },
-      plugins:[{
-        id: 'customPlugin',
-        beforeInit: function(chart) {
-          if(chart.data.labels)
-          chart.data.labels.forEach(function(e:any, i, a) {
-             if (/\n/.test(e)) {
-                a[i] = e.split(/\n/);
-             }
-          });
-       }
-      }]
+      
+      // plugins:[{
+      //   id: 'customPlugin',
+      //   beforeInit: function(chart) {
+      //     if(chart.data.labels)
+      //     chart.data.labels.forEach(function(e:any, i, a) {
+      //        if (/\n/.test(e)) {
+      //           a[i] = e.split(/\n/);
+      //        }
+      //     });
+      //  }
+      // }]
     
     });
+  }
+
+  loadTotalData(){
+    this.ledgerServ.getTotalDataDashboard().subscribe({
+      next: (data) => {
+        if(data.length){
+          this.totalReturn = data[0][1]
+          this.totalReturnRev = data[0][0]
+        }
+      },
+      error: (e) => {
+        console.log(e)
+      }  
+    })
+  }
+  
+  loadTotalMonthlyData(){
+    this.ledgerServ.getTotalDataDashboardCurrent().subscribe({
+      next: (data) => {
+        if(data.length){
+          this.totalReturnCurrent = data[0][1]
+          this.totalReturnRevCurrent = data[0][0]
+        }
+      },
+      error: (e) => {
+        console.log(e)
+      }  
+    })
   }
   
 }

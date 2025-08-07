@@ -123,4 +123,18 @@ export class LedgerService {
     return this.http.get<any[]>(this.url_ledgers_common+"itp/"+representativeId,httpOptions)
 
   }
+
+  getTotalDataDashboard(){
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
+    }
+    return this.http.get<any>(this.url_ledgers_common+"dashboard/total", httpOptions)
+  }
+
+  getTotalDataDashboardCurrent(){
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
+    }
+    return this.http.get<any>(this.url_ledgers_common+"dashboard/current", httpOptions)
+  }
 }

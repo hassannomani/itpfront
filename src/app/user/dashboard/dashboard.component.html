@@ -7,4 +7,14 @@
   <div class="chart-container" *ngIf="isTrp">
     <canvas  id="MyBarChart" >{{ chart }}</canvas>
 </div>
+<div class="chart-container" *ngIf="isAdmin || isAgent || isTrp" class="doughnut">
+    <canvas  id="MyDoughnutChart" >{{ chart }}</canvas>
+    <div class="stat">
+        <p class="text-left">Total return submitted till today: {{totalReturn}}</p>
+        <p class="text-left">Total revenue collected till today via ITPMS: {{totalReturnRev}}</p>
+        <p class="text-left">Total return submitted this month: {{totalReturnCurrent}} </p>
+        <p class="text-left">Total revenue collected this month via ITPMS: {{totalReturnRevCurrent}}</p>
+        <p class="text-left">Total registered Users: {{totalITPs}}</p>
+    </div>
+</div>
 </div>
