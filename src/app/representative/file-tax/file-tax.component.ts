@@ -28,11 +28,11 @@ export class FileTaxComponent {
   resetShow: Boolean = false
   showErr: Boolean = false
   checkTaxPayer = new FormGroup({
-    'tinNo' : new FormControl('',[Validators.required]),
-    'phoneNo' : new FormControl('',[Validators.required]),
+    'taxpayerTin' : new FormControl('',[Validators.required]),
+    'taxpayerPhoneNo' : new FormControl('',[Validators.required]),
     'otp' : new FormControl('',[Validators.required]),
     'orgId' : new FormControl('',[Validators.required]),  //agent
-    'agentId' : new FormControl('',[Validators.required]) //trp
+    'agentTin' : new FormControl('',[Validators.required]) //trp
   })
 
   constructor(
@@ -65,8 +65,8 @@ export class FileTaxComponent {
   }
 
   taxpayerSubmit(){
-    this.checkTaxPayer.get('orgId')?.setValue(this.agentId);
-    this.checkTaxPayer.get('agentId')?.setValue(this.username);
+   // this.checkTaxPayer.get('orgId')?.setValue(this.agentId);
+    this.checkTaxPayer.get('agentTin')?.setValue(this.username);
     this.representativeServ.fileTaxOfATaxPayer(this.checkTaxPayer.value).subscribe({
       next: (data) => {
         if(data?.success==true||data?.message||data?.replyMessage){

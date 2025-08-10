@@ -98,7 +98,7 @@ export class UploadCertificaateComponent {
          }
         },
         error: (e) => {
-          this.modalMessage = "Data saving failed"
+          this.modalMessage = "Duplicate data. Upload Aborted"
           this.modalTitle = "Error!"
           this.alertDialog()
 
