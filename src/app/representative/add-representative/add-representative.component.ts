@@ -184,7 +184,7 @@ export class AddRepresentativeComponent implements OnInit{
   ){
     this.titleService.setTitle
     
-    ("ITP Registration");
+    ("Tax Representative Registration");
 
   }
   ngOnInit(): void {

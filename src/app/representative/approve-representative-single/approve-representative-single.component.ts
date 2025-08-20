@@ -51,7 +51,7 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
     private _snackBar: MatSnackBar,
 
   ){
-    this.titleService.setTitle("Approve ITP");
+    this.titleService.setTitle("Approve Tax Representative");
 
   }
   ngOnInit(): void {

@@ -94,8 +94,9 @@ export class DashboardComponent implements OnInit{
         for(let i=0;i<data.length;i++)
         {
           
-          data[i][1]= data[i][1]=="0"?"ITP":data[i][1]=="1"?"Advocate":
-          data[i][1]=="2"?"FCMA/FCA":data[i][1]=="3"?"ICMA/ICAB":data[i][1]=="4"?"ICSB":"Others"
+          data[i][1]= data[i][1]=="0"?"Tax Practitioner":data[i][1]=="1"?"FCMA/ACMA":
+          data[i][1]=="2"?"FCA/ACA":"FCS/ACS"
+          // :data[i][1]=="4"?"ICSB":"Others"
           this.totalITPs += data[i][0]
         }
         this.createDoughnutChart(data);
@@ -133,7 +134,7 @@ export class DashboardComponent implements OnInit{
         plugins: {
             title: {
                 display: true,
-                text: 'Monthwise ITP Tax Collection'
+                text: 'Monthwise Tax Representative Collection'
             }
         }
       },

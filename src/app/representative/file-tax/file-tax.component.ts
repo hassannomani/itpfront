@@ -109,7 +109,8 @@ export class FileTaxComponent {
         if(data?.success!=undefined&&data?.success==true){
           this.message = "OTP verified!"
           this.openSnackBar()
-          window.location.href = data?.replyMessage?.redirectURL+"/"+data?.replyMessage?.id_token
+          window.location.href = data?.replyMessage?.redirectURL
+          // +"/"+data?.replyMessage?.id_token
         }
       }
       ,

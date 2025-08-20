@@ -41,7 +41,7 @@ export class ApproveRepresentativeComponent implements OnInit{
     private agentServ: AgentService
 
   ){
-    this.titleService.setTitle("Approve ITP");
+    this.titleService.setTitle("Approve Tax Representative");
 
   }
   ngOnInit(): void {
