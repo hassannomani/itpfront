@@ -149,6 +149,7 @@ export class AddRepresentativeComponent implements OnInit{
   banks: any = []
   bankdist: any = []
   bankBranches: any = []
+  barAssoc: any = []
   certificate: any = {}
   bankName: string = ""
   noDataFound: boolean = false
@@ -239,16 +240,19 @@ export class AddRepresentativeComponent implements OnInit{
         this.commonService.getThana(),
         this.userService.getRoles(), 
         this.commonService.getCityCorp(),
+        this.commonService.getBarAssoc()
         //this.registrationServ.getCertificate(tin,nid)
       ])
       .subscribe({
         next: (data) => {
           //console.log(data)
+          alert('hi')
           this.district = data[0];
           this.division = data[1];
           this.thana = data[2];
           this.roles = data[3];
           this.citycorporation = data[4];
+          this.barAssoc = data[5];
           //this.certificate = data[8]
           //this.processCert()
         },

@@ -210,6 +210,16 @@ export class CommonService {
     
   }
 
+  getBarAssoc(): Observable<any[]>{
+
+    const httpOptions = {
+      headers: this.httpReturner()
+    };
+  
+    return this.http.get<any[]>(this.url_common+"taxesbarassoc",httpOptions)
+    
+  }
+
   getTin(tin: string): Observable<any>{
 
     const httpOptions = {
