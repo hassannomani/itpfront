@@ -20,7 +20,7 @@ export class RegisterService {
   ) {
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
     this.base_url = url+"api/"
-    this.cert_base_url = this.base_url+"certificate"
+    this.cert_base_url = this.base_url+"v1/certificate"
     this.otp_base_url = this.base_url+"otp"
     this.assmnt_base_url = this.base_url+"v1/year"
   }

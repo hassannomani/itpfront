@@ -65,13 +65,13 @@ export class ReportAdminComponent implements OnInit{
     console.log(value)
     this.firstOption = value
     if(value==1)
-      this.dataSecondary = [{"id":1,"value":"All ITP"},{"id":2, "value": "All suspended ITP"},{"id":3,"value":"All blocked ITP"}]
+      this.dataSecondary = [{"id":1,"value":"All Tax Representative"},{"id":2, "value": "All suspended Tax Representative"},{"id":3,"value":"All blocked Tax Representative"}]
     else if (value==2)
       this.dataSecondary = [
         {"id":"1","value":"List of Ledgers"},
         {"id":"2", "value": "List of Ledgers within Range"},
-        {"id":"3", "value":"List of Ledgers of a ITP"},
-        {"id":"4","value":"List of Ledgers of a ITP within range"}
+        {"id":"3", "value":"List of Ledgers of a Tax Representative"},
+        {"id":"4","value":"List of Ledgers of a Tax Representative within range"}
       ]
     else if (value==3)
       this.dataSecondary = [

@@ -130,4 +130,11 @@ export class RepresentativeService {
     return this.http.get<any>(this.url_trp+"count", httpOptions)
   }
 
+  getPreviousHistory(itp: any, taxpayer: any): Observable<any>{
+    const httpOptions = {
+      headers: this.commonService.httpReturner()
+    }
+    return this.http.get<any>(this.url_trp+'history/'+itp+"/"+taxpayer,httpOptions)
+  }
+
 }

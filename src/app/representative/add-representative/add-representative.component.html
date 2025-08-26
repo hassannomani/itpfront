@@ -159,8 +159,26 @@
                 </td>
                 <td>
                     <mat-form-field class="example-full-width">
-                    <mat-label>Name of the Registered Taxes Bar Association</mat-label>
-                    <input matInput  formControlName="nameBarAssoc" type="String"  placeholder="Name of the Registered Taxes Bar Association">
+                        <mat-label>Name of the Registered Taxes Bar Association</mat-label>
+
+                        <mat-select placeholder="Name of the Registered Taxes Bar Association" (selectionChange)="regBarNameSet($event.value)">
+                            <div class="fixed">
+                                <mat-form-field  class="formbe">
+                                    <!-- [floatLabel]="'never'" -->
+                                    <input matInput placeholder="" style="padding-left:10px" (input)="lookup($event.target);" #inputFilter>
+                                    <mat-icon id="search">search</mat-icon>
+                                    
+                                </mat-form-field>
+                            </div>
+                            <div style="padding-top: 80px">
+                                <mat-option *ngFor="let data of barAssoc" [value]="data.name">
+                                    {{data.name}}
+                                </mat-option>
+                            </div>
+                        </mat-select>
+
+
+                    <!-- <input matInput  formControlName="nameBarAssoc" type="String"  placeholder="Name of the Registered Taxes Bar Association"> -->
                     </mat-form-field>
                 </td>
             </tr>

@@ -67,6 +67,7 @@ export class FileTaxComponent {
   taxpayerSubmit(){
    // this.checkTaxPayer.get('orgId')?.setValue(this.agentId);
     this.checkTaxPayer.get('agentTin')?.setValue(this.username);
+    this.checkHistory(this.username, this.checkTaxPayer.value)
     this.representativeServ.fileTaxOfATaxPayer(this.checkTaxPayer.value).subscribe({
       next: (data) => {
         if(data?.success==true||data?.message||data?.replyMessage){
@@ -136,5 +137,20 @@ export class FileTaxComponent {
     this.checkTaxPayer.reset()
     this.otpShow = false
     this.showErr = false
+  }
+
+  checkHistory(itp : any, tin : any){
+    this.representativeServ.getPreviousHistory(itp,tin).subscribe({
+      next: (data) => {
+        console.log(data)
+        
+      }
+      ,
+      error: (e) => {
+          console.log(e)
+          this.message = "Error occurred! Please try again!"
+          this.openSnackBar()
+      }
+    })
   }
 }

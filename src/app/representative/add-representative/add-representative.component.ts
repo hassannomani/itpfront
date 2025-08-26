@@ -150,6 +150,7 @@ export class AddRepresentativeComponent implements OnInit{
   bankdist: any = []
   bankBranches: any = []
   barAssoc: any = []
+  barAssocSec: any = []
   certificate: any = {}
   bankName: string = ""
   noDataFound: boolean = false
@@ -189,6 +190,7 @@ export class AddRepresentativeComponent implements OnInit{
 
   }
   ngOnInit(): void {
+
     this.localStore = this.localStorage.getUnregisteredUser();
     //let temp = JSON.parse(this.localStore)
     var tin = this.username= JSON.parse(this.localStore.un_tin)
@@ -199,7 +201,7 @@ export class AddRepresentativeComponent implements OnInit{
       let temp = JSON.parse(this.localStore.un_tinData)
       console.log(temp)
       this.addUser.get('username')?.setValue(JSON.parse(this.localStore.un_tin))
-      let name = temp.name
+      let name = temp?.name
       this.addRepresentative.get('itpName')?.setValue(name)
 
       let tempTin = JSON.parse(this.localStore.un_tin)
@@ -216,14 +218,14 @@ export class AddRepresentativeComponent implements OnInit{
         this.lastname = lastpart
       }
 
-      if(temp.dob!=""){
-        let dob= temp.dob
+      if(temp?.dob){
+        let dob= temp?.dob
         let dt= new Date(dob)
         this.setDate(dt)
       }
 
-      if(temp.email!=""&&temp.email!=null){
-        let email= temp.email
+      if(temp?.email){
+        let email= temp?.email
         this.addUser.get('email')?.setValue(email)
 
       }
@@ -234,37 +236,37 @@ export class AddRepresentativeComponent implements OnInit{
       this.addRepresentative.get('nid')?.setValue(JSON.parse(this.localStore.un_nid))
     }
     this.onTabChanged();
-      forkJoin(
-        [this.commonService.getDistrict(),
-        this.commonService.getDivision(),
-        this.commonService.getThana(),
-        this.userService.getRoles(), 
-        this.commonService.getCityCorp(),
-        this.commonService.getBarAssoc()
-        //this.registrationServ.getCertificate(tin,nid)
-      ])
-      .subscribe({
-        next: (data) => {
-          //console.log(data)
-          alert('hi')
-          this.district = data[0];
-          this.division = data[1];
-          this.thana = data[2];
-          this.roles = data[3];
-          this.citycorporation = data[4];
-          this.barAssoc = data[5];
-          //this.certificate = data[8]
-          //this.processCert()
-        },
-        error: (e) => {
-          console.log("Error retrieving")
-        }
-      });
+    forkJoin(
+      [this.commonService.getDistrict(),
+      this.commonService.getDivision(),
+      this.commonService.getThana(),
+      this.userService.getRoles(), 
+      this.commonService.getCityCorp(),
+      this.commonService.getBarAssoc(),
+      this.registrationServ.getCertificate(tin,nid)
+    ])
+    .subscribe({
+      next: (data) => {
+        //console.log(data)
+        this.district = data[0];
+        this.division = data[1];
+        this.thana = data[2];
+        this.roles = data[3];
+        this.citycorporation = data[4];
+        this.barAssoc = data[5];
+        this.barAssocSec= data[5];
+        this.certificate = data[6]
+        this.processCert()
+      },
+      error: (e) => {
+        console.log("Error retrieving")
+      }
+    });
   }
   
   processCert(){
-    //this.addRepresentative.get("certNo")?.setValue(this.certificate.examineeCertno)
-    //this.addRepresentative.get("certSerial")?.setValue(this.certificate.examineeCertserial)
+    this.addRepresentative.get("licNo")?.setValue(this.certificate.registrationNo)
+    this.addRepresentative.get("certSerial")?.setValue(this.certificate.examineeCertserial)
   }
   representativeSubmit(){
     this.saving = true
@@ -299,8 +301,6 @@ export class AddRepresentativeComponent implements OnInit{
   }
 
   representativeSave(){
-
-     
       //this.addAgent.value['address']?.push(this.businessAdd)
       // this.addRepresentative.value['re_bankinformation'] = this.bankInfo
       this.saveAddresses().then(resolve =>{
@@ -710,8 +710,6 @@ export class AddRepresentativeComponent implements OnInit{
           console.log(this.addRepresentative)
           this.fileUploaded = true
         }
-        //this.fileUris.push(this.fileDetails.fileUri);
-        //alert("File Uploaded Successfully")
       },
       error: (e) => {
         console.log(e);
@@ -732,8 +730,6 @@ export class AddRepresentativeComponent implements OnInit{
           console.log(this.addRepresentative)
           this.photoUploaded = true
         }
-        //this.fileUris.push(this.fileDetails.fileUri);
-        //alert("File Uploaded Successfully")
       },
       error: (e) => {
         console.log(e);
@@ -794,5 +790,35 @@ export class AddRepresentativeComponent implements OnInit{
     else
       this.notMatch = false
   }
+
+  lookup(event: any) {
+    let value = event.value.toLowerCase()
+    let temp = []
+    console.log(value)
+    if(value.length==0){
+      //this.barAssoc.length = 0
+      this.barAssoc = this.barAssocSec
+    }else{
+      for(let i=0;i<this.barAssocSec.length;i++){
+        let str = this.barAssocSec[i].name
+        
+        let stringlow = str.toLowerCase()
+        if(stringlow.indexOf(value)>-1){
+          temp.push(this.barAssocSec[i])
+        }
+      }
+      if(temp.length){
+        //this.barAssoc.length = 0
+        this.barAssoc = temp
+      }
+      
+    }
+    
+  }
+
+  regBarNameSet(value:any){
+    this.addRepresentative.get('nameBarAssoc')?.setValue(value)
+  }
+
 }
 
