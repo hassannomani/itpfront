@@ -26,7 +26,7 @@ export class CertificateService {
     private commonService: CommonService
   ) { 
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
-    this.url_base = url + 'api/certificate'
+    this.url_base = url + 'api/v1/certificate'
   }
 
   private url_base : string ='';

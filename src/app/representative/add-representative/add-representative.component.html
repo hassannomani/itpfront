@@ -139,11 +139,12 @@
                         <mat-label>Type</mat-label>
                         <mat-select matNativeControl required formControlName="type" (selectionChange)="setAgent($event.value)">
                             <mat-option value="">--Select--</mat-option>
-                            <mat-option value="0">Tax Practitioner</mat-option> 
                             <mat-option value="1">Advocate</mat-option> 
-                            <mat-option value="2">FCMA/ACMA</mat-option> 
                             <mat-option value="3">FCA/ACA</mat-option> 
+                            <mat-option value="2">FCMA/ACMA</mat-option> 
                             <mat-option value="4">FCS/ACS</mat-option> 
+                            <mat-option value="0">Tax Practitioner</mat-option> 
+
                             <!-- <mat-option value="4">ICSB</mat-option> 
                             <mat-option value="5">Others</mat-option>  -->
                         </mat-select>

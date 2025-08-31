@@ -19,6 +19,7 @@ export class RepresentativeService {
 
   private url_trp : string = ""
   private url_ereturn: string = ""
+  private url_return_submission: string = ""
 
   constructor(
     private http: HttpClient,
@@ -28,6 +29,7 @@ export class RepresentativeService {
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
     this.url_trp = url + "api/v1/itp/"
     this.url_ereturn = url + "api/trpereturn"
+    this.url_return_submission = url + "api/v1/return"
   }
 
 
@@ -134,7 +136,25 @@ export class RepresentativeService {
     const httpOptions = {
       headers: this.commonService.httpReturner()
     }
-    return this.http.get<any>(this.url_trp+'history/'+itp+"/"+taxpayer,httpOptions)
+    return this.http.get<any>(this.url_return_submission+'/check/'+itp+"/"+taxpayer,httpOptions)
+  }
+
+  
+  getRedirectUrlWithoutOtp(formData: any): Observable<any>{
+    const body=JSON.stringify(formData);
+    const headerObj = this.commonService.httpReturner()
+    const httpOptions = {
+      headers: headerObj
+    };
+    return this.http.post<any>(this.url_ereturn+"/validated",body,httpOptions);
+
+  }
+
+  saveHistory(itp: any, taxpayer: any, mobile: any): Observable<any>{
+    const httpOptions = {
+      headers: this.commonService.httpReturner()
+    }
+    return this.http.get<any>(this.url_return_submission+'/save/'+itp+"/"+taxpayer+"/"+mobile,httpOptions)
   }
 
 }

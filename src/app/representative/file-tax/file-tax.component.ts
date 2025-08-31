@@ -27,6 +27,7 @@ export class FileTaxComponent {
   otpShow: Boolean = false
   resetShow: Boolean = false
   showErr: Boolean = false
+  url : string = ""
   checkTaxPayer = new FormGroup({
     'taxpayerTin' : new FormControl('',[Validators.required]),
     'taxpayerPhoneNo' : new FormControl('',[Validators.required]),
@@ -67,7 +68,69 @@ export class FileTaxComponent {
   taxpayerSubmit(){
    // this.checkTaxPayer.get('orgId')?.setValue(this.agentId);
     this.checkTaxPayer.get('agentTin')?.setValue(this.username);
-    this.checkHistory(this.username, this.checkTaxPayer.value)
+    this.checkHistory(this.username, this.checkTaxPayer.value['taxpayerTin'])
+
+    //this.checkHistory(this.username, this.checkTaxPayer.value)
+   
+
+  }
+
+  otpSubmit(){
+
+    this.representativeServ.verifyOtpOfATaxPayer(this.checkTaxPayer.value).subscribe({
+      next: (data) => {
+        if(data?.success!=undefined&&data?.success==true){
+          this.url= data?.replyMessage?.redirectURL
+          this.saveHistory()
+         
+          // +"/"+data?.replyMessage?.id_token
+        }
+      }
+      ,
+      error: (e) => {
+      
+          this.message = "Wrong OTP!"
+          this.openSnackBar()
+      }
+    })
+
+  }
+
+  openSnackBar() {
+    this._snackBar.open(this.message, 'x', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 5 * 1000,
+
+    });
+  }
+
+  reset(){
+    this.checkTaxPayer.reset()
+    this.otpShow = false
+    this.showErr = false
+  }
+
+  checkHistory(itp : any, tin : any){
+    this.representativeServ.getPreviousHistory(itp,tin).subscribe({
+      next: (data) => {
+        if(data==false)
+          this.goForOtp()
+        else{
+          this.goWithoutOtp()         
+        }        
+        
+      }
+      ,
+      error: (e) => {
+          console.log(e)
+          this.message = "Error occurred! Please try again!"
+          this.openSnackBar()
+      }
+    })
+  }
+
+  goForOtp(){
     this.representativeServ.fileTaxOfATaxPayer(this.checkTaxPayer.value).subscribe({
       next: (data) => {
         if(data?.success==true||data?.message||data?.replyMessage){
@@ -100,49 +163,63 @@ export class FileTaxComponent {
           this.openSnackBar()
       }
     })
-
   }
 
-  otpSubmit(){
-
-    this.representativeServ.verifyOtpOfATaxPayer(this.checkTaxPayer.value).subscribe({
+  goWithoutOtp(){
+    this.representativeServ.getRedirectUrlWithoutOtp(this.checkTaxPayer.value).subscribe({
       next: (data) => {
-        if(data?.success!=undefined&&data?.success==true){
-          this.message = "OTP verified!"
+        if(data?.success==true||data?.message||data?.replyMessage){
+          this.message = "Redirecting!"
+          window.location.href =  data?.replyMessage?.redirectURL
+          //this.otpShow = true
+          //this.resetShow = true
+          //this.showErr = false
           this.openSnackBar()
-          window.location.href = data?.replyMessage?.redirectURL
-          // +"/"+data?.replyMessage?.id_token
+        }else{
+          let errMessage = data.errorMessage
+          let json = JSON.parse(errMessage)
+          console.log(json)
+          if(json?.errorCode=="48921"){
+            this.message = "OTP already sent to the mobile"
+            this.otpShow = true
+            this.showErr = false
+            this.openSnackBar()
+          }else if(/*json.errorCode==undefined&&*/json.errorMessage){
+            this.message = json.errorMessage
+            this.openSnackBar()
+            this.showErr = true
+          }
         }
       }
       ,
       error: (e) => {
-      
-          this.message = "Wrong OTP!"
-          this.openSnackBar()
+          let errorString = e.error
+          let error = errorString.indexOf("errorMessage")
+          let success = errorString.indexOf("success")
+          let str = ""
+          for(let i=error+15; i<success-3;i++)
+            str+=errorString[i]
+          if(str.length){
+            this.message = str
+            this.openSnackBar()
+          }
+          
       }
     })
-
   }
 
-  openSnackBar() {
-    this._snackBar.open(this.message, 'x', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: 5 * 1000,
-
-    });
-  }
-
-  reset(){
-    this.checkTaxPayer.reset()
-    this.otpShow = false
-    this.showErr = false
-  }
-
-  checkHistory(itp : any, tin : any){
-    this.representativeServ.getPreviousHistory(itp,tin).subscribe({
+  saveHistory(){
+    this.representativeServ.saveHistory(this.username, this.checkTaxPayer.value['taxpayerTin'], this.checkTaxPayer.value['taxpayerPhoneNo']).subscribe({
       next: (data) => {
-        console.log(data)
+        if(data!=false){
+          this.message = "OTP verified!"
+          this.openSnackBar()
+          window.location.href =this.url
+        }
+        else{
+          this.message = "Error Ocurred! Please try later" 
+          this.openSnackBar()        
+        }        
         
       }
       ,
@@ -154,3 +231,5 @@ export class FileTaxComponent {
     })
   }
 }
+
+  
