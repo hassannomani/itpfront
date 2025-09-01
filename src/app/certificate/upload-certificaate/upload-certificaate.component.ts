@@ -148,7 +148,7 @@ export class UploadCertificaateComponent {
     console.log(this.data)
 
     for(let i=0;i<this.data.length;i++){
-      if(this.data[i].tin==undefined||this.data[i].nid==undefined||this.data[i].category==undefined||this.data[i].mobile==undefined||this.data[i].registrationNo==undefined){
+      if(this.data[i].tin==undefined||this.data[i].nid==undefined||this.data[i].category==undefined||this.data[i].mobile==undefined){
         //this.tinId.push(this.data[i].examineeTin.toString())
         
         this.message+= "Line "+(i+2)+ " has field missing. " 

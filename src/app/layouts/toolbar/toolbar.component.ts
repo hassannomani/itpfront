@@ -6,6 +6,9 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { ActionService } from 'src/app/services/action-service/action.service';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-saved-modal.component';
+import { ConfirmDialogModel } from 'src/app/layouts/confirm-modal/confirm-modal.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-toolbar',
@@ -24,6 +27,8 @@ export class ToolbarComponent implements OnInit{
   role: string = ""
   username: string = ""
   image: any 
+  modalTitle: string = ""
+  modalMessage: string= ""
   constructor(
     
     private localStorage: LocalStorageService,
@@ -31,19 +36,31 @@ export class ToolbarComponent implements OnInit{
     private actionService: ActionService,
     private router: Router, 
     private commonServ: CommonService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public dialog: MatDialog
   ){}
   ngOnInit(): void {
     this.signInService.loginStatusChange().subscribe(loggedIn => {
       //console.log("changing")
       let local = this.localStorage.getStorageItems();
-      console.log('local')
+      let expirestime = local.expires!=null?JSON.parse(local.expires):0
+      console.log(expirestime)
+      let current_time = new Date().getTime()
       console.log(local)
-      if(local.token==""||local.token==null||local.token==undefined){
+      if(local.token==""||local.token==null||local.token==undefined||expirestime<current_time){
         this.isLoggedIn = false;
         this.role=""
         this.username=""
+        this.router.navigate(['/logout'])
+        // this.modalMessage = "Session Expired! Please Log In again!"
+        // this.modalTitle = "Error!"
+        // this.alertDialog()
       }
+      // }else if(expirestime<current_time){
+      //   this.modalMessage = "Session Expired! Please Log In again!"
+      //   this.modalTitle = "Error!"
+      //   this.alertDialog()
+      // }
       else{
 
         this.isLoggedIn = true;
@@ -130,6 +147,16 @@ export class ToolbarComponent implements OnInit{
         console.log(e)
       }  
     })
+  }
+
+  alertDialog(): void {
+
+    const dialogData = new ConfirmDialogModel(this.modalTitle, this.modalMessage);
+
+    const dialogRef = this.dialog.open(DataSavedModalComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
   }
 
 }
