@@ -13,7 +13,7 @@ import { RepresentativeService } from 'src/app/services/representative-service/r
 export class DashboardComponent implements OnInit{
   public chart: any;
   public isAdmin: boolean = false
-  public isAgent: boolean = false
+  public isItp: boolean = false
   public isTrp: boolean = false
   constructor(
     private titleService:Title,
@@ -29,6 +29,9 @@ export class DashboardComponent implements OnInit{
   totalReturnRev: number = 0
   totalReturnRevCurrent: number = 0
 
+  totalSubmitted: number = 0
+  totalSubmittedThisYear: number = 0
+
   ngOnInit(): void{
     let user = this.localStore.getStorageItems()
     let username = user.username!=null?JSON.parse(user.username):""
@@ -41,9 +44,10 @@ export class DashboardComponent implements OnInit{
       this.loadTotalData();
       this.loadTotalMonthlyData();
     }
-    else if(role=="ROLE_AGENT"){
-      this.isAgent = true
-      this.loadGraphDataAgent(username)
+    else if(role=="ROLE_ITP"){
+      this.isItp = true
+      this.getStatForITP(username)
+      
     } else if(role=="ROLE_REPRESENTATIVE"){
       this.isTrp = true
       this.loadGraphDataTrp(username)
@@ -263,6 +267,34 @@ export class DashboardComponent implements OnInit{
         if(data.length){
           this.totalReturnCurrent = data[0][1]
           this.totalReturnRevCurrent = data[0][0]
+        }
+      },
+      error: (e) => {
+        console.log(e)
+      }  
+    })
+  }
+
+  getStatForITP(username: any){
+    this.ledgerServ.getITPStat(username).subscribe({
+      next: (data) => {
+        console.log(data.length)
+        if(data.length){
+          if(data.length==1){
+            this.totalSubmitted=0
+            this.totalSubmittedThisYear=0
+          }else{
+            let a = data[0]
+            let b = data[1]
+            if(a>b){
+              this.totalSubmitted=a
+              this.totalSubmittedThisYear=b
+            }else{
+              this.totalSubmitted = b
+              this.totalSubmittedThisYear = a
+            }
+
+          }
         }
       },
       error: (e) => {

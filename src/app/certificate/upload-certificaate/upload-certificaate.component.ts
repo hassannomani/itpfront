@@ -28,6 +28,7 @@ export class UploadCertificaateComponent {
   modalTitle: string = ""
   modalMessage: string= ""
   buttonLabel: string= "Upload"
+  buttonLabel1: string= "Reset"
   buttonColor: string = "primary"
   buttonType: string = "button"
   localStore: any = {}
@@ -176,6 +177,8 @@ export class UploadCertificaateComponent {
       data: dialogData
     });
   }
+
+  
 
 
 }

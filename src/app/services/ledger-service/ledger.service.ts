@@ -137,4 +137,11 @@ export class LedgerService {
     }
     return this.http.get<any>(this.url_ledgers_common+"dashboard/current", httpOptions)
   }
+
+  getITPStat(username: any){
+    const httpOptions = {
+      headers: this.commonServ.httpReturner()
+    }
+    return this.http.get<any>(this.url_ledgers_common+"dashboard/itpdata/"+username, httpOptions)
+  }
 }

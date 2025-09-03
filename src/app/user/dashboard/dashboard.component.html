@@ -1,13 +1,13 @@
 <div>
     <h2 style="text-align: center;margin-top: 5%;">Welcome to Tax Representative  Management System</h2>
 
-    <div class="chart-container" *ngIf="isAdmin || isAgent || isTrp">
+    <div class="chart-container" *ngIf="isAdmin || isItp || isTrp">
         <canvas  id="MyChart" >{{ chart }}</canvas>
   </div>
   <div class="chart-container" *ngIf="isTrp">
     <canvas  id="MyBarChart" >{{ chart }}</canvas>
 </div>
-<div class="chart-container" *ngIf="isAdmin || isAgent || isTrp" class="doughnut">
+<div class="chart-container" *ngIf="isAdmin" class="doughnut">
     <canvas  id="MyDoughnutChart" >{{ chart }}</canvas>
     <div class="stat">
         <p class="text-left">Total return submitted till today: {{totalReturn}}</p>
@@ -15,6 +15,16 @@
         <p class="text-left">Total return submitted this month: {{totalReturnCurrent}} </p>
         <p class="text-left">Total revenue collected this month via ITPMS: {{totalReturnRevCurrent}}</p>
         <p class="text-left">Total registered Users: {{totalITPs}}</p>
+    </div>
+</div>
+<div class="container">
+    <div class="subcontainer">
+        <h1>{{totalSubmitted}}</h1>
+        <h4>Total no of return submission assisted</h4>
+    </div>
+    <div class="subcontainer">
+        <h1>{{totalSubmittedThisYear}}</h1>
+        <h4>Total of return submission assisted this assessment year</h4>
     </div>
 </div>
 </div>
