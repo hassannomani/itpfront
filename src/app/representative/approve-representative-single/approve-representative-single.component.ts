@@ -67,12 +67,12 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
                 this.representative = data
                 this.loaded = true
                 this.loadPhoto(data.rePhoto)
-                if(data.agentId!="0"&&data.agentId!=""){
-                  this.loadAgent(data.agentId)
-                  this.agentLoaded = true
-                }else{
-                  this.agentLoaded = false
-                }
+                // if(data.agentId!="0"&&data.agentId!=""){
+                //   this.loadAgent(data.agentId)
+                //   this.agentLoaded = true
+                // }else{
+                //   this.agentLoaded = false
+                // }
                   
               }
             },
@@ -84,18 +84,7 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
         }
 
       })
-    // this.agentService.getAllAgentForFront().subscribe({
-    //   next: (data) => {
-    //     if(data.length){
-    //       this.agentAll = data
-    //     }
-    //   },
-    //   error: (e) => {
-    //     console.log(e)
-    //     this.message = "Data retrieving error"
-    //     this.openSnackBar()
-    //   }
-    // })
+
   }
 
   setStep(index: number) {
@@ -111,33 +100,31 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
   }
 
   approve(username : string,){   
-    if(this.agentLoaded){
+    // if(this.agentLoaded){
 
-      this.approveUserMain(username)
+    //   this.approveUserMain(username)
 
-    }else{
-      let agent = this.assignAgent.value['agentId']
-      if(agent==""){
-        this.message = "Please select an Resource Center!"
-        this.openSnackBar()
-      }else{
-        this.representativeServ.assignAgent(username, agent).subscribe({
+    // }else{
+    //   let agent = this.assignAgent.value['agentId']
+    //   if(agent==""){
+    //     this.message = "Please select an Resource Center!"
+    //     this.openSnackBar()
+    //   }else{
+    //     this.representativeServ.assignAgent(username, agent).subscribe({
 
-          next: (data) => {
-            if(data.userid){
+    //       next: (data) => {
+    //         if(data.userid){
               this.approveUserMain(username)
-            } 
-          },
-          error: (e) => {
-            this.message = "Failed to assign Resource Center!"
-            this.openSnackBar()
-            console.log(e)
-          } 
+        //     } 
+        //   },
+        //   error: (e) => {
+        //     this.message = "Failed to assign Resource Center!"
+        //     this.openSnackBar()
+        //     console.log(e)
+        //   } 
 
-        })
-      }
+        // }) }}
 
-    }
     
   }
 

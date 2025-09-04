@@ -82,7 +82,7 @@ export class ListPublicComponent implements OnInit{
         } else{
           this.certificates = data
           this.dataSource = new MatTableDataSource <Certificate>(this.certificates)
-          this.displayedColumn = ['serial','name','tin','nid','mobile','category']
+          this.displayedColumn = ['serial','name','mobile','category']
         }
       },
       error: (e) => {
