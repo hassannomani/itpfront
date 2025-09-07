@@ -149,10 +149,10 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
 
   openPdf(){
     //window.open(this.representative.filePath, '_blank');
-    let temp = this.representative.filePath.split("\\")
-    if(temp.length){
+    let temp = this.getFileName(this.representative.filePath)
+    if(temp!=""){
       console.log(temp[temp.length-1])
-      this.commonService.loadFile(temp[temp.length-1]).subscribe({
+      this.commonService.loadFile(temp).subscribe({
         next: (data) => {
          // console.log(data)
           const fileURL = URL.createObjectURL(data);
@@ -249,6 +249,10 @@ export class ApproveRepresentativeSingleComponent implements OnInit {
       duration: 5 * 1000,
 
     });
+  }
+
+  getFileName(fullPath: any) {
+    return fullPath.split(/[/\\]/).pop();
   }
 
 }

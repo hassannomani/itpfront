@@ -160,9 +160,9 @@
                 </td>
                 <td>
                     <mat-form-field class="example-full-width">
-                        <mat-label>Name of the Registered Taxes Bar Association</mat-label>
+                        <mat-label>{{dynamicLabelForAssoc}}</mat-label>
 
-                        <mat-select placeholder="Name of the Registered Taxes Bar Association" (selectionChange)="regBarNameSet($event.value)">
+                        <mat-select placeholder="{{dynamicLabelForAssoc}}" (selectionChange)="regBarNameSet($event.value)">
                             <div class="fixed">
                                 <mat-form-field  class="formbe">
                                     <!-- [floatLabel]="'never'" -->

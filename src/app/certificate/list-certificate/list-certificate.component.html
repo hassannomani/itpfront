@@ -3,8 +3,35 @@
         <h2>All Certificates</h2>
     </div>
   
-      
+      <mat-spinner *ngIf="!loaded" style="width: 50px;left: 45%;"></mat-spinner>
+      <form class="example-form" #formDir="ngForm" [formGroup]="searchform">
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Enter Name, TIN or Mobile No.</mat-label>
+          <input matInput formControlName="search_criteria" type="text">
+        </mat-form-field>
+
+        <app-button
+          [label]="buttonLabel"
+          [color]="buttonColor" 
+          [type]="buttonType"
+          (click)="search()"
+                    >
+        </app-button>
+
+        <app-button class = "reset"
+
+          [label]="buttonLabel2"
+          [color]="buttonColor2" 
+          [type]="buttonType"
+          (click)="reset()"
+          >
+        </app-button>
+      </form>
+
       <table mat-table [dataSource]="certificates" class="mat-elevation-z8">
+
+
       
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
@@ -14,6 +41,12 @@
             <th mat-header-cell *matHeaderCellDef>Serial </th>
             <td mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </td>
           </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+        
 
           <ng-container matColumnDef="tin">
             <th mat-header-cell *matHeaderCellDef> TIN </th>
@@ -38,17 +71,6 @@
             <td mat-cell *matCellDef="let element"> {{element.category}} </td>
           </ng-container>
       
-  
-          <ng-container matColumnDef="registrationNo">
-          <th mat-header-cell *matHeaderCellDef>Registration no</th>
-          <td mat-cell *matCellDef="let element"> {{element.registrationNo}} </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="registrationDate">
-            <th mat-header-cell *matHeaderCellDef>Registration Date</th>
-            <td mat-cell *matCellDef="let element"> {{element.registrationDate | date:'short'}} </td>
-          </ng-container>
-        
           <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
         </table>

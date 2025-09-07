@@ -57,7 +57,7 @@ const routes: Routes = [
   {
     path: "list-certificate",
     loadComponent: () => import('./certificate/list-certificate/list-certificate.component').then(m => m.ListCertificateComponent),
-    canActivate: [AdminAuthGuard]
+  
   },
   {path: "add-agent", component: AddAgentComponent},
   {path: "add-itp", component: AddRepresentativeComponent},

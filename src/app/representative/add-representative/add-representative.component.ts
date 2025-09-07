@@ -93,7 +93,7 @@ export class AddRepresentativeComponent implements OnInit{
     'certSerial': new FormControl('',[Validators.required]),
     'certIssue': new FormControl('',[Validators.required]),
     'certExpiry': new FormControl('',[Validators.required]),
-    'rePhoto': new FormControl('',[Validators.required]),
+    'itpPhoto': new FormControl('',[Validators.required]),
     'filePath': new FormControl('',[Validators.required]),
     're_address': new FormControl(<Object>[]),
 
@@ -172,6 +172,7 @@ export class AddRepresentativeComponent implements OnInit{
   username: string= ""
   firstname: string= ""
   lastname: string= ""
+  dynamicLabelForAssoc: string = ""
   constructor(
     private representativeServ: RepresentativeService,  
     private commonService: CommonService,
@@ -696,6 +697,23 @@ export class AddRepresentativeComponent implements OnInit{
   setAgent(value:any){
     console.log(value)
     this.agentId=value
+    if(value=="1"||value=="0"){
+      this.dynamicLabelForAssoc="Name of the Registered Taxes Bar Association"
+      this.barAssoc = this.barAssocSec
+    }
+    else{
+      this.dynamicLabelForAssoc = "Name of the Institute"
+      if(value=="2")
+        this.barAssoc=[{barid: 1, name: "The Institute of Cost and Management Accountants of Bangladesh"}]
+      else if(value=="3")
+        this.barAssoc=[{barid: 1, name: "The Institute of Chartered Accounts of Bangladesh"}]
+      else if(value=="4")
+        this.barAssoc=[{barid: 1, name: "Institute of Chartered Secretaries of Bangladesh"}]
+      
+
+    }
+
+
   }
   selectFile(event: any){
     this.file = event.target.files.item(0);
@@ -726,7 +744,7 @@ export class AddRepresentativeComponent implements OnInit{
       next: (data) => {
         console.log(data.fileUri)
         if(data.fileUri){
-          this.addRepresentative.get('rePhoto')?.setValue(data.fileUri);
+          this.addRepresentative.get('itpPhoto')?.setValue(data.fileUri);
           console.log(this.addRepresentative)
           this.photoUploaded = true
         }
