@@ -173,6 +173,7 @@ export class AddRepresentativeComponent implements OnInit{
   firstname: string= ""
   lastname: string= ""
   dynamicLabelForAssoc: string = ""
+  dynamicLabelForAssocName: string = ""
   constructor(
     private representativeServ: RepresentativeService,  
     private commonService: CommonService,
@@ -304,6 +305,26 @@ export class AddRepresentativeComponent implements OnInit{
   representativeSave(){
       //this.addAgent.value['address']?.push(this.businessAdd)
       // this.addRepresentative.value['re_bankinformation'] = this.bankInfo
+      var error = false
+      if(this.addRepresentative.value['bdivision']==""||this.addRepresentative.value['bdistrict']==""||this.addRepresentative.value['bthana']==""){
+        console.log(this.addRepresentative.value['bdivision'])
+        console.log(this.addRepresentative.value['bdistrict'])
+        console.log(this.addRepresentative.value['bthana'])
+        this.modalMessage = "Please fill up business address"
+        error = true
+      }else if(this.addRepresentative.value['prdivision']==""||this.addRepresentative.value['prdistrict']==""||this.addRepresentative.value['prthana']==""){
+        this.modalMessage = "Please fill up Present address"
+        error = true
+      }else if(this.addRepresentative.value['pmdivision']==""||this.addRepresentative.value['pmdistrict']==""||this.addRepresentative.value['pmthana']==""){
+        this.modalMessage = "Please fill up Permanent address"
+        error = true
+      }
+      if(error){
+        this.modalTitle = "Error!"
+        this.alertDialog()
+        return
+      }
+
       this.saveAddresses().then(resolve =>{
         if(resolve){
           this.addRepresentative.value['agentId'] = "000000000000"
@@ -506,8 +527,26 @@ export class AddRepresentativeComponent implements OnInit{
     // }
   }
   step1(){
-    this.step1Success = true
-    this.index+=1;
+    var flag=0
+    console.log(this.addRepresentative.value["licNo"])
+    console.log(this.addRepresentative.value["filePath"])
+    if(this.addRepresentative.value["filePath"]==""||!this.file){
+      this.modalMessage = "Please attach membership certificate/ license" 
+      flag=1
+    } else if (this.addRepresentative.value["licNo"]==""){
+      flag=1
+      this.modalMessage = "Please Add license / membership No." 
+    }
+
+    if(flag==1){
+      this.modalTitle = "Failed!"
+      this.alertDialog()
+    } else{
+      this.step1Success = true
+      this.index+=1;
+    }
+    
+    
   }
   step2(){
   
@@ -527,6 +566,7 @@ export class AddRepresentativeComponent implements OnInit{
     console.log(value)
     this.bThana = []
     this.addRepresentative.value['bdistrict']=value.name
+    console.log(this.addRepresentative.value['bdistrict'])
     for(let i=0;i<this.thana.length;i++){
       if(this.thana[i].districtId==value.districtId)
       this.bThana.push(this.thana[i])
@@ -700,15 +740,22 @@ export class AddRepresentativeComponent implements OnInit{
     if(value=="1"||value=="0"){
       this.dynamicLabelForAssoc="Name of the Registered Taxes Bar Association"
       this.barAssoc = this.barAssocSec
+      this.dynamicLabelForAssocName = "Registration No of the Taxes Bar Association"
     }
     else{
-      this.dynamicLabelForAssoc = "Name of the Institute"
-      if(value=="2")
+      this.dynamicLabelForAssoc = "Name of the Registered Institute"
+      if(value=="2"){
         this.barAssoc=[{barid: 1, name: "The Institute of Cost and Management Accountants of Bangladesh"}]
-      else if(value=="3")
+        this.dynamicLabelForAssocName = "Registration No of ICMAB"
+      }
+      else if(value=="3"){
+        this.dynamicLabelForAssocName = "Registration No of ICAB"
         this.barAssoc=[{barid: 1, name: "The Institute of Chartered Accounts of Bangladesh"}]
-      else if(value=="4")
+      }
+      else if(value=="4"){
         this.barAssoc=[{barid: 1, name: "Institute of Chartered Secretaries of Bangladesh"}]
+        this.dynamicLabelForAssocName = "Registration No of ICSB"
+      }
       
 
     }

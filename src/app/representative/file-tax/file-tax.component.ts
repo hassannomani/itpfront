@@ -13,10 +13,10 @@ import { RepresentativeService } from 'src/app/services/representative-service/r
 })
 export class FileTaxComponent {
 
-  buttonLabel: string = "Check"
+  buttonLabel: string = "Generate OTP"
   buttonColor: string = "primary"
   buttonType: string = "button"
-  buttonLabel1: string = "Validate"
+  buttonLabel1: string = "Submit"
   buttonLabel2: string = "Reset"
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';

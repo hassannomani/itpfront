@@ -281,8 +281,8 @@ export class DashboardComponent implements OnInit{
         console.log(data.length)
         if(data.length){
           if(data.length==1){
-            this.totalSubmitted=0
-            this.totalSubmittedThisYear=0
+            this.totalSubmitted=data[0]
+            this.totalSubmittedThisYear=data[0]
           }else{
             let a = data[0]
             let b = data[1]

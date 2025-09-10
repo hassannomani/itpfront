@@ -152,12 +152,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <mat-form-field class="example-full-width">
-                    <mat-label>License No/ Membership No</mat-label>
-                    <input matInput  formControlName="licNo" type="String"  placeholder="License No">
-                    </mat-form-field>
-                </td>
+                
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>{{dynamicLabelForAssoc}}</mat-label>
@@ -182,15 +177,22 @@
                     <!-- <input matInput  formControlName="nameBarAssoc" type="String"  placeholder="Name of the Registered Taxes Bar Association"> -->
                     </mat-form-field>
                 </td>
-            </tr>
-            <tr>
+
                 <td>
                     <mat-form-field class="example-full-width">
-                    <mat-label>Registration No of the Taxes Bar Association</mat-label>
-                    <input matInput  formControlName="regBarAssoc" type="String"  placeholder="Registration No of the Taxes Bar Association">
+                    <mat-label>License No/ Membership No</mat-label>
+                    <input matInput  formControlName="licNo" type="String"  placeholder="License No">
                     </mat-form-field>
                 </td>
-                <td>
+            </tr>
+            <tr>
+                <!-- <td>
+                    <mat-form-field class="example-full-width">
+                    <mat-label>{{dynamicLabelForAssocName}}</mat-label>
+                    <input matInput  formControlName="regBarAssoc" type="String"  placeholder="{{dynamicLabelForAssocName}}">
+                    </mat-form-field>
+                </td> -->
+                <!-- <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Date of Pass</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="certPass">
@@ -198,9 +200,9 @@
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
-                </td>
+                </td> -->
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>
                     <mat-form-field class="example-full-width">
                         <mat-label>Date of Issuance</mat-label>
@@ -220,7 +222,7 @@
                         <mat-datepicker #picker3></mat-datepicker>
                     </mat-form-field>
                 </td>
-            </tr>
+            </tr> -->
             <!-- <tr>
                 <td>
                     <mat-form-field class="example-full-width">
@@ -243,7 +245,7 @@
             <tr>
                 <td style="width: 50%;">
                     <div class="example-full-width">
-                    <label>License </label>
+                    <label>Attach Membership Certificate / License </label>
                     <br>
                     <input (change)="selectFile($event)" #fileInput type="file" id="file">
 

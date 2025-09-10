@@ -6,12 +6,12 @@
     <form class="example-form" [formGroup]="checkTaxPayer" #formDir="ngForm" (ngSubmit)="taxpayerSubmit()">
         <table class="example-full-width" cellspacing="0">
             <tr>
-                <h4 style="color: #3f51b5;text-align: center;">Enter Taxpayer Information</h4>
+                <h4 style="color: #367a0a;text-align: center;font-size: 26px;">Enter Taxpayer Information</h4>
             </tr>
             <tr>
                 <td>
                     <mat-form-field class="example-full-width">
-                    <mat-label>TIN</mat-label>
+                    <mat-label>Enter Taxpayer TIN</mat-label>
                     <input matInput  formControlName="taxpayerTin" type="text"  placeholder="TIN">
                     </mat-form-field>
                 </td>
@@ -19,7 +19,7 @@
             <tr>
                 <td>
                     <mat-form-field class="example-full-width">
-                    <mat-label>NID Registered Mobile No</mat-label>
+                    <mat-label>Enter Taxpayer Mobile No. (NID Registered)</mat-label>
                     <input matInput  formControlName="taxpayerPhoneNo" type="text"  placeholder="Mobile No">
                     </mat-form-field>
                 </td>
