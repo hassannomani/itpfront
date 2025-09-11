@@ -80,7 +80,7 @@ const routes: Routes = [
   {path: "denied-users", component: ActionListDeniedComponent},
   {path: "action-history", component: ActionHistoryComponent},
   {path: "report-agent", component: ReportAgentComponent},
-  {path: "report-trp", component: ReportTrpComponent},
+  {path: "report-itp", component: ReportTrpComponent},
   {path: "file-tax", component: FileTaxComponent},
   {path: "register", component: RegisterComponent},
   {path: "register-fillup", component: AddRepresentativeComponent},

@@ -49,7 +49,7 @@ export class ReportTrpComponent implements OnInit{
     private commissionServ: CommissionService,
     private localStorage: LocalStorageService,
   ){
-    this.titleService.setTitle("TRP Report");
+    this.titleService.setTitle("Tax Representative Report");
   }
   
   ngOnInit(): void {
@@ -63,11 +63,11 @@ export class ReportTrpComponent implements OnInit{
     this.firstOption = value
     if(value==1)
       this.dataSecondary = [
-        {"id":1,"value":"Search by TIN"},
+        {"id":"1","value":"Search by TIN"},
       ]
     else if (value==2)
       this.dataSecondary = [
-        {"id":"1", "value":"All Commission"},
+        {"id":"1", "value":"All Ledger"},
       ]
   }
   reportSubType(value: any){
@@ -95,9 +95,9 @@ export class ReportTrpComponent implements OnInit{
   }
 
   getTRPCommission(trp: any){
-    this.commissionServ.getCommissionRepresentative(trp).subscribe({
+    this.ledgerService.getITPLedger(trp).subscribe({
       next: (data) => {
-        let col = ['taxpayerId','taxpayerName', 'created_at','paidAmount','assessmentYear','representativeTin','representativeCommission']
+        let col = ['taxpayerId','taxpayerName', 'paidAmount','assessmentYear','created_at']
         this.positiveResponse(data,col)
       },
       error: (e) => {
@@ -109,7 +109,7 @@ export class ReportTrpComponent implements OnInit{
   getTaxPayerInfo(trp:any, tin: any){
     this.commissionServ.getInformationOfTaxpayerOfTrp(trp,tin).subscribe({
       next: (data) => {
-        let col = ['taxpayerId','taxpayerName', 'created_at','paidAmount','yearNo','transactionId','assessmentYear','representativeTin','representativeCommission']
+        let col = ['taxpayerId','taxpayerName', 'paidAmount','assessmentYear','created_at']
         let dataArr : any =[]
         dataArr.push(data)
         this.positiveResponse(dataArr,col)
@@ -143,7 +143,7 @@ export class ReportTrpComponent implements OnInit{
       PDF.text("National Board of Revenue", 82, 35);
       PDF.setFontSize(8);
 
-      PDF.text("Tax Return Preparer", 90, 43);
+      PDF.text("Tax Representative Management System", 81, 43);
       PDF.addImage(FILEURI, 'PNG', 0, 55, fileWidth, fileHeight);
       PDF.save('angular-demo.pdf');
     });

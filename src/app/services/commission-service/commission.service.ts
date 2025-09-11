@@ -18,7 +18,7 @@ export class CommissionService {
     private commonService: CommonService
   ) {
     let url = environment.production? environmentProd.apiUrl: environment.apiUrl
-    this.url_base = url + 'api/ledgers'
+    this.url_base = url + 'api/v1/ledgers'
    }
 
   // private url_get_all : string ='http://localhost:8080/api/ledgers';
@@ -80,6 +80,6 @@ export class CommissionService {
     const httpOptions = {
       headers: this.commonService.httpReturner()
     }
-    return this.http.get<any>(this.url_base+'/taxpayertrp/'+trp+"/"+tin,httpOptions)
+    return this.http.get<any>(this.url_base+'/taxpayeritp/'+trp+"/"+tin,httpOptions)
   }
 }

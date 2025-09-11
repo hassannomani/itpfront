@@ -6,10 +6,14 @@ import {MatDialog} from '@angular/material/dialog';
 import { CertificateService } from 'src/app/services/certificate-service/certificate.service';
 import { ConfirmDialogModel } from 'src/app/layouts/confirm-modal/confirm-modal.component';
 import { MaterialExampleModule } from 'src/material.module';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DataSavedModalComponent } from 'src/app/layouts/data-saved-modal/data-saved-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonComponent } from 'src/app/uitools/button/button.component';
+
+
 export interface Certificate {
   tin: string,
   nid: string,
@@ -23,7 +27,7 @@ export interface Certificate {
   selector: 'app-list-public',
   templateUrl: './list-public.component.html',
   styleUrls: ['./list-public.component.css'],
-  imports: [MaterialExampleModule, DatePipe ],
+  imports: [MaterialExampleModule, DatePipe, CommonModule,ReactiveFormsModule, ButtonComponent ],
   standalone: true
 })
 export class ListPublicComponent implements OnInit{
@@ -40,9 +44,19 @@ export class ListPublicComponent implements OnInit{
   tinId: any[] = []
   displayMessage: string= ""
   certificates: any =[]
+  sec_certificates: any =[]
   displayedColumn: any = []
+  loaded: boolean = false
+  buttonLabel: string = "Search"
+  buttonLabel2: string = "Reset Search"
+  buttonColor: string = "primary"
+  buttonColor2: string = "basic"
+  buttonType: string = "button"
 
   dataSource = new MatTableDataSource<Certificate>();
+  searchform = new FormGroup({
+    'search_criteria' : new FormControl('',[Validators.required])
+  })
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -55,6 +69,35 @@ export class ListPublicComponent implements OnInit{
 
   ngOnInit(): void {
     this.setUpPaginator()
+  }
+
+  search(){
+    let str = this.searchform.value['search_criteria']
+    let searchArr = []
+    for(let i = 0;i<this.certificates.length;i++){
+      if(this.certificates[i].name!=null&&this.certificates[i].mobile!=null){
+        if(this.certificates[i].name.indexOf(str)>=0||this.certificates[i].mobile.indexOf(str)>=0){
+          searchArr.push(this.certificates[i])
+          console.log("entered")
+        }
+          
+     }
+    }
+    console.log(searchArr)
+    this.sec_certificates = this.certificates
+    this.certificates = searchArr
+    this.dataSource = new MatTableDataSource <Certificate>(this.certificates)
+    this.dataSource.paginator = this.paginator
+
+
+  }
+
+  reset(){
+    this.certificates = this.sec_certificates
+    this.dataSource = new MatTableDataSource <Certificate>(this.certificates)
+    this.dataSource.paginator = this.paginator
+    this.searchform.get('search_criteria')?.setValue("")
+
   }
 
  

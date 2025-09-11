@@ -350,7 +350,7 @@ export class ReportAdminComponent implements OnInit{
       PDF.text("National Board of Revenue", 82, 35);
       PDF.setFontSize(8);
 
-      PDF.text("Tax Return Preparer", 90, 43);
+      PDF.text("Tax Representative Management System", 81, 43);
       PDF.addImage(FILEURI, 'PNG', 0, 55, fileWidth, fileHeight);
       PDF.save('angular-demo.pdf');
     });

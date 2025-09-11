@@ -2,6 +2,32 @@
     <div class="headerdiv">
         <h2>All Tax Representatives</h2>
     </div>
+    <!-- <mat-spinner *ngIf="!loaded" style="width: 50px;left: 45%;"></mat-spinner> -->
+
+    <form class="example-form" #formDir="ngForm" [formGroup]="searchform">
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Enter Name or Mobile No.</mat-label>
+        <input matInput formControlName="search_criteria" type="text">
+      </mat-form-field>
+
+      <app-button class="btn-custom"
+        [label]="buttonLabel"
+        [color]="buttonColor" 
+        [type]="buttonType"
+        (click)="search()"
+                  >
+      </app-button>
+
+      <app-button class = "reset btn-custom"
+
+        [label]="buttonLabel2"
+        [color]="buttonColor2" 
+        [type]="buttonType"
+        (click)="reset()"
+        >
+      </app-button>
+    </form>
   
       
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

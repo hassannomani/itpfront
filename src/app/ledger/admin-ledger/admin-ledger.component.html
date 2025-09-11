@@ -10,11 +10,11 @@
     
       <ng-container matColumnDef="serial">
         <th mat-header-cell *matHeaderCellDef>Serial </th>
-        <td mat-cell *matCellDef="let element;let i=index;"> {{i+1}} </td>
+        <td mat-cell *matCellDef="let element;let i=index;"> {{ledgers.length-i}} </td>
       </ng-container>  
 
       <ng-container matColumnDef="taxpayerId">
-        <th mat-header-cell *matHeaderCellDef> TIN </th>
+        <th mat-header-cell *matHeaderCellDef> Taxpayer TIN </th>
         <td mat-cell *matCellDef="let element"> {{element.taxpayerId}} </td>
       </ng-container>
 
@@ -25,7 +25,7 @@
       
         <!-- Name Column -->
       <ng-container matColumnDef="paidAmount">
-        <th mat-header-cell *matHeaderCellDef>Amount Paid </th>
+        <th mat-header-cell *matHeaderCellDef>Tax Paid U/S 173</th>
         <td mat-cell *matCellDef="let element"> {{element.paidAmount}} </td>
       </ng-container>
       
@@ -42,8 +42,8 @@
         </ng-container>
 
         <ng-container matColumnDef="createdAt">
-          <th mat-header-cell *matHeaderCellDef>Submission time</th>
-          <td mat-cell *matCellDef="let element"> {{element.created_at | date}} </td>
+          <th mat-header-cell *matHeaderCellDef>Submission Date and Time</th>
+          <td mat-cell *matCellDef="let element"> {{element.created_at | date:'short'}} </td>
         </ng-container>
     
       

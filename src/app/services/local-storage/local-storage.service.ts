@@ -6,7 +6,8 @@ export interface storedUser {
   token: string,
   roles: String,
   email: String,
-  expires: Number
+  expires: Number,
+  name: String
 }
 
 export interface UnregisteredUser {
@@ -28,12 +29,14 @@ export class LocalStorageService {
   constructor() { }
 
   saveStorageItems(obj :any){
+    console.log(obj)
 
     localStorage.setItem('token', JSON.stringify(obj.token));
     localStorage.setItem('id', JSON.stringify(obj.id));
     localStorage.setItem('username', JSON.stringify(obj.username));
     localStorage.setItem('email', JSON.stringify(obj.email));
     localStorage.setItem('role', JSON.stringify(obj.roles[0]));
+    localStorage.setItem('name', JSON.stringify(obj.name));
 
     let current_time = new Date()
     let mil_sec = current_time.getTime()
@@ -52,7 +55,8 @@ export class LocalStorageService {
       "token": localStorage.getItem('token'),
       "email" : localStorage.getItem('email'),
       "role": localStorage.getItem('role'),
-      "expires": localStorage.getItem('expires')
+      "expires": localStorage.getItem('expires'),
+      "name": localStorage.getItem('name')
     }
     return obj;
   }
@@ -64,7 +68,9 @@ export class LocalStorageService {
       "username": "",
       "token": "",
       "role": "",
-      "email": ""
+      "email": "",
+      "expires": 0,
+      "name": ""
     };
   }
 

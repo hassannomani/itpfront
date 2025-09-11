@@ -22,7 +22,7 @@
             </div>
             <div class="text">
                 <h4 class="first">{{username}}</h4>
-                <h5 class="second">{{role=="ROLE_ADMIN"?"ADMIN":role=="ROLE_REPRESENTATIVE"?"TRP":role=="ROLE_AGENT"?"Resource Center":""}}</h5>
+                <h5 class="second">{{role=="ROLE_ADMIN"?"ADMIN":role=="ROLE_ITP"?name:role=="ROLE_NBR"?role:""}}</h5>
             </div>
           
         </div>

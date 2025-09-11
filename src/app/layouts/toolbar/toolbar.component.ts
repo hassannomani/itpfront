@@ -26,6 +26,7 @@ export class ToolbarComponent implements OnInit{
   unread: number = 0
   role: string = ""
   username: string = ""
+  name: string = ""
   image: any 
   modalTitle: string = ""
   modalMessage: string= ""
@@ -44,7 +45,7 @@ export class ToolbarComponent implements OnInit{
       //console.log("changing")
       let local = this.localStorage.getStorageItems();
       let expirestime = local.expires!=null?JSON.parse(local.expires):0
-      console.log(expirestime)
+      console.log(local)
       let current_time = new Date().getTime()
       console.log(local)
       if(local.token==""||local.token==null||local.token==undefined||expirestime<current_time){
@@ -68,6 +69,7 @@ export class ToolbarComponent implements OnInit{
 
         this.role = role
         this.username  = local.username?JSON.parse(local.username): ""
+        this.name = local.name!=""&&local.name!=null?JSON.parse(local.name):""
         if(this.username!="000000000000")
           this.getMessageCount();
         this.getPhoto()
